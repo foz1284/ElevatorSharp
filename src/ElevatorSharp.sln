@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Web", "ElevatorSharp.Web\ElevatorSharp.Web.csproj", "{92365495-D8C0-4849-83A0-48CEBA989C94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Tests", "ElevatorSharp.Tests\ElevatorSharp.Tests.csproj", "{3B05D2CE-19DC-4869-AB86-43D82A64C031}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{02CBAD1A-5822-4A48-A71B-96B06A5235A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{BBC2EC86-9165-4196-BE46-8179BC9F4A9F}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{8161C191-C4FC-4BF8-93A0-9BE4C5B391B9}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\ElevatorSharpWeb.json = PublishScripts\Templates\ElevatorSharpWeb.json
+		PublishScripts\Templates\ElevatorSharpWeb.param.dev.json = PublishScripts\Templates\ElevatorSharpWeb.param.dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92365495-D8C0-4849-83A0-48CEBA989C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92365495-D8C0-4849-83A0-48CEBA989C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92365495-D8C0-4849-83A0-48CEBA989C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92365495-D8C0-4849-83A0-48CEBA989C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B05D2CE-19DC-4869-AB86-43D82A64C031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B05D2CE-19DC-4869-AB86-43D82A64C031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B05D2CE-19DC-4869-AB86-43D82A64C031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B05D2CE-19DC-4869-AB86-43D82A64C031}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBC2EC86-9165-4196-BE46-8179BC9F4A9F} = {02CBAD1A-5822-4A48-A71B-96B06A5235A2}
+		{8161C191-C4FC-4BF8-93A0-9BE4C5B391B9} = {02CBAD1A-5822-4A48-A71B-96B06A5235A2}
+	EndGlobalSection
+EndGlobal
