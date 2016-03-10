@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		PublishScripts\Templates\ElevatorSharpWeb.param.dev.json = PublishScripts\Templates\ElevatorSharpWeb.param.dev.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Core", "ElevatorSharp.Core\ElevatorSharp.Core.csproj", "{88937AC7-ED0E-4561-9163-16EA481B921E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Domain", "ElevatorSharp.Domain\ElevatorSharp.Domain.csproj", "{88937AC7-ED0E-4561-9163-16EA481B921E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

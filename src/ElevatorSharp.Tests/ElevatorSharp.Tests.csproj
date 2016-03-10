@@ -97,6 +97,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ElevatorSharp.Core\ElevatorSharp.Domain.csproj">
+      <Project>{88937AC7-ED0E-4561-9163-16EA481B921E}</Project>
+      <Name>ElevatorSharp.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ElevatorSharp.Web\ElevatorSharp.Web.csproj">
       <Project>{92365495-D8C0-4849-83A0-48CEBA989C94}</Project>
       <Name>ElevatorSharp.Web</Name>
