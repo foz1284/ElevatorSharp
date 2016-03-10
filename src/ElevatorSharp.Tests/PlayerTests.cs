@@ -21,7 +21,18 @@ namespace ElevatorSharp.Tests
             var parameters = player.GetType().GetMethod("Init").GetParameters();
             Assert.IsTrue(parameters.Any(p => p.ParameterType == typeof(IEnumerable<Elevator>)));
         }
-         
+
+        [Test]
+        public void Init_takes_IEnumerable_of_Floor()
+        {
+            IPlayer player = new TestPlayer();
+            var parameters = player.GetType().GetMethod("Init").GetParameters();
+            Assert.IsTrue(parameters.Any(p => p.ParameterType == typeof(IEnumerable<Floor>)));
+        }
+    }
+
+    public class Floor
+    {
     }
 
     public class Elevator
@@ -30,7 +41,7 @@ namespace ElevatorSharp.Tests
 
     public class TestPlayer : IPlayer
     {
-        public void Init(IEnumerable<Elevator> elevators)
+        public void Init(IEnumerable<Elevator> elevators, IEnumerable<Floor> floors)
         {
             throw new System.NotImplementedException();
         }
@@ -38,6 +49,6 @@ namespace ElevatorSharp.Tests
 
     public interface IPlayer
     {
-        void Init(IEnumerable<Elevator> elevators);
+        void Init(IEnumerable<Elevator> elevators, IEnumerable<Floor> floors);
     }
 }
