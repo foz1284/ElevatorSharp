@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElevatorTests.cs" />
+    <Compile Include="FloorTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,7 +98,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElevatorSharp.Core\ElevatorSharp.Domain.csproj">
+    <ProjectReference Include="..\ElevatorSharp.Domain\ElevatorSharp.Domain.csproj">
       <Project>{88937AC7-ED0E-4561-9163-16EA481B921E}</Project>
       <Name>ElevatorSharp.Domain</Name>
     </ProjectReference>
