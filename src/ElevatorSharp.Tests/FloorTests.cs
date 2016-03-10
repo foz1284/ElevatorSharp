@@ -15,6 +15,5 @@ namespace ElevatorSharp.Tests
             // Assert
             Assert.AreEqual(1, floor.Level);
         }
-         
     }
 }
