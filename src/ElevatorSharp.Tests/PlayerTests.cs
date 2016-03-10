@@ -31,6 +31,7 @@ namespace ElevatorSharp.Tests
         }
     }
 
+    // TODO: Move to ElevatorSharp.Core
     public class Floor
     {
     }
