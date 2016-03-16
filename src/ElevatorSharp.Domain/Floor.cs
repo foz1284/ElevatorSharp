@@ -8,5 +8,15 @@
         }
 
         public int Level { get; }
+
+        public void PressDownButton()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PressUpButton()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
