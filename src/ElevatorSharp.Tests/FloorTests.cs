@@ -15,15 +15,5 @@ namespace ElevatorSharp.Tests
             // Assert
             Assert.AreEqual(1, floor.Level);
         }
-
-        [Test]
-        public void PressUpButton_triggers_UpButtonPressed_event()
-        {
-            // Arrange
-            IFloor floor = new Floor(1);
-
-            // Assert
-            floor.PressUpButton();
-        }
     }
 }
