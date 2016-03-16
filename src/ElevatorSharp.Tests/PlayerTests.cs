@@ -30,5 +30,12 @@ namespace ElevatorSharp.Tests
             var parameters = player.GetType().GetMethod("Init").GetParameters();
             Assert.IsTrue(parameters.Any(p => p.ParameterType == typeof(IEnumerable<Floor>)));
         }
+
+        [Test]
+        public void Player_has_update_method()
+        {
+            IPlayer player = new TestPlayer();
+            Assert.IsNotNull(player.GetType().GetMethod("Update"));
+        }
     }
 }

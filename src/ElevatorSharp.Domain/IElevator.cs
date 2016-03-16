@@ -5,6 +5,6 @@ namespace ElevatorSharp.Domain
     public interface IElevator
     {
         void GoToFloor(int floor);
-        Stack<int> DestinationQueue { get; set; }
+        Queue<int> DestinationQueue { get; set; }
     }
 }
