@@ -48,6 +48,7 @@
     <Compile Include="IPlayer.cs" />
     <Compile Include="Passenger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skyscraper.cs" />
     <Compile Include="TestPlayer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

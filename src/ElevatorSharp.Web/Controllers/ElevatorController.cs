@@ -22,6 +22,11 @@ namespace ElevatorSharp.Web.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Build(int elevators, int floors)
+        {
+            
+        }
+
         public ContentResult Update(int currentFloor)
         {
             /* TODO:
