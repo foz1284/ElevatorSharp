@@ -26,7 +26,7 @@ namespace ElevatorSharp.Web.Controllers
         {
             /* TODO:
              * load player
-             * load elevator
+             * load elevator or world or skyscraper?
              * elevator.Move(player)                
             */
             var elevator = new Elevator();

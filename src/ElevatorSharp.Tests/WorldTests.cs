@@ -11,10 +11,10 @@ namespace ElevatorSharp.Tests
         public void CreateFloors_returns_List_of_Floor()
         {
             // Arrange
-            var world = new World();
+            var skyscraper = new Skyscraper();
 
             // Act
-            var floors = world.CreateFloors(0);
+            var floors = skyscraper.CreateFloors(0);
 
             // Assert
             Assert.AreEqual(typeof(List<Floor>), floors.GetType());
@@ -24,10 +24,10 @@ namespace ElevatorSharp.Tests
         public void CreateFloors_returns_List_of_Floor_equal_to_floorCount()
         {
             // Arrange
-            var world = new World();
+            var skyscraper = new Skyscraper();
 
             // Act
-            var floors = world.CreateFloors(5);
+            var floors = skyscraper.CreateFloors(5);
 
             // Assert
             Assert.AreEqual(5, floors.Count);
@@ -36,32 +36,14 @@ namespace ElevatorSharp.Tests
         public void CreateElevators_returns_List_of_Elevators()
         {
             // Arrange
-            var world = new World();
+            var skyscraper = new Skyscraper();
 
             // Act
-            var elevators = world.CreateElevators();
+            var elevators = skyscraper.CreateElevators();
 
             // Assert
             Assert.AreEqual(typeof(List<Elevator>), elevators.GetType());
         }
 
-    }
-
-    public class World
-    {
-        public List<Floor> CreateFloors(int floorCount)
-        {
-            var floors = new List<Floor>();
-            for (var i = 0; i < floorCount; i++)
-            {
-                floors.Add(new Floor(i));
-            }
-            return floors;
-        }
-
-        public List<Elevator> CreateElevators()
-        {
-            return new List<Elevator>();
-        }
     }
 }
