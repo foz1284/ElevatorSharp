@@ -4,7 +4,10 @@ namespace ElevatorSharp.Domain
 {
     public interface IPlayer
     {
-        void Init(IEnumerable<Elevator> elevators, IEnumerable<Floor> floors);
-        void Update();
+        /// <summary>
+        /// Called every time the elevator stops.
+        /// </summary>
+        /// <param name="skyscraper"></param>
+        void Update(IList<Elevator> elevators, IList<Floor> floors);
     }
 }
