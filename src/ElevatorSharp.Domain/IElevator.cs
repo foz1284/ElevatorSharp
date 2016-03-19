@@ -28,6 +28,12 @@ namespace ElevatorSharp.Domain
         int[] GetPressedFloors();
 
         /// <summary>
+        /// Checks the destination queue for any new destinations to go to. Note that you only need to call this if you modify the destination queue explicitly.
+        /// This method dequeues floor levels and goes to next floor in queue.
+        /// </summary>
+        void CheckDestinationQueue();
+
+        /// <summary>
         /// Gets the floor number that the elevator currently is on.
         /// </summary>
         int CurrentFloor { get; set; }

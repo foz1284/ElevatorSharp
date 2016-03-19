@@ -15,6 +15,7 @@ namespace ElevatorSharp.Domain
         #region Properties
         public ElevatorDirection DestinationDirection { get; }
         public Queue<int> DestinationQueue { get; set; }
+
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
         public bool GoingDownIndicator { get; set; }
@@ -54,6 +55,19 @@ namespace ElevatorSharp.Domain
         public void GoToFloor(int floor)
         {
             throw new NotImplementedException();
+        }
+
+        public void CheckDestinationQueue()
+        {
+            if (DestinationQueue.Count > 0)
+            {
+                var nextFloor = DestinationQueue.Dequeue();
+                GoToFloor(nextFloor);
+            }
+            else
+            {
+                OnIdle();
+            }
         }
 
         public void Stop()
