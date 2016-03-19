@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ElevatorSharp.Domain
 {
     public interface IElevator
     {
+        event EventHandler Idle;
+        event EventHandler FloorButtonPressed;
+        event EventHandler PassingFloor;
+        event EventHandler StoppedAtFloor;
+
         /// <summary>
         /// Queue the elevator to go to specified floor number. If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
         /// </summary>

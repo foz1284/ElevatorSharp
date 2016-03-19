@@ -4,6 +4,8 @@ namespace ElevatorSharp.Domain
 {
     public interface IPlayer
     {
+        void Init(IList<Elevator> elevators, IList<Floor> floors);
+
         /// <summary>
         /// Called every time the elevator stops.
         /// </summary>

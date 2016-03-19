@@ -5,8 +5,14 @@ namespace ElevatorSharp.Domain
 {
     public sealed class Elevator : IElevator
     {
-        #region Properties
+        #region Events
+        public event EventHandler Idle;
+        public event EventHandler FloorButtonPressed;
+        public event EventHandler PassingFloor;
+        public event EventHandler StoppedAtFloor; 
+        #endregion
 
+        #region Properties
         public ElevatorDirection DestinationDirection { get; }
         public Queue<int> DestinationQueue { get; set; }
         public int CurrentFloor { get; set; }
@@ -22,7 +28,29 @@ namespace ElevatorSharp.Domain
         }
         #endregion
 
-        #region Methods
+        #region Private Methods
+        private void OnIdle()
+        {
+            Idle?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnFloorButtonPressed()
+        {
+            FloorButtonPressed?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnPassingFloor()
+        {
+            PassingFloor?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnStoppedAtFloor()
+        {
+            StoppedAtFloor?.Invoke(this, EventArgs.Empty);
+        }
+        #endregion
+
+        #region Public Methods
         public void GoToFloor(int floor)
         {
             throw new NotImplementedException();
@@ -36,7 +64,8 @@ namespace ElevatorSharp.Domain
         public int[] GetPressedFloors()
         {
             throw new NotImplementedException();
-        }
+        } 
         #endregion
+
     }
 }
