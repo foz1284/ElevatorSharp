@@ -14,11 +14,16 @@ $(function() {
 
     var $world = $(".innerworld");
     var $stats = $(".statscontainer");
+    var $feedback = $(".feedbackcontainer");
+    var $challenge = $(".challenge");
+    var $codestatus = $(".codestatus");
 
     var floorTempl = document.getElementById("floor-template").innerHTML.trim();
     var elevatorTempl = document.getElementById("elevator-template").innerHTML.trim();
     var elevatorButtonTempl = document.getElementById("elevatorbutton-template").innerHTML.trim();
     var userTempl = document.getElementById("user-template").innerHTML.trim();
+    var challengeTempl = document.getElementById("challenge-template").innerHTML.trim();
+    var feedbackTempl = document.getElementById("feedback-template").innerHTML.trim();
 
     var app = riot.observable({});
     app.worldController = createWorldController(1.0 / 60.0);
@@ -26,6 +31,16 @@ $(function() {
     console.log(app.worldController);
     app.worldCreator = createWorldCreator();
     app.world = undefined;
+
+    app.currentChallengeIndex = 0;
+
+    app.startStopOrRestart = function() {
+        if(app.world.challengeEnded) {
+            app.startChallenge(app.currentChallengeIndex);
+        } else {
+            app.worldController.setPaused(!app.worldController.isPaused);
+        }
+    };
 
     app.startChallenge = function(challengeIndex, autoStart) {
         if(typeof app.world !== "undefined") {
@@ -59,34 +74,9 @@ $(function() {
             }
         });
 
-        var codeObj = editor.getCodeObj();
-        console.log("Starting...");
+        var codeObj = ""; // TODO: this is where we talk to the server
         app.worldController.start(app.world, codeObj, window.requestAnimationFrame, autoStart);
     };
-
-    editor.on("apply_code", function() {
-        app.startChallenge(app.currentChallengeIndex, true);
-    });
-    editor.on("code_success", function() {
-        presentCodeStatus($codestatus, codeStatusTempl);
-    });
-    editor.on("usercode_error", function(error) {
-        presentCodeStatus($codestatus, codeStatusTempl, error);
-    });
-    editor.on("change", function() {
-        $("#fitness_message").addClass("faded");
-        var codeStr = editor.getCode();
-        // fitnessSuite(codeStr, true, function(results) {
-        //     var message = "";
-        //     if(!results.error) {
-        //         message = "Fitness avg wait times: " + _.map(results, function(r){ return r.options.description + ": " + r.result.avgWaitTime.toPrecision(3) + "s" }).join("&nbsp&nbsp&nbsp");
-        //     } else {
-        //         message = "Could not compute fitness due to error: " + results.error;
-        //     }
-        //     $("#fitness_message").html(message).removeClass("faded");
-        // });
-    });
-    editor.trigger("change");
 
     riot.route(function(path) {
         params = _.reduce(path.split(","), function(result, p) {
@@ -108,8 +98,6 @@ $(function() {
                 autoStart = val === "false" ? false : true;
             } else if(key === "timescale") {
                 timeScale = parseFloat(val);
-            } else if(key === "devtest") {
-                editor.setDevTestCode();
             } else if(key === "fullscreen") {
                 makeDemoFullscreen();
             }

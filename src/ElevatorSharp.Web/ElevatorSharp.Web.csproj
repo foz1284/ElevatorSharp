@@ -182,14 +182,29 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\application.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="gruntfile.js" />
     <Content Include="img\leeds-sharp-logo.png" />
-    <Content Include="js\application.js" />
+    <Content Include="js\app.js" />
+    <Content Include="js\base.js" />
+    <Content Include="js\challenges.js" />
+    <Content Include="js\elevator.js" />
+    <Content Include="js\fitness.js" />
+    <Content Include="js\fitnessworker.js" />
+    <Content Include="js\floor.js" />
+    <Content Include="js\interfaces.js" />
+    <Content Include="js\libs\jquery-2.1.1.min.js" />
+    <Content Include="js\libs\lodash.min.js" />
+    <Content Include="js\libs\riot.js" />
+    <Content Include="js\libs\unobservable.js" />
+    <Content Include="js\movable.js" />
     <Content Include="js\presenters.js" />
+    <Content Include="js\user.js" />
+    <Content Include="js\world.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
@@ -203,7 +218,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="js\application.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -231,9 +245,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="js\application.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
