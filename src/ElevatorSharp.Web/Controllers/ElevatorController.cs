@@ -24,9 +24,9 @@ namespace ElevatorSharp.Web.Controllers
             return View(viewModel);
         }
 
-        public ContentResult Build(int elevators, int floors)
+        public ContentResult Build(int elevators, int floors, int maxPassengers)
         {
-            var skyscraper = new Skyscraper(elevators, floors);
+            var skyscraper = new Skyscraper(elevators, floors, maxPassengers);
 
             SaveSkyscraper(skyscraper);
 
@@ -38,7 +38,7 @@ namespace ElevatorSharp.Web.Controllers
         {
             var skyscraper = LoadSkyscraper();
             var player = LoadPlayer();
-            player.Update(skyscraper.Elevators);
+            //player.Update(skyscraper.Elevators);
 
             var json = JsonConvert.SerializeObject(skyscraper);
             Thread.Sleep(100);

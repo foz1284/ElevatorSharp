@@ -1,115 +1,4 @@
 
-var createEditor = function() {
-    var lsKey = "elevatorCrushCode_v5";
-
-    var cm = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
-        indentUnit: 4,
-        indentWithTabs: false,
-        theme: "solarized light",
-        mode: "javascript",
-        autoCloseBrackets: true,
-        extraKeys: {
-            // the following Tab key mapping is from http://codemirror.net/doc/manual.html#keymaps
-            Tab: function(cm) {
-                var spaces = new Array(cm.getOption("indentUnit") + 1).join(" ");
-                cm.replaceSelection(spaces);
-            }
-        }
-    });
-
-    // reindent on paste (adapted from https://github.com/ahuth/brackets-paste-and-indent/blob/master/main.js)
-    cm.on("change", function(codeMirror, change) {
-        if(change.origin !== "paste") {
-            return;
-        }
-
-        var lineFrom = change.from.line;
-        var lineTo = change.from.line + change.text.length;
-
-        function reindentLines(codeMirror, lineFrom, lineTo) {
-            codeMirror.operation(function() {
-                codeMirror.eachLine(lineFrom, lineTo, function(lineHandle) {
-                    codeMirror.indentLine(lineHandle.lineNo(), "smart");
-                });
-            });
-        }
-
-        reindentLines(codeMirror, lineFrom, lineTo);
-    });
-
-    var reset = function() {
-        cm.setValue($("#default-elev-implementation").text().trim());
-    };
-    var saveCode = function() {
-        localStorage.setItem(lsKey, cm.getValue());
-        $("#save_message").text("Code saved " + new Date().toTimeString());
-        returnObj.trigger("change");
-    };
-
-    var existingCode = localStorage.getItem(lsKey);
-    if(existingCode) {
-        cm.setValue(existingCode);
-    } else {
-        reset();
-    }
-
-    $("#button_save").click(function() {
-        saveCode();
-        cm.focus();
-    });
-
-    $("#button_reset").click(function() {
-        if(confirm("Do you really want to reset to the default implementation?")) {
-            localStorage.setItem("develevateBackupCode", cm.getValue());
-            reset();
-        }
-        cm.focus();
-    });
-
-    $("#button_resetundo").click(function() {
-        if(confirm("Do you want to bring back the code as before the last reset?")) {
-            cm.setValue(localStorage.getItem("develevateBackupCode") || "");
-        }
-        cm.focus();
-    });
-
-    var returnObj = riot.observable({});
-    var autoSaver = _.debounce(saveCode, 1000);
-    cm.on("change", function() {
-        autoSaver();
-    });
-
-    returnObj.getCodeObj = function() {
-        console.log("Getting code...");
-        var code = cm.getValue();
-        var obj;
-        try {
-            obj = getCodeObjFromCode(code);
-            returnObj.trigger("code_success");
-        } catch(e) {
-            returnObj.trigger("usercode_error", e);
-            return null;
-        }
-        return obj;
-    };
-    returnObj.setCode = function(code) {
-        cm.setValue(code);
-    };
-    returnObj.getCode = function() {
-        return cm.getValue();
-    }
-    returnObj.setDevTestCode = function() {
-        cm.setValue($("#devtest-elev-implementation").text().trim());
-    }
-
-    $("#button_apply").click(function() {
-        returnObj.trigger("apply_code");
-    });
-    return returnObj;
-};
-
-
 var createParamsUrl = function(current, overrides) {
     return "#" + _.map(_.merge(current, overrides), function(val, key) {
         return key + "=" + val;
@@ -120,44 +9,23 @@ var createParamsUrl = function(current, overrides) {
 
 $(function() {
     var tsKey = "elevatorTimeScale";
-    var editor = createEditor();
 
     var params = {};
 
     var $world = $(".innerworld");
     var $stats = $(".statscontainer");
-    var $feedback = $(".feedbackcontainer");
-    var $challenge = $(".challenge");
-    var $codestatus = $(".codestatus");
 
     var floorTempl = document.getElementById("floor-template").innerHTML.trim();
     var elevatorTempl = document.getElementById("elevator-template").innerHTML.trim();
     var elevatorButtonTempl = document.getElementById("elevatorbutton-template").innerHTML.trim();
     var userTempl = document.getElementById("user-template").innerHTML.trim();
-    var challengeTempl = document.getElementById("challenge-template").innerHTML.trim();
-    var feedbackTempl = document.getElementById("feedback-template").innerHTML.trim();
-    var codeStatusTempl = document.getElementById("codestatus-template").innerHTML.trim();
 
     var app = riot.observable({});
     app.worldController = createWorldController(1.0 / 60.0);
-    app.worldController.on("usercode_error", function(e) {
-        console.log("World raised code error", e);
-        editor.trigger("usercode_error", e);
-    });
 
     console.log(app.worldController);
     app.worldCreator = createWorldCreator();
     app.world = undefined;
-
-    app.currentChallengeIndex = 0;
-
-    app.startStopOrRestart = function() {
-        if(app.world.challengeEnded) {
-            app.startChallenge(app.currentChallengeIndex);
-        } else {
-            app.worldController.setPaused(!app.worldController.isPaused);
-        }
-    };
 
     app.startChallenge = function(challengeIndex, autoStart) {
         if(typeof app.world !== "undefined") {
