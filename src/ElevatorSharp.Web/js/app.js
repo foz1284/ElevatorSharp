@@ -74,7 +74,7 @@ $(function() {
             }
         });
 
-        var codeObj = ""; // TODO: this is where we talk to the server
+        var codeObj = $("#default-elev-implementation").html; // TODO: this is where we talk to the server
         app.worldController.start(app.world, codeObj, window.requestAnimationFrame, autoStart);
     };
 

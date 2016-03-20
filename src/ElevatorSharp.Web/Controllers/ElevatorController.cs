@@ -43,7 +43,14 @@ namespace ElevatorSharp.Web.Controllers
             var json = JsonConvert.SerializeObject(skyscraper);
             Thread.Sleep(100);
             return Content(json, "application/json");
-        } 
+        }
+        public ContentResult Idle(int currentFloor)
+        {
+            var floorLevel = 2;
+
+            var json = JsonConvert.SerializeObject(floorLevel);
+            return Content(json, "application/json");
+        }
         #endregion
 
         #region Methods
