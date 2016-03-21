@@ -13,7 +13,7 @@ namespace ElevatorSharp.Web.Controllers
 {
     public class ElevatorController : Controller
     {
-        #region Actions
+        #region UI Actions
         public ActionResult Index()
         {
             var viewModel = new ElevatorIndexViewModel
@@ -23,29 +23,14 @@ namespace ElevatorSharp.Web.Controllers
             };
             return View("Original", viewModel);
         }
+        #endregion
 
-        public ContentResult Build(int elevators, int floors, int maxPassengers)
+        #region Event Actions
+        public ContentResult Idle(IdleViewModel viewModel)
         {
-            var skyscraper = new Skyscraper(elevators, floors, maxPassengers);
+            // TODO: Trigger Idle event on Elevator with IElevatorDriver from player
 
-            SaveSkyscraper(skyscraper);
-
-            var json = JsonConvert.SerializeObject(skyscraper);
-            return Content(json, "application/json");
-        }
-
-        public ContentResult Update(int currentFloor)
-        {
-            var skyscraper = LoadSkyscraper();
-            var player = LoadPlayer();
-            //player.Update(skyscraper.Elevators);
-
-            var json = JsonConvert.SerializeObject(skyscraper);
-            Thread.Sleep(100);
-            return Content(json, "application/json");
-        }
-        public ContentResult Idle(int currentFloor)
-        {
+            // First test passing back int for goToFloor call on client
             var floorLevel = 2;
 
             var json = JsonConvert.SerializeObject(floorLevel);
@@ -53,7 +38,7 @@ namespace ElevatorSharp.Web.Controllers
         }
         #endregion
 
-        #region Methods
+        #region Helper Methods
         private static void SaveSkyscraper(Skyscraper skyscraper)
         {
             var cache = MemoryCache.Default;
