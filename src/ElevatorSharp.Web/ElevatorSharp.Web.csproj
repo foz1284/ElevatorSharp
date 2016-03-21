@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\IdleViewModel.cs" />
     <Compile Include="ViewModels\PassingFloorViewModel.cs" />
     <Compile Include="ViewModels\StoppedAtFloorViewModel.cs" />
+    <Compile Include="ViewModels\DownButtonPressedViewModel.cs" />
     <Compile Include="ViewModels\UpButtonPressedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
