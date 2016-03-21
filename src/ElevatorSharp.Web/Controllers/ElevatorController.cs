@@ -25,7 +25,7 @@ namespace ElevatorSharp.Web.Controllers
         }
         #endregion
 
-        #region Event Actions
+        #region Elevator Events
         /// <summary>
         /// Triggered when the elevator has completed all its tasks and is not doing anything.
         /// </summary>
@@ -78,6 +78,21 @@ namespace ElevatorSharp.Web.Controllers
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
+        #endregion
+
+        /// <summary>
+        /// Triggered when someone has pressed the up button at a floor. 
+        /// Note that passengers will press the button again if they fail to enter an elevator.
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult UpButtonPressed(UpButtonPressedViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
+        #region Floor Events
+
         #endregion
 
         #region Helper Methods
