@@ -41,11 +41,26 @@ namespace ElevatorSharp.Web.Controllers
         }
 
         /// <summary>
-        /// Triggered when a passenger has pressed a button inside the elevator. This tells us which floor the passenger wants to go to.
+        /// Triggered when a passenger has pressed a button inside the elevator. 
+        /// This tells us which floor the passenger wants to go to.
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
         public ContentResult FloorButtonPressed(FloorButtonPressedViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
+
+        /// <summary>
+        /// Triggered slightly before the elevator will pass a floor. 
+        /// A good time to decide whether to stop at that floor. 
+        /// Note that this event is not triggered for the destination floor. 
+        /// Direction is either "up" or "down".
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult PassingFloor(PassingFloorViewModel viewModel)
         {
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
