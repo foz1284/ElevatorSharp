@@ -33,8 +33,13 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult Idle(IdleViewModel viewModel)
         {
-            // Spike - add GoToFloor(2) to destination queue
-            viewModel.DestinationQueue.Enqueue(2);
+            // DestinationQueue serialises correctly from client to viewModel!
+            // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();
+            // viewModel.DestinationQueue.Enqueue(0);
+            
+            // ... but maybe it's easier to have a new GoToFloors queue?
+            viewModel.GoToFloors = new Queue<int>();
+            viewModel.GoToFloors.Enqueue(2);
 
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
