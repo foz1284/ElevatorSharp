@@ -9,6 +9,7 @@ var createParamsUrl = function(current, overrides) {
 
 $(function() {
     var tsKey = "elevatorTimeScale";
+    var editor = createEditor();
 
     var params = {};
 
@@ -74,7 +75,8 @@ $(function() {
             }
         });
 
-        var codeObj = $("#default-elev-implementation").html; // TODO: this is where we talk to the server
+        //var codeObj = $("#default-elev-implementation").html; // TODO: this is where we talk to the server
+        var codeObj = editor.getCodeObj();
         app.worldController.start(app.world, codeObj, window.requestAnimationFrame, autoStart);
     };
 
