@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\FloorButtonPressedViewModel.cs" />
     <Compile Include="ViewModels\IdleViewModel.cs" />
     <Compile Include="ViewModels\PassingFloorViewModel.cs" />
+    <Compile Include="ViewModels\StoppedAtFloorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
