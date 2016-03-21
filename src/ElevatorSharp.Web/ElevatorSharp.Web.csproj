@@ -184,6 +184,9 @@
     <Content Include="css\application.css" />
     <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\font-awesome-4.1-1.0\css\font-awesome.css" />
+    <Content Include="fonts\font-awesome-4.1-1.0\css\font-awesome.min.css" />
+    <Content Include="fonts\font-awesome-4.1-1.0\fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -197,10 +200,23 @@
     <Content Include="js\fitnessworker.js" />
     <Content Include="js\floor.js" />
     <Content Include="js\interfaces.js" />
-    <Content Include="js\libs\jquery-2.1.1.min.js" />
-    <Content Include="js\libs\lodash.min.js" />
-    <Content Include="js\libs\riot.js" />
-    <Content Include="js\libs\unobservable.js" />
+    <Content Include="libs\codemirror\addon\edit\closebrackets.js" />
+    <Content Include="libs\codemirror\codemirror.css" />
+    <Content Include="libs\codemirror\codemirror.js" />
+    <Content Include="libs\codemirror\mode\javascript\index.html" />
+    <Content Include="libs\codemirror\mode\javascript\javascript.js" />
+    <Content Include="libs\codemirror\mode\javascript\json-ld.html" />
+    <Content Include="libs\codemirror\mode\javascript\test.js" />
+    <Content Include="libs\codemirror\mode\javascript\typescript.html" />
+    <Content Include="libs\codemirror\themes\solarized.css" />
+    <Content Include="libs\highlight\highlight.pack.js" />
+    <Content Include="libs\highlight\styles\default.css" />
+    <Content Include="libs\highlight\styles\solarized_dark.css" />
+    <Content Include="libs\highlight\styles\solarized_light.css" />
+    <Content Include="libs\jquery-2.1.1.min.js" />
+    <Content Include="libs\lodash.min.js" />
+    <Content Include="libs\riot.js" />
+    <Content Include="libs\unobservable.js" />
     <Content Include="js\movable.js" />
     <Content Include="js\presenters.js" />
     <Content Include="js\user.js" />
@@ -218,6 +234,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\font-awesome-4.1-1.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\font-awesome-4.1-1.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\font-awesome-4.1-1.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\font-awesome-4.1-1.0\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -238,6 +258,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Elevator\Index.cshtml" />
+    <Content Include="Views\Elevator\Original.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

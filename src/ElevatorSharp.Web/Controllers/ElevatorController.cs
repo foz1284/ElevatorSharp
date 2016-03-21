@@ -21,7 +21,7 @@ namespace ElevatorSharp.Web.Controllers
                 Player = "Test Player",
                 Title = "Elevator Sharp"
             };
-            return View(viewModel);
+            return View("Original", viewModel);
         }
 
         public ContentResult Build(int elevators, int floors, int maxPassengers)

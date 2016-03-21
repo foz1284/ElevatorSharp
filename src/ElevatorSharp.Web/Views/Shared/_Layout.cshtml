@@ -5,23 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>@Model.Title</title>
-    <!-- Bootstrap -->
-    <link href="/Content/bootstrap.min.css" rel="stylesheet">
+    
+    <title>ElevatorSharp - based on the excellent Elevator Saga code base by Magnus Wolffelt</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/fonts/font-awesome-4.1-1.0/css/font-awesome.min.css" type="text/css" media="all">
+    <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/libs/codemirror/codemirror.css">
+    <link rel="stylesheet" href="/libs/codemirror/themes/solarized.css">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
-    <link href="/css/application.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
-    <script type="text/javascript" src="/js/libs/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/libs/lodash.min.js"></script>
-    <script type="text/javascript" src="/js/libs/riot.js"></script>
+    <script type="text/javascript" src="/libs/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/libs/lodash.min.js"></script>
+    <script type="text/javascript" src="/libs/riot.js"></script>
 
-    <script type="text/javascript" src="/js/libs/unobservable.js"></script>
+    <script type="text/javascript" src="/libs/codemirror/codemirror.js"></script>
+    <script type="text/javascript" src="/libs/codemirror/addon/edit/closebrackets.js"></script>
+    <script type="text/javascript" src="/libs/codemirror/mode/javascript/javascript.js"></script>
+
+    <script type="text/javascript" src="/libs/unobservable.js"></script>
 
     <script type="text/javascript" src="/js/base.js"></script>
     <script type="text/javascript" src="/js/movable.js"></script>
@@ -133,32 +135,6 @@
         },
         update: function(dt, elevators, floors) {
         }
-        }
-    </script>
-    <script type="text/plain" id="server-side-elevator-implementation">
-        {
-            init: function(elevators, floors) {
-            var elevator = elevators[0]; // Let's use the first elevator
-
-            // Whenever the elevator is idle (has no more queued destinations) ...
-            elevator.on("idle", function() {
-                
-                // call mvc action here
-                $.ajax({
-                data: {
-                currentX: maze.CurrentPosition.X,
-                currentY: maze.CurrentPosition.Y
-                },
-                url: "/elevator/idle",
-                success: function (floorLevel) {
-                    elevator.goToFloor(floorLevel)
-                    }
-                });
-            });
-        },
-        update: function(dt, elevators, floors) {
-        
-            }
         }
     </script>
 </head>
