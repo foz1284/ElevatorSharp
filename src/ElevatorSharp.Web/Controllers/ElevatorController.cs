@@ -26,14 +26,28 @@ namespace ElevatorSharp.Web.Controllers
         #endregion
 
         #region Event Actions
+        /// <summary>
+        /// Triggered when the elevator has completed all its tasks and is not doing anything.
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
         public ContentResult Idle(IdleViewModel viewModel)
         {
-            // TODO: Trigger Idle event on Elevator with IElevatorDriver from player
+            // Spike - add GoToFloor(2) to destination queue
+            viewModel.DestinationQueue.Enqueue(2);
 
-            // First test passing back int for goToFloor call on client
-            var floorLevel = 2;
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
 
-            var json = JsonConvert.SerializeObject(floorLevel);
+        /// <summary>
+        /// Triggered when a passenger has pressed a button inside the elevator. This tells us which floor the passenger wants to go to.
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult FloorButtonPressed(FloorButtonPressedViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
         #endregion
