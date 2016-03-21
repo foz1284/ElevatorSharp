@@ -13,7 +13,7 @@ namespace ElevatorSharp.Web.Controllers
 {
     public class ElevatorController : Controller
     {
-        #region Actions
+        #region UI Actions
         public ActionResult Index()
         {
             var viewModel = new ElevatorIndexViewModel
@@ -23,37 +23,93 @@ namespace ElevatorSharp.Web.Controllers
             };
             return View("Original", viewModel);
         }
+        #endregion
 
-        public ContentResult Build(int elevators, int floors, int maxPassengers)
+        #region Elevator Events
+        /// <summary>
+        /// Triggered when the elevator has completed all its tasks and is not doing anything.
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult Idle(IdleViewModel viewModel)
         {
-            var skyscraper = new Skyscraper(elevators, floors, maxPassengers);
+            // Spike - add GoToFloor(2) to destination queue
+            viewModel.DestinationQueue.Enqueue(2);
 
-            SaveSkyscraper(skyscraper);
-
-            var json = JsonConvert.SerializeObject(skyscraper);
+            var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
 
-        public ContentResult Update(int currentFloor)
+        /// <summary>
+        /// Triggered when a passenger has pressed a button inside the elevator. 
+        /// This tells us which floor the passenger wants to go to.
+        /// Maybe tell the elevator to go to that floor?
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult FloorButtonPressed(FloorButtonPressedViewModel viewModel)
         {
-            var skyscraper = LoadSkyscraper();
-            var player = LoadPlayer();
-            //player.Update(skyscraper.Elevators);
-
-            var json = JsonConvert.SerializeObject(skyscraper);
-            Thread.Sleep(100);
+            var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
-        public ContentResult Idle(int currentFloor)
-        {
-            var floorLevel = 2;
 
-            var json = JsonConvert.SerializeObject(floorLevel);
+        /// <summary>
+        /// Triggered slightly before the elevator will pass a floor. 
+        /// A good time to decide whether to stop at that floor. 
+        /// Note that this event is not triggered for the destination floor. 
+        /// Direction is either "up" or "down".
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult PassingFloor(PassingFloorViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
+
+        /// <summary>
+        /// Triggered when the elevator has arrived at a floor.
+        /// Maybe decide where to go next?
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult StoppedAtFloor(StoppedAtFloorViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
         #endregion
 
-        #region Methods
+        /// <summary>
+        /// Triggered when someone has pressed the up button at a floor. 
+        /// Note that passengers will press the button again if they fail to enter an elevator.
+        /// Maybe tell an elevator to go to this floor?
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult UpButtonPressed(UpButtonPressedViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
+
+        /// <summary>
+        /// Triggered when someone has pressed the down button at a floor. 
+        /// Note that passengers will press the button again if they fail to enter an elevator.
+        /// Maybe tell an elevator to go to this floor?
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public ContentResult DownButtonPressed(DownButtonPressedViewModel viewModel)
+        {
+            var json = JsonConvert.SerializeObject(viewModel);
+            return Content(json, "application/json");
+        }
+        #region Floor Events
+
+        #endregion
+
+        #region Helper Methods
         private static void SaveSkyscraper(Skyscraper skyscraper)
         {
             var cache = MemoryCache.Default;
