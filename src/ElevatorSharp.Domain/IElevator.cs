@@ -63,11 +63,4 @@ namespace ElevatorSharp.Domain
         /// </summary>
         Queue<int> DestinationQueue { get; }
     }
-
-    public enum ElevatorDirection
-    {
-        Up,
-        Down,
-        Stopped
-    }
 }
