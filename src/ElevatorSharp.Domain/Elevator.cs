@@ -52,7 +52,21 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Queue the elevator to go to specified floor number. If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
+        /// </summary>
+        /// <param name="floor"></param>
         public void GoToFloor(int floor)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Queue the elevator to go to specified floor number. If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <param name="jumpQueue"></param>
+        public void GoToFloor(int floor, bool jumpQueue)
         {
             throw new NotImplementedException();
         }

@@ -91,6 +91,7 @@ namespace ElevatorSharp.Web.Controllers
         }
         #endregion
 
+        #region Floor Events
         /// <summary>
         /// Triggered when someone has pressed the up button at a floor. 
         /// Note that passengers will press the button again if they fail to enter an elevator.
@@ -116,8 +117,6 @@ namespace ElevatorSharp.Web.Controllers
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
-        #region Floor Events
-
         #endregion
 
         #region Helper Methods
