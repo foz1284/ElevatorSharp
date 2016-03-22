@@ -31,7 +31,7 @@ namespace ElevatorSharp.Web.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        public ContentResult Idle(IdleViewModel viewModel)
+        public ContentResult Idle(ElevatorDto viewModel)
         {
             // TODO: Get elevators from cache or global?
             // These elevators will have a delegate from IPlayer hooked up to their Idle event
@@ -43,11 +43,13 @@ namespace ElevatorSharp.Web.Controllers
             // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();
             // viewModel.DestinationQueue.Enqueue(0);
             
-            // ... but maybe it's easier to have a new GoToFloors queue?
-            viewModel.GoToFloors = new Queue<int>();
-            viewModel.GoToFloors.Enqueue(2);
+            // Using new ElevatorCommands class for returning data
+            var elevatorCommands = new ElevatorCommands();
+            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(0, false));
+            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(1, false));
+            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(2, false));
 
-            var json = JsonConvert.SerializeObject(viewModel);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
 
@@ -91,6 +93,7 @@ namespace ElevatorSharp.Web.Controllers
         }
         #endregion
 
+        #region Floor Events
         /// <summary>
         /// Triggered when someone has pressed the up button at a floor. 
         /// Note that passengers will press the button again if they fail to enter an elevator.
@@ -116,8 +119,6 @@ namespace ElevatorSharp.Web.Controllers
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
-        #region Floor Events
-
         #endregion
 
         #region Helper Methods
