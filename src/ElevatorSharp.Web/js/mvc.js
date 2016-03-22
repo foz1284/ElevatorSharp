@@ -8,7 +8,13 @@
             $.ajax({
                 data: {
                     DestinationQueue: elevator.destinationQueue,
-                    Elevator: elevator
+                    CurrentFloor: elevator.currentFloor,
+                    GoingUpIndicator: elevator.goingUpIndicator,
+                    GoingDownIndicator: elevator.goingDownIndicator,
+                    MaxPassengerCount: elevator.maxPassengerCount,
+                    LoadFactor: elevator.loadFactor,
+                    DestinationDirection: elevator.destinationDirection,
+                    PressedFloors: elevator.getPressedFloors()
                 },
                 url: "/elevator/idle",
                 success: function (viewModel) {

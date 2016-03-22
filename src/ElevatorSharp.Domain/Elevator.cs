@@ -71,6 +71,10 @@ namespace ElevatorSharp.Domain
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Checks the destination queue for any new destinations to go to. 
+        /// Note that you only need to call this if you modify the destination queue explicitly.
+        /// </summary>
         public void CheckDestinationQueue()
         {
             if (DestinationQueue.Count > 0)
