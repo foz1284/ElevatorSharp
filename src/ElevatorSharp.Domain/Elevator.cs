@@ -58,7 +58,7 @@ namespace ElevatorSharp.Domain
         /// <param name="floor"></param>
         public void GoToFloor(int floor)
         {
-            throw new NotImplementedException();
+            GoToFloor(floor, false);
         }
 
         /// <summary>
@@ -68,7 +68,18 @@ namespace ElevatorSharp.Domain
         /// <param name="jumpQueue"></param>
         public void GoToFloor(int floor, bool jumpQueue)
         {
-            throw new NotImplementedException();
+            if (!jumpQueue)
+            {
+                DestinationQueue.Enqueue(floor);
+            }
+            else
+            {
+                var items = DestinationQueue.ToArray();
+                DestinationQueue.Clear();
+                DestinationQueue.Enqueue(floor);
+                foreach (var item in items)
+                    DestinationQueue.Enqueue(item);
+            }
         }
 
         /// <summary>
