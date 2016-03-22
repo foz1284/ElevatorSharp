@@ -31,15 +31,17 @@
             });
         };
 
-        // First thing to do is to create our Skyscraper in C# passing elevators and floors from here
-        $.ajax({
-            data: {
-                elevators: elevators,
-                floors: floors
-            },
-            url: "/skyscraper/new",
-            success: hookUpAllEvents
-        });
+        hookUpAllEvents();
+
+        // TODO: First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
+        //$.ajax({
+        //    data: {
+        //        elevators: elevators,
+        //        floors: floors
+        //    },
+        //    url: "/skyscraper/new",
+        //    success: hookUpAllEvents
+        //});
     },
     update: function (dt, elevators, floors) {
         // We normally don't need to do anything here
