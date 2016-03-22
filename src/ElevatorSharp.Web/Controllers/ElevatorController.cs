@@ -35,9 +35,13 @@ namespace ElevatorSharp.Web.Controllers
             
             // Using new ElevatorCommands class for returning data
             var elevatorCommands = new ElevatorCommands();
-            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(0, false));
-            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(1, false));
-            elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(2, false));
+            var destinationQueue = skyscraper.Elevators[0].DestinationQueue;
+            while (destinationQueue.Count > 0)
+            {
+                var destination = destinationQueue.Dequeue();
+                // TODO: does not take JumpQueue into account
+                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
+            }
 
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
