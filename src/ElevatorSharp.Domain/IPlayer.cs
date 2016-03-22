@@ -7,9 +7,10 @@ namespace ElevatorSharp.Domain
         void Init(IList<Elevator> elevators, IList<Floor> floors);
 
         /// <summary>
-        /// Called every time the elevator stops.
+        /// We normally don't need to do anything here
         /// </summary>
-        /// <param name="skyscraper"></param>
+        /// <param name="elevators"></param>
+        /// <param name="floors"></param>
         void Update(IList<Elevator> elevators, IList<Floor> floors);
     }
 }

@@ -206,6 +206,7 @@
     <Content Include="js\fitnessworker.js" />
     <Content Include="js\floor.js" />
     <Content Include="js\interfaces.js" />
+    <Content Include="js\mvc.js" />
     <Content Include="libs\codemirror\addon\edit\closebrackets.js" />
     <Content Include="libs\codemirror\codemirror.css" />
     <Content Include="libs\codemirror\codemirror.js" />
