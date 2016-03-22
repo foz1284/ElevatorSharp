@@ -9,7 +9,7 @@ namespace ElevatorSharp.Domain
 
         #region Properties
         public IList<Elevator> Elevators { get; }
-        public IList<Floor> Floors { get; set; }
+        public IList<Floor> Floors { get; }
         #endregion
 
         #region Constructors
@@ -21,7 +21,7 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Methods
-        private static List<Elevator> CreateElevators(int elevatorCount, int maxPassengerCount)
+        public List<Elevator> CreateElevators(int elevatorCount, int maxPassengerCount)
         {
             var elevators = new List<Elevator>();
             for (var i = 0; i < elevatorCount; i++)
@@ -31,7 +31,8 @@ namespace ElevatorSharp.Domain
             }
             return elevators;
         }
-        private static List<Floor> CreateFloors(int floorCount)
+
+        public List<Floor> CreateFloors(int floorCount)
         {
             var floors = new List<Floor>();
             for (var j = 0; j < floorCount; j++)
@@ -40,6 +41,11 @@ namespace ElevatorSharp.Domain
                 floors.Add(floor);
             }
             return floors;
+        }
+
+        public void LoadPlayer(IPlayer player)
+        {
+            player.Init(Elevators, Floors);
         }
         #endregion
     }

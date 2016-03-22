@@ -14,20 +14,15 @@ namespace ElevatorSharp.Domain
 
         private void ElevatorOnIdle(object sender, EventArgs eventArgs)
         {
-            throw new NotImplementedException();
+            var elevator = (Elevator) sender;
+            elevator.GoToFloor(0);
+            elevator.GoToFloor(1);
+            elevator.GoToFloor(2);
         }
 
         public void Update(IList<Elevator> elevators, IList<Floor> floors)
         {
-            var elevator = elevators[0];
-            if (elevator.CurrentFloor < floors.Count)
-            {
-                elevator.GoToFloor(elevator.CurrentFloor + 1);
-            }
-            else
-            {
-                elevator.GoToFloor(0);
-            }
+            // We normally don't need to do anything here
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ElevatorSharp.Web.ViewModels
 {
-    public class ElevatorIndexViewModel
+    public class SkyscraperIndexViewModel
     {
         public string Title { get; set; }
         public string Message { get; set; }

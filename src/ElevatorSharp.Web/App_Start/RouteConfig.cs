@@ -16,7 +16,7 @@ namespace ElevatorSharp.Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Elevator", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Skyscraper", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
