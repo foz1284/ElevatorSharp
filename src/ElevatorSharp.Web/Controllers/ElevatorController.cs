@@ -26,6 +26,8 @@ namespace ElevatorSharp.Web.Controllers
             // Can we raise this event and execute the attached delegates?
             // If so, what do we return to the client?
             // Do we simply keep the client's DestinationQueue and the servers DestinationQueue in sync?
+            var skyscraper = LoadSkyscraper();
+            skyscraper.Elevators[0].OnIdle(); // Does this invoke the delegate from TestPlayer?
 
             // DestinationQueue serialises correctly from client to viewModel!
             // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();
@@ -79,6 +81,18 @@ namespace ElevatorSharp.Web.Controllers
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
         }
+        #endregion
+
+        #region Helper Methods
+        private static Skyscraper LoadSkyscraper()
+        {
+            var cache = MemoryCache.Default;
+            if (cache.Contains("skyscraper"))
+            {
+                return (Skyscraper)cache.Get("skyscraper");
+            }
+            return null;
+        } 
         #endregion
     }
 }

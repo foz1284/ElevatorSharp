@@ -26,11 +26,12 @@ namespace ElevatorSharp.Domain
         public Elevator(int maxPassengerCount)
         {
             MaxPassengerCount = maxPassengerCount;
+            DestinationQueue = new Queue<int>();
         }
         #endregion
 
         #region Private Methods
-        private void OnIdle()
+        public void OnIdle()
         {
             Idle?.Invoke(this, EventArgs.Empty);
         }
