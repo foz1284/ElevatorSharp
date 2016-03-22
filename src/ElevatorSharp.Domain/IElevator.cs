@@ -34,7 +34,7 @@ namespace ElevatorSharp.Domain
         /// Gets the currently pressed floor numbers as an array.
         /// </summary>
         /// <returns></returns>
-        int[] GetPressedFloors();
+        int[] PressedFloors { get; set; }
 
         /// <summary>
         /// Checks the destination queue for any new destinations to go to. Note that you only need to call this if you modify the destination queue explicitly.

@@ -13,13 +13,14 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Properties
-        public ElevatorDirection DestinationDirection { get; }
+        public ElevatorDirection DestinationDirection { get; set; }
         public Queue<int> DestinationQueue { get; set; }
 
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
         public bool GoingDownIndicator { get; set; }
         public int MaxPassengerCount { get; }
+        public int[] PressedFloors { get; set; }
         #endregion
 
         #region Constructors
@@ -104,11 +105,6 @@ namespace ElevatorSharp.Domain
         {
             throw new NotImplementedException();
         }
-
-        public int[] GetPressedFloors()
-        {
-            throw new NotImplementedException();
-        } 
         #endregion
 
     }

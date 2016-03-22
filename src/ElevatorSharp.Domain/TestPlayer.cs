@@ -15,9 +15,13 @@ namespace ElevatorSharp.Domain
         private void ElevatorOnIdle(object sender, EventArgs eventArgs)
         {
             var elevator = (Elevator) sender;
-            elevator.GoToFloor(0);
-            elevator.GoToFloor(1);
-            elevator.GoToFloor(2);
+            if(elevator.PressedFloors == null) return;
+
+            var floors = elevator.PressedFloors;
+            foreach (var floor in floors)
+            {
+                elevator.GoToFloor(floor);
+            }
         }
 
         public void Update(IList<Elevator> elevators, IList<Floor> floors)
