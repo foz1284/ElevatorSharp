@@ -31,7 +31,7 @@ namespace ElevatorSharp.Web.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        public ContentResult Idle(IdleViewModel viewModel)
+        public ContentResult Idle(ElevatorDto viewModel)
         {
             // TODO: Get elevators from cache or global?
             // These elevators will have a delegate from IPlayer hooked up to their Idle event
@@ -43,9 +43,9 @@ namespace ElevatorSharp.Web.Controllers
             // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();
             // viewModel.DestinationQueue.Enqueue(0);
             
-            // ... but maybe it's easier to have a new GoToFloors queue?
-            viewModel.GoToFloors = new Queue<int>();
-            viewModel.GoToFloors.Enqueue(2);
+            // Using new ElevatorCommands class for returning data
+            var elevatorCommands = new ElevatorCommands();
+            elevatorCommands.GoToFloor.Enqueue(2);
 
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
