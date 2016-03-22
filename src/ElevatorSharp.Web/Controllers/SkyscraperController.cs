@@ -13,9 +13,12 @@ namespace ElevatorSharp.Web.Controllers
     {
         public ActionResult Index()
         {
-            var skyscraper = new Skyscraper();
+            var skyscraper = new Skyscraper(1, 3, 5);
             var player = new TestPlayer(); // TODO: Load external dll from LS#ers
             skyscraper.LoadPlayer(player); // This will call the Init method on Player and hook up events
+
+            // Let's see if this works...
+            SaveSkyscraper(skyscraper);
 
             var viewModel = new SkyscraperIndexViewModel
             {
