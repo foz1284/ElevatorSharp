@@ -3,7 +3,7 @@ using ElevatorSharp.Domain;
 
 namespace ElevatorSharp.Web.ViewModels
 {
-    public class IdleViewModel
+    public class ElevatorDto
     {
         public Queue<int> DestinationQueue { get; set; }
         public int CurrentFloor { get; set; }
