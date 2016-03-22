@@ -33,6 +33,12 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult Idle(IdleViewModel viewModel)
         {
+            // TODO: Get elevators from cache or global?
+            // These elevators will have a delegate from IPlayer hooked up to their Idle event
+            // Can we raise this event and execute the attached delegates?
+            // If so, what do we return to the client?
+            // Do we simply keep the client's DestinationQueue and the servers DestinationQueue in sync?
+
             // DestinationQueue serialises correctly from client to viewModel!
             // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();
             // viewModel.DestinationQueue.Enqueue(0);

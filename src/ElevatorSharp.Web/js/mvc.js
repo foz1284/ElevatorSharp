@@ -7,7 +7,8 @@
         elevator.on("idle", function () {
             $.ajax({
                 data: {
-                    DestinationQueue: this.destinationQueue
+                    DestinationQueue: elevator.destinationQueue,
+                    Elevator: elevator
                 },
                 url: "/elevator/idle",
                 success: function (viewModel) {
