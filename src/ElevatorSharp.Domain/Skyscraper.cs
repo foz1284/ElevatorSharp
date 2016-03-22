@@ -13,6 +13,12 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
+
+        public Skyscraper()
+        {
+            
+        }
+
         public Skyscraper(int elevatorCount, int floorCount, int maxPassengerCount)
         {
             Elevators = CreateElevators(elevatorCount, maxPassengerCount);
@@ -42,5 +48,10 @@ namespace ElevatorSharp.Domain
             return floors;
         }
         #endregion
+
+        public void LoadPlayer(IPlayer player)
+        {
+            player.Init(Elevators, Floors);
+        }
     }
 }

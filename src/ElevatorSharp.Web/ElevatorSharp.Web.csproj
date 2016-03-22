@@ -169,13 +169,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ElevatorController.cs" />
+    <Compile Include="Controllers\FloorController.cs" />
+    <Compile Include="Controllers\SkyscraperController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ElevatorCommands.cs" />
-    <Compile Include="ViewModels\ElevatorIndexViewModel.cs" />
+    <Compile Include="ViewModels\SkyscraperIndexViewModel.cs" />
     <Compile Include="ViewModels\FloorButtonPressedViewModel.cs" />
     <Compile Include="ViewModels\ElevatorDto.cs" />
     <Compile Include="ViewModels\PassingFloorViewModel.cs" />
@@ -265,11 +267,13 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Elevator\Index.cshtml" />
-    <Content Include="Views\Elevator\Original.cshtml" />
+    <Content Include="Views\Skyscraper\Index.cshtml" />
+    <Content Include="Views\Skyscraper\Original.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Elevator\" />
+    <Folder Include="Views\Floor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
