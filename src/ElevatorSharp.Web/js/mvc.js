@@ -17,13 +17,13 @@
                     PressedFloors: elevator.getPressedFloors()
                 },
                 url: "/elevator/idle",
-                success: function (viewModel) {
-                    var goToFloors = viewModel.GoToFloors;
-                    goToFloors.forEach(function (floorLevel) {
-                        console.log(floorLevel);
-                        elevator.GoToFloor(floorLevel);
+                success: function (elevatorCommands) {
+                    var goToFloors = elevatorCommands.GoToFloor;
+                    goToFloors.forEach(function (parameters) {
+                        console.log(parameters.FloorNumber);
+                        elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                     });
-                    console.log(viewModel);
+                    console.log(elevatorCommands);
                 }
             });
         });
