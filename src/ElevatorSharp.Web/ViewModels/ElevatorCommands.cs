@@ -18,6 +18,12 @@ namespace ElevatorSharp.Web.ViewModels
 
     public class GoToFloorCommand
     {
+        public GoToFloorCommand(int floorNumber, bool jumpQueue)
+        {
+            FloorNumber = floorNumber;
+            JumpQueue = jumpQueue;
+        }
+
         public int FloorNumber { get; set; }
         public bool JumpQueue { get; set; }
     }

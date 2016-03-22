@@ -45,7 +45,8 @@ namespace ElevatorSharp.Web.Controllers
             
             // Using new ElevatorCommands class for returning data
             var elevatorCommands = new ElevatorCommands();
-            elevatorCommands.GoToFloor.Enqueue(2);
+            var goToFloorCommand = new GoToFloorCommand(1, false);
+            elevatorCommands.GoToFloor.Enqueue(goToFloorCommand);
 
             var json = JsonConvert.SerializeObject(viewModel);
             return Content(json, "application/json");
