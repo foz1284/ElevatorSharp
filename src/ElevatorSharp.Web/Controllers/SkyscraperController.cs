@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
@@ -11,11 +12,11 @@ namespace ElevatorSharp.Web.Controllers
 {
     public class SkyscraperController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string message = null)
         {
             var skyscraper = new Skyscraper(1, 3, 5);
-            var player = new TestPlayer(); // TODO: Load external dll from LS#ers
-            skyscraper.LoadPlayer(player); // This will call the Init method on Player and hook up events
+            var player = LoadPlayer();
+            skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
 
             // Let's see if this works...
             SaveSkyscraper(skyscraper);
@@ -25,7 +26,34 @@ namespace ElevatorSharp.Web.Controllers
                 Player = "Test Player",
                 Title = "Elevator Sharp"
             };
+
+            ViewBag.Message = message;
             return View("Original", viewModel);
+        }
+
+        public ActionResult UploadPlayer(HttpPostedFileBase dll)
+        {
+            var message = "Could not load assembly";
+            if (dll == null || dll.ContentLength <= 0) return RedirectToAction("Index", new {message});
+
+            // Load player dll
+            var fileName = Path.GetFileName(dll.FileName);
+            var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+            dll.SaveAs(path);
+            var playerAssembly = Assembly.LoadFile(path);
+            foreach (var type in playerAssembly.GetTypes().OrderBy(t => t.Name))
+            {
+                if (type.GetInterface("IPlayer") != null)
+                {
+                    var player = Activator.CreateInstance(type) as IPlayer;
+                    SavePlayer((IPlayer)player);
+                    //SavePlayerName(type.Name);
+                    message = type.Name + " uploaded.";
+                    return RedirectToAction("Index", new { message });
+                }
+            }
+            message = "No player implementing IPlayer found.";
+            return RedirectToAction("Index", new { message });
         }
 
         #region Helper Methods
