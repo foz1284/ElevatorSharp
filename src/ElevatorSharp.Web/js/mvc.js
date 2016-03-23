@@ -29,22 +29,22 @@
         });
 
         floors.forEach(function (floor) {
-            //floor.on("up_button_pressed", function (floorNumber) {
-            //    $.ajax({
-            //        data: {
-            //            FloorNumber: floorNumber // TODO: I think we might need to pass all elevator data here
-            //        },
-            //        url: "/floor/upButtonPressed",
-            //        success: function (elevatorCommands) { 
-            //            var goToFloors = elevatorCommands.GoToFloor; // NOTE: and we are still receiving elevatorCommands, because there are no commands on Floor
-            //            goToFloors.forEach(function (parameters) {
-            //                console.log(parameters.FloorNumber);
-            //                //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-            //            });
-            //            console.log(elevatorCommands);
-            //        }
-            //    });
-            //});
+            floor.on("up_button_pressed", function () {
+                $.ajax({
+                    data: {
+                        FloorNumber: floor.floorNum // TODO: I think we might need to pass all elevator data here
+                    },
+                    url: "/floor/upButtonPressed",
+                    success: function (elevatorCommands) { 
+                        var goToFloors = elevatorCommands.GoToFloor; // NOTE: and we are still receiving elevatorCommands, because there are no commands on Floor
+                        goToFloors.forEach(function (parameters) {
+                            console.log(parameters.FloorNumber);
+                            //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                        });
+                        console.log(elevatorCommands);
+                    }
+                });
+            });
 
             //floor.on("down_button_pressed", function (floorNumber) {
             //    $.ajax({
