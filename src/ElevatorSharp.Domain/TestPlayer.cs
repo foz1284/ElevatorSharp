@@ -12,16 +12,16 @@ namespace ElevatorSharp.Domain
             elevator.Idle += ElevatorOnIdle;
         }
 
+        // TODO: Could we send all elevators in EventArgs? Or how many floors there are?
         private void ElevatorOnIdle(object sender, EventArgs eventArgs)
         {
             var elevator = (Elevator) sender;
-            if(elevator.PressedFloors == null) return;
 
-            var floors = elevator.PressedFloors;
-            foreach (var floor in floors)
-            {
-                elevator.GoToFloor(floor);
-            }
+            elevator.GoToFloor(0);
+            elevator.GoToFloor(1);
+            elevator.GoToFloor(2);
+            elevator.GoToFloor(3);
+            elevator.GoToFloor(4);
         }
 
         public void Update(IList<Elevator> elevators, IList<Floor> floors)
