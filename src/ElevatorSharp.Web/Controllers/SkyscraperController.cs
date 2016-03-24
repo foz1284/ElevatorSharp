@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using ElevatorSharp.Domain;
 using ElevatorSharp.Domain.Players;
 using ElevatorSharp.Web.ViewModels;
+using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
 {
@@ -18,8 +20,6 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = new Skyscraper(1, 3, 5);
             var player = LoadPlayer();
             skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
-
-            // Let's see if this works...
             SaveSkyscraper(skyscraper);
 
             var viewModel = new SkyscraperIndexViewModel
@@ -55,6 +55,17 @@ namespace ElevatorSharp.Web.Controllers
             }
             message = "No player implementing IPlayer found.";
             return RedirectToAction("Index", new { message });
+        }
+
+        public ContentResult New(IEnumerable<ElevatorDto> elevatorDtos, IEnumerable<FloorDto> floorDtos)
+        {
+            var skyscraper = new Skyscraper(elevatorDtos.Count(), floorDtos.Count(), 5);
+            var player = LoadPlayer();
+            skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
+            SaveSkyscraper(skyscraper);
+
+            var json = JsonConvert.SerializeObject("Ready."); // TODO: Not needed
+            return Content(json, "application/json");
         }
 
         #region Helper Methods
