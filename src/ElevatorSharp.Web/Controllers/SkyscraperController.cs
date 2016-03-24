@@ -57,9 +57,9 @@ namespace ElevatorSharp.Web.Controllers
             return RedirectToAction("Index", new { message });
         }
 
-        public ContentResult New(IEnumerable<ElevatorDto> elevatorDtos, IEnumerable<FloorDto> floorDtos)
+        public ContentResult New(IEnumerable<ElevatorDto> elevators, IEnumerable<FloorDto> floors)
         {
-            var skyscraper = new Skyscraper(elevatorDtos.Count(), floorDtos.Count(), 5);
+            var skyscraper = new Skyscraper(elevators.Count(), floors.Count(), 5);
             var player = LoadPlayer();
             skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
             SaveSkyscraper(skyscraper);
