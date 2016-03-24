@@ -2,10 +2,14 @@
 {
     init: function (elevators, floors) {
 
+        var elevatorIndex = -1;
         elevators.forEach(function (elevator) {
+            elevatorIndex++;
+            console.log("ElevatorIndex " + elevatorIndex);
             elevator.on("idle", function () {
                 $.ajax({
                     data: {
+                        ElevatorIndex: elevatorIndex,
                         DestinationQueue: elevator.destinationQueue,
                         CurrentFloor: elevator.currentFloor,
                         GoingUpIndicator: elevator.goingUpIndicator,
@@ -22,7 +26,6 @@
                             console.log(parameters.FloorNumber);
                             elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                         });
-                        console.log(elevatorCommands);
                     }
                 });
             });
