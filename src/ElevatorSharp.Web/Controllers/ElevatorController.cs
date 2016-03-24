@@ -25,7 +25,7 @@ namespace ElevatorSharp.Web.Controllers
 
             var skyscraper = LoadSkyscraper();
             skyscraper.Elevators[0].PressedFloors = elevatorDto.PressedFloors;
-            skyscraper.Elevators[0].OnIdle(); // Does this invoke the delegate from TestPlayer? ... yes it does!
+            skyscraper.Elevators[0].OnIdle(); // This invoke the delegate from IPlayer
 
             // DestinationQueue serialises correctly from client to viewModel!
             // if (viewModel.DestinationQueue == null) viewModel.DestinationQueue = new Queue<int>();

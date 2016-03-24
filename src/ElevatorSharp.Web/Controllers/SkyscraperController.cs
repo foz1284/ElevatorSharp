@@ -5,6 +5,7 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
+using ElevatorSharp.Domain.Players;
 using ElevatorSharp.Web.ViewModels;
 
 namespace ElevatorSharp.Web.Controllers

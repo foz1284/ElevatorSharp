@@ -6,7 +6,7 @@ namespace ElevatorSharp.Domain
     public interface IElevator
     {
         event EventHandler Idle;
-        event EventHandler FloorButtonPressed;
+        event EventHandler<int> FloorButtonPressed;
         event EventHandler PassingFloor;
         event EventHandler StoppedAtFloor;
 
