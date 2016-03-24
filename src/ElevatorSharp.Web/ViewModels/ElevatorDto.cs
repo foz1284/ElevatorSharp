@@ -5,6 +5,7 @@ namespace ElevatorSharp.Web.ViewModels
 {
     public class ElevatorDto
     {
+        public int ElevatorIndex { get; set; }
         public Queue<int> DestinationQueue { get; set; }
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }

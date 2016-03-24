@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ElevatorSharp.Domain.Players;
 
 namespace ElevatorSharp.Domain
 {

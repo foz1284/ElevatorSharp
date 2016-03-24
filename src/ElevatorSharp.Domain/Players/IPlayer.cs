@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ElevatorSharp.Domain
+namespace ElevatorSharp.Domain.Players
 {
     public interface IPlayer
     {
