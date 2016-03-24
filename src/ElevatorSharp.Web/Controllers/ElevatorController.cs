@@ -27,7 +27,7 @@ namespace ElevatorSharp.Web.Controllers
             
             // Use ElevatorCommands for sending back to client
             var elevatorCommands = new ElevatorCommands();
-            var destinationQueue = skyscraper.Elevators[0].DestinationQueue;
+            var destinationQueue = skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue;
             while (destinationQueue.Count > 0)
             {
                 var destination = destinationQueue.Dequeue();
