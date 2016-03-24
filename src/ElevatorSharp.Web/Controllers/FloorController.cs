@@ -16,11 +16,13 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="floorDto"></param>
         /// <returns></returns>
-        public ContentResult UpButtonPressed(UpButtonPressedViewModel viewModel)
+        public ContentResult UpButtonPressed(FloorDto floorDto)
         {
-            var json = JsonConvert.SerializeObject(viewModel);
+            var elevatorCommands = new ElevatorCommands();
+
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
 
@@ -29,11 +31,13 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="floorDto"></param>
         /// <returns></returns>
-        public ContentResult DownButtonPressed(DownButtonPressedViewModel viewModel)
+        public ContentResult DownButtonPressed(FloorDto floorDto)
         {
-            var json = JsonConvert.SerializeObject(viewModel);
+            var elevatorCommands = new ElevatorCommands();
+
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
         #endregion

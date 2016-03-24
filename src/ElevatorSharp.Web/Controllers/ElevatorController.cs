@@ -17,14 +17,14 @@ namespace ElevatorSharp.Web.Controllers
         /// <summary>
         /// Triggered when the elevator has completed all its tasks and is not doing anything.
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="elevatorDto"></param>
         /// <returns></returns>
-        public ContentResult Idle(ElevatorDto viewModel)
+        public ContentResult Idle(ElevatorDto elevatorDto)
         {
             // TODO: How do we know which elevator triggered the event?
 
             var skyscraper = LoadSkyscraper();
-            skyscraper.Elevators[0].PressedFloors = viewModel.PressedFloors;
+            skyscraper.Elevators[0].PressedFloors = elevatorDto.PressedFloors;
             skyscraper.Elevators[0].OnIdle(); // Does this invoke the delegate from TestPlayer? ... yes it does!
 
             // DestinationQueue serialises correctly from client to viewModel!

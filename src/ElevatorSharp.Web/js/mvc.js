@@ -30,9 +30,10 @@
 
         floors.forEach(function (floor) {
             floor.on("up_button_pressed", function () {
+                console.log("Up button pressed on floor " + floor.floorNum());
                 $.ajax({
                     data: {
-                        FloorNumber: floor.floorNum // TODO: I think we might need to pass all elevator data here
+                        FloorNumberPressed: floor.floorNum() // TODO: I think we might need to pass all elevator data here
                     },
                     url: "/floor/upButtonPressed",
                     success: function (elevatorCommands) { 
@@ -46,22 +47,23 @@
                 });
             });
 
-            //floor.on("down_button_pressed", function (floorNumber) {
-            //    $.ajax({
-            //        data: {
-            //            FloorNumber: floorNumber
-            //        },
-            //        url: "/floor/downButtonPressed",
-            //        success: function (elevatorCommands) {
-            //            var goToFloors = elevatorCommands.GoToFloor;
-            //            goToFloors.forEach(function (parameters) {
-            //                console.log(parameters.FloorNumber);
-            //                //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-            //            });
-            //            console.log(elevatorCommands);
-            //        }
-            //    });
-            //});
+            floor.on("down_button_pressed", function () {
+                console.log("Down button pressed on floor " + floor.floorNum());
+                $.ajax({
+                    data: {
+                        FloorNumberPressed: floor.floorNum()
+                    },
+                    url: "/floor/downButtonPressed",
+                    success: function (elevatorCommands) {
+                        var goToFloors = elevatorCommands.GoToFloor;
+                        goToFloors.forEach(function (parameters) {
+                            console.log(parameters.FloorNumber);
+                            //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                        });
+                        console.log(elevatorCommands);
+                    }
+                });
+            });
         });
 
         //var hookUpAllEvents = function () {
