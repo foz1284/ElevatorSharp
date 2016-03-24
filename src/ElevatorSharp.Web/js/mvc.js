@@ -71,11 +71,13 @@
             });
         };
 
-        // TODO: First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
+        // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
+        var elevatorDtos = [{ ElevatorIndex: 1, CurrentFloor: 0 }, { ElevatorIndex: 1, CurrentFloor: 0 }];
+        var floorDtos = [{ FloorNumberPressed: 1 }, { FloorNumberPressed: 2 }];
         $.ajax({
             data: {
-                elevators: elevators,
-                floors: floors
+                elevators: elevatorDtos,
+                floors: floorDtos
             },
             url: "/skyscraper/new",
             success: hookUpAllEvents
