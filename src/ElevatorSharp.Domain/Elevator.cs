@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ElevatorSharp.Domain
 {
-    public sealed class Elevator : IElevator
+    public sealed class Elevator : IElevator, IClientSideTracking
     {
         #region Events
         public event EventHandler Idle;
@@ -15,6 +15,9 @@ namespace ElevatorSharp.Domain
         #region Properties
         public ElevatorDirection DestinationDirection { get; set; }
         public Queue<int> DestinationQueue { get; set; }
+        public int Index { get; }
+        public Queue<int> NewDestinations { get; set; }
+        public Queue<int> JumpQueueDestinations { get; set; }
 
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
@@ -24,10 +27,13 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
-        public Elevator(int maxPassengerCount)
+        public Elevator(int index, int maxPassengerCount)
         {
+            Index = index;
             MaxPassengerCount = maxPassengerCount;
             DestinationQueue = new Queue<int>();
+            NewDestinations = new Queue<int>();
+            JumpQueueDestinations = new Queue<int>();
         }
         #endregion
 
@@ -73,6 +79,7 @@ namespace ElevatorSharp.Domain
             if (!jumpQueue)
             {
                 DestinationQueue.Enqueue(floor);
+                NewDestinations.Enqueue(floor);
             }
             else
             {
@@ -81,6 +88,8 @@ namespace ElevatorSharp.Domain
                 DestinationQueue.Enqueue(floor);
                 foreach (var item in items)
                     DestinationQueue.Enqueue(item);
+
+                JumpQueueDestinations.Enqueue(floor);
             }
         }
 
@@ -101,8 +110,14 @@ namespace ElevatorSharp.Domain
             }
         }
 
+        /// <summary>
+        /// Clear the destination queue and stop the elevator if it is moving. 
+        /// Note that you normally don't need to stop elevators - it is intended for advanced solutions with in-transit rescheduling logic. 
+        /// Also, note that the elevator will probably not stop at a floor, so passengers will not get out.
+        /// </summary>
         public void Stop()
         {
+            // TODO: We need a StopCommand on the controller and we need to communicate this back from here
             throw new NotImplementedException();
         }
         #endregion

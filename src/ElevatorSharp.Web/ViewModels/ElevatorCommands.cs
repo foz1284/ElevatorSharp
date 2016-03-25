@@ -13,19 +13,6 @@ namespace ElevatorSharp.Web.ViewModels
             GoToFloor = new Queue<GoToFloorCommand>();
         }
 
-        public int ElevatorIndex { get; set; }
         public Queue<GoToFloorCommand> GoToFloor { get; set; }
-    }
-
-    public class GoToFloorCommand
-    {
-        public GoToFloorCommand(int floorNumber, bool jumpQueue)
-        {
-            FloorNumber = floorNumber;
-            JumpQueue = jumpQueue;
-        }
-
-        public int FloorNumber { get; set; }
-        public bool JumpQueue { get; set; }
     }
 }

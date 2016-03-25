@@ -9,8 +9,8 @@
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined") {
                     goToFloors.forEach(function (parameters) {
-                        console.log("Elevator " + elevatorCommands.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                        elevators[elevatorCommands.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                        console.log("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
+                        elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                     });
                 }
             };
@@ -78,7 +78,7 @@
                     console.log("Up button pressed on floor " + floor.floorNum());
                     $.ajax({
                         data: {
-                            FloorNumberPressed: floor.floorNum() // TODO: I think we might need to pass all elevator data here
+                            FloorNumber: floor.floorNum() // TODO: I think we might need to pass all elevator data here
                         },
                         url: "/floor/upButtonPressed",
                         success: function (elevatorCommands) {
@@ -96,7 +96,7 @@
                     console.log("Down button pressed on floor " + floor.floorNum());
                     $.ajax({
                         data: {
-                            FloorNumberPressed: floor.floorNum()
+                            FloorNumber: floor.floorNum()
                         },
                         url: "/floor/downButtonPressed",
                         success: function (elevatorCommands) {

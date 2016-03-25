@@ -1,22 +1,50 @@
-﻿namespace ElevatorSharp.Domain
+﻿using System;
+using System.Collections.Generic;
+
+namespace ElevatorSharp.Domain
 {
     public class Floor : IFloor
     {
-        public Floor(int level)
+        #region Events
+        /// <summary>
+        /// Triggered when someone has pressed the up button at a floor. 
+        /// Note that passengers will press the button again if they fail to enter an elevator.
+        /// Maybe tell an elevator to go to this floor?
+        /// </summary>
+        public event EventHandler<IList<Elevator>> UpButtonPressed;
+
+        /// <summary>
+        /// Triggered when someone has pressed the down button at a floor. 
+        /// Note that passengers will press the button again if they fail to enter an elevator.
+        /// Maybe tell an elevator to go to this floor?
+        /// </summary>
+        public event EventHandler DownButtonPressed;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Gets the floor number of the floor object.
+        /// </summary>
+        public int FloorNum { get; }
+        #endregion
+
+        #region Constructors
+        public Floor(int floorNum)
         {
-            Level = level;
+            FloorNum = floorNum;
+        }
+        #endregion
+
+        #region Event Invocators
+        public void OnUpButtonPressed(IList<Elevator> e)
+        {
+            UpButtonPressed?.Invoke(this, e);
         }
 
-        public int Level { get; }
-
-        public void PressDownButton()
+        public void OnDownButtonPressed()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void PressUpButton()
-        {
-            throw new System.NotImplementedException();
-        }
+            DownButtonPressed?.Invoke(this, EventArgs.Empty);
+        } 
+        #endregion
     }
 }

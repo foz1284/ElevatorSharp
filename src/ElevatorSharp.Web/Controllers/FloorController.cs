@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ElevatorSharp.Domain;
+using ElevatorSharp.Web.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
 {
-    public class FloorController : Controller
+    public class FloorController : BaseController
     {
         #region Floor Events
         /// <summary>
@@ -20,8 +22,20 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult UpButtonPressed(FloorDto floorDto)
         {
-            var elevatorCommands = new ElevatorCommands();
+            var skyscraper = SyncSkyscraper(floorDto);
+            var floor = skyscraper.Floors[floorDto.FloorNumber];
+            var elevators = skyscraper.Elevators;
+            foreach (var elevator in elevators)
+            {
+                // We use these two queues to keep track of new destinations so that we can create elevator commands
+                elevator.NewDestinations.Clear();
+                elevator.JumpQueueDestinations.Clear();
+            }
 
+            // This invokes the delegate from IPlayer
+            floor.OnUpButtonPressed(elevators);
+
+            var elevatorCommands = CreateElevatorCommands(floorDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }

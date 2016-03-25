@@ -7,9 +7,26 @@ namespace ElevatorSharp.Domain.Players
     {
         public void Init(IList<Elevator> elevators, IList<Floor> floors)
         {
+            foreach (var elevator in elevators)
+            {
+                elevator.Idle += Elevator_Idle; ;
+                elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+            }
+
+            foreach (var floor in floors)
+            {
+                floor.UpButtonPressed += Floor_UpButtonPressed;
+            }
+        }
+
+        private void Floor_UpButtonPressed(object sender, IList<Elevator> elevators)
+        {
+            var floor = (Floor) sender;
+
+            // Just pick first elevator to start with and go to the floor the button was pressed.
+            // Could check which floor each elevator is currently on and which direction they are travelling?
             var elevator = elevators[0];
-            elevator.Idle += Elevator_Idle; ;
-            elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+            elevator.GoToFloor(floor.FloorNum);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)

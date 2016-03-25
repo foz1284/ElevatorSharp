@@ -7,13 +7,13 @@ namespace ElevatorSharp.Tests
     public class FloorTests
     {
         [Test]
-        public void Level_returns_level_of_floor()
+        public void FloorNum_returns_level_of_floor()
         {
             // Arrange
             IFloor floor = new Floor(1);
 
             // Assert
-            Assert.AreEqual(1, floor.Level);
+            Assert.AreEqual(1, floor.FloorNum);
         }
     }
 }

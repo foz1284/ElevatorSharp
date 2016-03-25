@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using ElevatorSharp.Domain;
+﻿using ElevatorSharp.Domain;
 
-namespace ElevatorSharp.Web.ViewModels
+namespace ElevatorSharp.Web.DataTransferObjects
 {
     public class ElevatorDto
     {

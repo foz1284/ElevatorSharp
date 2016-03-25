@@ -10,7 +10,7 @@ namespace ElevatorSharp.Tests
         public void GoToFloor_queues_elevator_to_go_to_specified_floor_number()
         {
             // Arrange
-            IElevator elevator = new Elevator(5);
+            IElevator elevator = new Elevator(0, 5);
 
             // Act
             elevator.GoToFloor(0);

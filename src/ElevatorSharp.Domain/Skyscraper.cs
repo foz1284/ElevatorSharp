@@ -27,7 +27,7 @@ namespace ElevatorSharp.Domain
             var elevators = new List<Elevator>();
             for (var i = 0; i < elevatorCount; i++)
             {
-                var elevator = new Elevator(maxPassengerCount);
+                var elevator = new Elevator(i, maxPassengerCount);
                 elevators.Add(elevator);
             }
             return elevators;
