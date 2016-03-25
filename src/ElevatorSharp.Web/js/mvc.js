@@ -40,7 +40,6 @@
 
                 // Idle
                 addServerEvent(elevator, "idle", "/elevator/idle", elevatorDto);
-                
 
                 // Floor Button Pressed
                 addServerEvent(elevator, "floor_button_pressed", "/elevator/floorButtonPressed", elevatorDto);
