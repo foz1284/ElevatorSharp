@@ -7,9 +7,21 @@ namespace ElevatorSharp.Domain.Players
     {
         public void Init(IList<Elevator> elevators, IList<Floor> floors)
         {
-            var elevator = elevators[0];
-            elevator.Idle += Elevator_Idle; ;
-            elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+            foreach (var elevator in elevators)
+            {
+                elevator.Idle += Elevator_Idle; ;
+                elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+            }
+
+            foreach (var floor in floors)
+            {
+                floor.UpButtonPressed += Floor_UpButtonPressed;
+            }
+        }
+
+        private void Floor_UpButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
