@@ -6,7 +6,7 @@ namespace ElevatorSharp.Web.ViewModels
     public class ElevatorDto
     {
         public int ElevatorIndex { get; set; }
-        public Queue<int> DestinationQueue { get; set; }
+        public int[] DestinationQueue { get; set; }
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
         public bool GoingDownIndicator { get; set; }
@@ -14,5 +14,8 @@ namespace ElevatorSharp.Web.ViewModels
         public decimal LoadFactor { get; set; }
         public ElevatorDirection DestinationDirection { get; set; }
         public int[] PressedFloors { get; set; }
+        public int FloorNumberPressed { get; set; }
+        public ElevatorDirection Direction { get; set; }
+        public int StoppedAtFloorNumber { get; set; }
     }
 }

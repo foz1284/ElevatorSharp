@@ -64,7 +64,7 @@ namespace ElevatorSharp.Web.Controllers
             skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
             SaveSkyscraper(skyscraper);
 
-            var json = JsonConvert.SerializeObject("Ready."); // TODO: Not needed
+            var json = JsonConvert.SerializeObject("Ready."); // TODO: Not needed, unless you want to pass some UI message back.
             return Content(json, "application/json");
         }
 
@@ -98,7 +98,7 @@ namespace ElevatorSharp.Web.Controllers
             {
                 return (IPlayer)cache.Get("player");
             }
-            return new TestPlayer();
+            return new DevPlayer();
         }
         #endregion  
     }
