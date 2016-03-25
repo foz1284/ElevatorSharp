@@ -98,7 +98,7 @@ namespace ElevatorSharp.Web.Controllers
             {
                 return (IPlayer)cache.Get("player");
             }
-            return new TestPlayer();
+            return new DevPlayer();
         }
         #endregion  
     }
