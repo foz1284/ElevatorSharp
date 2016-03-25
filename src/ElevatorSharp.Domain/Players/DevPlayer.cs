@@ -21,7 +21,8 @@ namespace ElevatorSharp.Domain.Players
 
         private void Floor_UpButtonPressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var floor = (Floor) sender;
+            // TODO: var elevators = e.Elevators; // We need the elevators here because the player needs to decide which elevator to send to this floor.
         }
 
         private void Elevator_Idle(object sender, EventArgs e)

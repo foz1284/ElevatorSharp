@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
 {
-    public class FloorController : Controller
+    public class FloorController : BaseController
     {
         #region Floor Events
         /// <summary>
@@ -20,8 +20,12 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult UpButtonPressed(FloorDto floorDto)
         {
-            var elevatorCommands = new ElevatorCommands();
+            var skyscraper = SyncSkyscraper(floorDto);
 
+            // This invokes the delegate from IPlayer
+            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnFloorButtonPressed(elevatorDto.FloorNumberPressed);
+
+            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }

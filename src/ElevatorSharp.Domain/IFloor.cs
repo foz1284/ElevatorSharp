@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ElevatorSharp.Domain
 {
@@ -9,7 +10,7 @@ namespace ElevatorSharp.Domain
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        event EventHandler UpButtonPressed;
+        event EventHandler<IList<Elevator>> UpButtonPressed;
 
         /// <summary>
         /// Triggered when someone has pressed the down button at a floor. 
