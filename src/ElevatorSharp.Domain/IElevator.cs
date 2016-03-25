@@ -5,10 +5,12 @@ namespace ElevatorSharp.Domain
 {
     public interface IElevator
     {
+        #region Events
         event EventHandler Idle;
         event EventHandler<int> FloorButtonPressed;
         event EventHandler PassingFloor;
-        event EventHandler StoppedAtFloor;
+        event EventHandler StoppedAtFloor; 
+        #endregion
 
         /// <summary>
         /// Queue the elevator to go to specified floor number. 

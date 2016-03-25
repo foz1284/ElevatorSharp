@@ -9,8 +9,8 @@
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined") {
                     goToFloors.forEach(function (parameters) {
-                        console.log("Elevator " + elevatorCommands.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                        elevators[elevatorCommands.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                        console.log("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
+                        elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                     });
                 }
             };

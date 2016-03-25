@@ -1,4 +1,4 @@
-﻿namespace ElevatorSharp.Web.ViewModels
+﻿namespace ElevatorSharp.Web.DataTransferObjects
 {
     public class FloorDto
     {

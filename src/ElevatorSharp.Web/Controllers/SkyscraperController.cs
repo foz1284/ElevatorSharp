@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
 using ElevatorSharp.Domain.Players;
+using ElevatorSharp.Web.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 

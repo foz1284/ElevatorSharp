@@ -172,19 +172,16 @@
     <Compile Include="Controllers\ElevatorController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
     <Compile Include="Controllers\SkyscraperController.cs" />
+    <Compile Include="DataTransferObjects\ElevatorDto.cs" />
+    <Compile Include="DataTransferObjects\FloorDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ElevatorCommands.cs" />
+    <Compile Include="ViewModels\GoToFloorCommand.cs" />
     <Compile Include="ViewModels\SkyscraperIndexViewModel.cs" />
-    <Compile Include="ViewModels\FloorButtonPressedViewModel.cs" />
-    <Compile Include="ViewModels\ElevatorDto.cs" />
-    <Compile Include="ViewModels\PassingFloorViewModel.cs" />
-    <Compile Include="ViewModels\StoppedAtFloorViewModel.cs" />
-    <Compile Include="ViewModels\DownButtonPressedViewModel.cs" />
-    <Compile Include="ViewModels\FloorDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

@@ -5,6 +5,7 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
+using ElevatorSharp.Web.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 
 namespace ElevatorSharp.Web.Controllers
@@ -50,14 +51,20 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         protected static ElevatorCommands CreateElevatorCommands(ElevatorDto elevatorDto, Skyscraper skyscraper)
         {
-            var elevatorCommands = new ElevatorCommands { ElevatorIndex = elevatorDto.ElevatorIndex };
-            var destinationQueue = skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue;
-            while (destinationQueue.Count > 0)
-            {
-                var destination = destinationQueue.Dequeue();
+            var elevatorCommands = new ElevatorCommands();
+            var jumpQueueDestinations = skyscraper.Elevators[elevatorDto.ElevatorIndex].JumpQueueDestinations;
+            var newDestinations = skyscraper.Elevators[elevatorDto.ElevatorIndex].NewDestinations;
 
-                // TODO: does not take JumpQueue into account
-                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
+            while (jumpQueueDestinations.Count > 0)
+            {
+                var destination = jumpQueueDestinations.Dequeue();
+                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevatorDto.ElevatorIndex, destination, true));
+            }
+
+            while (newDestinations.Count > 0)
+            {
+                var destination = newDestinations.Dequeue();
+                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevatorDto.ElevatorIndex, destination, false));
             }
             return elevatorCommands;
         }
@@ -85,19 +92,19 @@ namespace ElevatorSharp.Web.Controllers
         protected static ElevatorCommands CreateElevatorCommands(FloorDto floorDto, Skyscraper skyscraper)
         {
             var elevatorCommands = new ElevatorCommands();
-
-            /* First draft: assuming the destinationQueues of each elevator only contain new destinations (not sure that will work),
-                then loop through each elevator and create a GoToFloor command.
-                TODO: I think we need to add the Elevator index to commands now...
-            */ 
+            
             foreach (var elevator in skyscraper.Elevators)
             {
-                if (elevator.DestinationQueue.Count > 0)
+                if (elevator.JumpQueueDestinations.Count > 0)
                 {
-                    var destination = elevator.DestinationQueue.Dequeue();
+                    var destination = elevator.JumpQueueDestinations.Dequeue();
+                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevator.Index, destination, true));
+                }
 
-                    // TODO: does not take JumpQueue into account
-                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
+                if (elevator.NewDestinations.Count > 0)
+                {
+                    var destination = elevator.NewDestinations.Dequeue();
+                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevator.Index, destination, false));
                 }
             }
 

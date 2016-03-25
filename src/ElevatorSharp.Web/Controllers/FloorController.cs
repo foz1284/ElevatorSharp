@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
+using ElevatorSharp.Web.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -24,6 +25,12 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(floorDto);
             var floor = skyscraper.Floors[floorDto.FloorNumber];
             var elevators = skyscraper.Elevators;
+            foreach (var elevator in elevators)
+            {
+                // We use these two queues to keep track of new destinations so that we can create elevator commands
+                elevator.NewDestinations.Clear();
+                elevator.JumpQueueDestinations.Clear();
+            }
 
             // This invokes the delegate from IPlayer
             floor.OnUpButtonPressed(elevators);
