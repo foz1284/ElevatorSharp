@@ -45,11 +45,11 @@ namespace ElevatorSharp.Web.Controllers
         /// This tells us which floor the passenger wants to go to.
         /// Maybe tell the elevator to go to that floor?
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="elevatorDto"></param>
         /// <returns></returns>
-        public ContentResult FloorButtonPressed(FloorButtonPressedViewModel viewModel)
+        public ContentResult FloorButtonPressed(ElevatorDto elevatorDto)
         {
-            var json = JsonConvert.SerializeObject(viewModel);
+            var json = JsonConvert.SerializeObject(elevatorDto);
             return Content(json, "application/json");
         }
 
@@ -59,11 +59,11 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that this event is not triggered for the destination floor. 
         /// Direction is either "up" or "down".
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="elevatorDto"></param>
         /// <returns></returns>
-        public ContentResult PassingFloor(PassingFloorViewModel viewModel)
+        public ContentResult PassingFloor(ElevatorDto elevatorDto)
         {
-            var json = JsonConvert.SerializeObject(viewModel);
+            var json = JsonConvert.SerializeObject(elevatorDto);
             return Content(json, "application/json");
         }
 
@@ -71,11 +71,11 @@ namespace ElevatorSharp.Web.Controllers
         /// Triggered when the elevator has arrived at a floor.
         /// Maybe decide where to go next?
         /// </summary>
-        /// <param name="viewModel"></param>
+        /// <param name="elevatorDto"></param>
         /// <returns></returns>
-        public ContentResult StoppedAtFloor(StoppedAtFloorViewModel viewModel)
+        public ContentResult StoppedAtFloor(ElevatorDto elevatorDto)
         {
-            var json = JsonConvert.SerializeObject(viewModel);
+            var json = JsonConvert.SerializeObject(elevatorDto);
             return Content(json, "application/json");
         }
         #endregion

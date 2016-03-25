@@ -1,35 +1,54 @@
 ﻿var player =
 {
     init: function (elevators, floors) {
-
+        
         var hookUpAllEvents = function () {
             var elevatorIndex = -1;
-            elevators.forEach(function (elevator) {
-                elevatorIndex++;
-                console.log("ElevatorIndex " + elevatorIndex);
-                elevator.on("idle", function () {
+
+            var addServerEvent = function (object, clientEvent, serverEndpoint, dto) {
+                object.on(clientEvent, function () {
                     $.ajax({
-                        data: {
-                            ElevatorIndex: elevatorIndex,
-                            DestinationQueue: elevator.destinationQueue,
-                            CurrentFloor: elevator.currentFloor,
-                            GoingUpIndicator: elevator.goingUpIndicator,
-                            GoingDownIndicator: elevator.goingDownIndicator,
-                            MaxPassengerCount: elevator.maxPassengerCount,
-                            LoadFactor: elevator.loadFactor,
-                            DestinationDirection: elevator.destinationDirection,
-                            PressedFloors: elevator.getPressedFloors
-                        },
-                        url: "/elevator/idle",
+                        data: dto,
+                        url: serverEndpoint,
                         success: function (elevatorCommands) {
                             var goToFloors = elevatorCommands.GoToFloor;
                             goToFloors.forEach(function (parameters) {
                                 console.log(parameters.FloorNumber);
-                                elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                                elevators[dto.elevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                             });
                         }
                     });
                 });
+            };
+
+            elevators.forEach(function (elevator) {
+                
+                elevatorIndex++;
+                console.log("ElevatorIndex " + elevatorIndex);
+
+                var elevatorDto = {
+                    ElevatorIndex: elevatorIndex,
+                    DestinationQueue: elevator.destinationQueue,
+                    CurrentFloor: elevator.currentFloor,
+                    GoingUpIndicator: elevator.goingUpIndicator,
+                    GoingDownIndicator: elevator.goingDownIndicator,
+                    MaxPassengerCount: elevator.maxPassengerCount,
+                    LoadFactor: elevator.loadFactor,
+                    DestinationDirection: elevator.destinationDirection,
+                    PressedFloors: elevator.getPressedFloors
+                }
+
+                // Idle
+                addServerEvent(elevator, "idle", "/elevator/idle", elevatorDto);
+
+                // Floor Button Pressed
+                addServerEvent(elevator, "floor_button_pressed", "/elevator/floorButtonPressed", elevatorDto);
+
+                // Passing Floor
+                addServerEvent(elevator, "passing_floor", "/elevator/passingFloor", elevatorDto);
+
+                // Stopped At Floor
+                addServerEvent(elevator, "stopped_at_floor", "/elevator/stoppedAtFloor", elevatorDto);
             });
 
             floors.forEach(function (floor) {
@@ -72,8 +91,9 @@
         };
 
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
-        var elevatorDtos = [{ ElevatorIndex: 1, CurrentFloor: 0 }, { ElevatorIndex: 1, CurrentFloor: 0 }];
-        var floorDtos = [{ FloorNumberPressed: 1 }, { FloorNumberPressed: 2 }];
+        // But, we only need a subset of properties to create the skyscraper. We don't need currentFloor, floorNumberPressed etc.
+        var elevatorDtos = [{ ElevatorIndex: 1, CurrentFloor: 0 }, { ElevatorIndex: 1, CurrentFloor: 0 }]; // TODO: create array for all elevators
+        var floorDtos = [{ FloorNumberPressed: 1 }, { FloorNumberPressed: 2 }]; // TODO: create array
         $.ajax({
             data: {
                 elevators: elevatorDtos,
