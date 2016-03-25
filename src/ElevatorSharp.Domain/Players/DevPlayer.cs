@@ -25,8 +25,12 @@ namespace ElevatorSharp.Domain.Players
         {
             var elevator = (Elevator)sender;
 
-            // Go to the floor this passenger wants to go
-            elevator.GoToFloor(e);
+            // Check if we're not already going to that floor
+            if (!elevator.DestinationQueue.Contains(e))
+            {
+                // Go to the floor this passenger wants to go
+                elevator.GoToFloor(e);
+            }
         }
 
         
