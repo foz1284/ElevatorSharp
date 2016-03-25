@@ -17,7 +17,7 @@ namespace ElevatorSharp.Domain
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        event EventHandler DownButtonPressed;
+        event EventHandler<IList<Elevator>> DownButtonPressed;
 
         /// <summary>
         /// Gets the floor number of the floor object.
