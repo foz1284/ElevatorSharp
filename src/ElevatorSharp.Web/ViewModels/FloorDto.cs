@@ -2,6 +2,6 @@
 {
     public class FloorDto
     {
-        public int FloorNumberPressed { get; set; }
+        public int FloorNumber { get; set; }
     }
 }

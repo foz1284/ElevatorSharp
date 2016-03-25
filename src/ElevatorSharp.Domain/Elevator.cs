@@ -72,6 +72,8 @@ namespace ElevatorSharp.Domain
         {
             if (!jumpQueue)
             {
+                // TODO: Might need to add to another queue so that we know which ones have been added
+                // So maybe a NewDestinations and a JumpQueueDestinations ... yes I think that will work
                 DestinationQueue.Enqueue(floor);
             }
             else

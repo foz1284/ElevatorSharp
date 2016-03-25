@@ -19,10 +19,14 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
-        private void Floor_UpButtonPressed(object sender, EventArgs e)
+        private void Floor_UpButtonPressed(object sender, IList<Elevator> elevators)
         {
             var floor = (Floor) sender;
-            // TODO: var elevators = e.Elevators; // We need the elevators here because the player needs to decide which elevator to send to this floor.
+
+            // Just pick first elevator to start with and go to the floor the button was pressed.
+            // Could check which floor each elevator is currently on and which direction they are travelling?
+            var elevator = elevators[0];
+            elevator.GoToFloor(floor.FloorNum);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)

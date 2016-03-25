@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ElevatorSharp.Domain;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -21,11 +22,13 @@ namespace ElevatorSharp.Web.Controllers
         public ContentResult UpButtonPressed(FloorDto floorDto)
         {
             var skyscraper = SyncSkyscraper(floorDto);
+            var floor = skyscraper.Floors[floorDto.FloorNumber];
+            var elevators = skyscraper.Elevators;
 
             // This invokes the delegate from IPlayer
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnFloorButtonPressed(elevatorDto.FloorNumberPressed);
+            floor.OnUpButtonPressed(elevators);
 
-            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
+            var elevatorCommands = CreateElevatorCommands(floorDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }

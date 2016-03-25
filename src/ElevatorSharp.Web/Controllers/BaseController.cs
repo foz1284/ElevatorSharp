@@ -61,6 +61,48 @@ namespace ElevatorSharp.Web.Controllers
             }
             return elevatorCommands;
         }
+
+        /// <summary>
+        /// Transfer all required data from client.
+        /// </summary>
+        /// <param name="floorDto"></param>
+        /// <returns></returns>
+        protected static Skyscraper SyncSkyscraper(FloorDto floorDto)
+        {
+            var skyscraper = LoadSkyscraper();
+
+            // TODO: What do we need to sync here? Elevators?
+            
+            return skyscraper;
+        }
+
+        /// <summary>
+        /// Use ElevatorCommands for sending back to client.
+        /// </summary>
+        /// <param name="floorDto"></param>
+        /// <param name="skyscraper"></param>
+        /// <returns></returns>
+        protected static ElevatorCommands CreateElevatorCommands(FloorDto floorDto, Skyscraper skyscraper)
+        {
+            var elevatorCommands = new ElevatorCommands();
+
+            /* First draft: assuming the destinationQueues of each elevator only contain new destinations (not sure that will work),
+                then loop through each elevator and create a GoToFloor command.
+                TODO: I think we need to add the Elevator index to commands now...
+            */ 
+            foreach (var elevator in skyscraper.Elevators)
+            {
+                if (elevator.DestinationQueue.Count > 0)
+                {
+                    var destination = elevator.DestinationQueue.Dequeue();
+
+                    // TODO: does not take JumpQueue into account
+                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
+                }
+            }
+
+            return elevatorCommands;
+        }
         #endregion
     }
 }

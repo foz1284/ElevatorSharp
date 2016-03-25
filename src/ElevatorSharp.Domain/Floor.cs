@@ -36,17 +36,15 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Event Invocators
-        protected virtual void OnUpButtonPressed(IList<Elevator> e)
+        public void OnUpButtonPressed(IList<Elevator> e)
         {
             UpButtonPressed?.Invoke(this, e);
         }
 
-        protected virtual void OnDownButtonPressed()
+        public void OnDownButtonPressed()
         {
             DownButtonPressed?.Invoke(this, EventArgs.Empty);
         } 
         #endregion
-
-        
     }
 }
