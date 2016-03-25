@@ -7,10 +7,12 @@
 
             var executeElevatorCommands = function (elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
-                goToFloors.forEach(function (parameters) {
-                    console.log("Elevator " + elevatorCommands.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                    elevators[elevatorCommands.elevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-                });
+                if (typeof goToFloors !== "undefined") {
+                    goToFloors.forEach(function (parameters) {
+                        console.log("Elevator " + elevatorCommands.ElevatorIndex + " go to floor " + parameters.FloorNumber);
+                        elevators[elevatorCommands.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                    });
+                }
             };
 
             elevators.forEach(function (elevator) {

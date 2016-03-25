@@ -99,8 +99,11 @@ namespace ElevatorSharp.Web.Controllers
             skyscraper.Elevators[elevatorDto.ElevatorIndex].PressedFloors = elevatorDto.PressedFloors;
 
             skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue.Clear();
-            foreach (var floor in elevatorDto.DestinationQueue)
-                skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue.Enqueue(floor);
+            if (elevatorDto.DestinationQueue != null)
+            {
+                foreach (var floor in elevatorDto.DestinationQueue)
+                    skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue.Enqueue(floor); 
+            }
             
             return skyscraper;
         }
