@@ -36,7 +36,7 @@ namespace ElevatorSharp.Domain
         public List<Floor> CreateFloors(int floorCount)
         {
             var floors = new List<Floor>();
-            for (var j = 0; j < floorCount; j++)
+            for (var j = 0; j <= floorCount; j++)
             {
                 var floor = new Floor(j);
                 floors.Add(floor);
