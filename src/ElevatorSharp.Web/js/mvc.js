@@ -85,7 +85,7 @@
                             var goToFloors = elevatorCommands.GoToFloor; // NOTE: and we are still receiving elevatorCommands, because there are no commands on Floor
                             goToFloors.forEach(function (parameters) {
                                 console.log(parameters.FloorNumber);
-                                //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                                elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                             });
                             console.log(elevatorCommands);
                         }
@@ -103,7 +103,7 @@
                             var goToFloors = elevatorCommands.GoToFloor;
                             goToFloors.forEach(function (parameters) {
                                 console.log(parameters.FloorNumber);
-                                //elevator.goToFloor(parameters.FloorNumber, parameters.JumpQueue);
+                                elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                             });
                             console.log(elevatorCommands);
                         }

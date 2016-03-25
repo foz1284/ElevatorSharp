@@ -16,7 +16,18 @@ namespace ElevatorSharp.Domain.Players
             foreach (var floor in floors)
             {
                 floor.UpButtonPressed += Floor_UpButtonPressed;
+                floor.DownButtonPressed += Floor_DownButtonPressed;
             }
+        }
+
+        private void Floor_DownButtonPressed(object sender, IList<Elevator> elevators)
+        {
+            var floor = (Floor)sender;
+
+            // Just pick first elevator to start with and go to the floor the button was pressed.
+            // Could check which floor each elevator is currently on and which direction they are travelling?
+            var elevator = elevators[0];
+            elevator.GoToFloor(floor.FloorNum);
         }
 
         private void Floor_UpButtonPressed(object sender, IList<Elevator> elevators)

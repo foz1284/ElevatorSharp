@@ -18,7 +18,7 @@ namespace ElevatorSharp.Domain
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        public event EventHandler DownButtonPressed;
+        public event EventHandler<IList<Elevator>> DownButtonPressed;
         #endregion
 
         #region Properties
@@ -41,9 +41,9 @@ namespace ElevatorSharp.Domain
             UpButtonPressed?.Invoke(this, e);
         }
 
-        public void OnDownButtonPressed()
+        public void OnDownButtonPressed(IList<Elevator> e)
         {
-            DownButtonPressed?.Invoke(this, EventArgs.Empty);
+            DownButtonPressed?.Invoke(this, e);
         } 
         #endregion
     }
