@@ -14,5 +14,8 @@ namespace ElevatorSharp.Web.ViewModels
         public decimal LoadFactor { get; set; }
         public ElevatorDirection DestinationDirection { get; set; }
         public int[] PressedFloors { get; set; }
+        public int FloorNumberPressed { get; set; }
+        public ElevatorDirection Direction { get; set; }
+        public int StoppedAtFloorNumber { get; set; }
     }
 }

@@ -5,19 +5,11 @@
         var hookUpAllEvents = function () {
             var elevatorIndex = -1;
 
-            var addServerEvent = function (object, clientEvent, serverEndpoint, dto) {
-                object.on(clientEvent, function () {
-                    $.ajax({
-                        data: dto,
-                        url: serverEndpoint,
-                        success: function (elevatorCommands) {
-                            var goToFloors = elevatorCommands.GoToFloor;
-                            goToFloors.forEach(function (parameters) {
-                                console.log(parameters.FloorNumber);
-                                elevators[dto.elevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-                            });
-                        }
-                    });
+            var executeElevatorCommands = function (elevatorCommands) {
+                var goToFloors = elevatorCommands.GoToFloor;
+                goToFloors.forEach(function (parameters) {
+                    console.log("Elevator " + elevatorCommands.ElevatorIndex + " go to floor " + parameters.FloorNumber);
+                    elevators[elevatorCommands.elevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                 });
             };
 
@@ -39,16 +31,44 @@
                 }
 
                 // Idle
-                addServerEvent(elevator, "idle", "/elevator/idle", elevatorDto);
+                elevator.on("idle", function () {
+                    $.ajax({
+                        data: elevatorDto,
+                        url: "/elevator/idle",
+                        success: executeElevatorCommands
+                    });
+                });
 
                 // Floor Button Pressed
-                addServerEvent(elevator, "floor_button_pressed", "/elevator/floorButtonPressed", elevatorDto);
+                elevator.on("floor_button_pressed", function (floorNum) {
+                    elevatorDto.FloorNumberPressed = floorNum;
+                    $.ajax({
+                        data: elevatorDto,
+                        url: "/elevator/floorButtonPressed",
+                        success: executeElevatorCommands
+                    });
+                });
 
                 // Passing Floor
-                addServerEvent(elevator, "passing_floor", "/elevator/passingFloor", elevatorDto);
+                elevator.on("passing_floor", function (floorNum, direction) {
+                    elevatorDto.FloorNumberPressed = floorNum;
+                    elevatorDto.Direction = direction;
+                    $.ajax({
+                        data: elevatorDto,
+                        url: "/elevator/passingFloor",
+                        success: executeElevatorCommands
+                    });
+                });
 
                 // Stopped At Floor
-                addServerEvent(elevator, "stopped_at_floor", "/elevator/stoppedAtFloor", elevatorDto);
+                elevator.on("stopped_at_floor", function (floorNum) {
+                    elevatorDto.StoppedAtFloorNumber = floorNum;
+                    $.ajax({
+                        data: elevatorDto,
+                        url: "/elevator/stoppedAtFloor",
+                        success: executeElevatorCommands
+                    });
+                });
             });
 
             floors.forEach(function (floor) {

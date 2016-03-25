@@ -21,21 +21,12 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult Idle(ElevatorDto elevatorDto)
         {
-            var skyscraper = LoadSkyscraper();
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].PressedFloors = elevatorDto.PressedFloors;
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnIdle(); // This invoke the delegate from IPlayer
-            
-            // Use ElevatorCommands for sending back to client
-            var elevatorCommands = new ElevatorCommands();
-            var destinationQueue = skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue;
-            while (destinationQueue.Count > 0)
-            {
-                var destination = destinationQueue.Dequeue();
+            var skyscraper = SyncSkyscraper(elevatorDto);
 
-                // TODO: does not take JumpQueue into account
-                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
-            }
+            // This invokes the delegate from IPlayer
+            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnIdle(); 
 
+            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -49,7 +40,13 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult FloorButtonPressed(ElevatorDto elevatorDto)
         {
-            var json = JsonConvert.SerializeObject(elevatorDto);
+            var skyscraper = SyncSkyscraper(elevatorDto);
+
+            // This invokes the delegate from IPlayer
+            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnFloorButtonPressed(elevatorDto.FloorNumberPressed);
+
+            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
 
@@ -89,7 +86,39 @@ namespace ElevatorSharp.Web.Controllers
                 return (Skyscraper)cache.Get("skyscraper");
             }
             return null;
-        } 
+        }
+
+        /// <summary>
+        /// Transfer all required data from client.
+        /// </summary>
+        /// <param name="elevatorDto"></param>
+        /// <returns></returns>
+        private static Skyscraper SyncSkyscraper(ElevatorDto elevatorDto)
+        {
+            var skyscraper = LoadSkyscraper();
+            skyscraper.Elevators[elevatorDto.ElevatorIndex].PressedFloors = elevatorDto.PressedFloors;
+            return skyscraper;
+        }
+
+        /// <summary>
+        /// Use ElevatorCommands for sending back to client.
+        /// </summary>
+        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraper"></param>
+        /// <returns></returns>
+        private static ElevatorCommands CreateElevatorCommands(ElevatorDto elevatorDto, Skyscraper skyscraper)
+        {
+            var elevatorCommands = new ElevatorCommands { ElevatorIndex = elevatorDto.ElevatorIndex };
+            var destinationQueue = skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue;
+            while (destinationQueue.Count > 0)
+            {
+                var destination = destinationQueue.Dequeue();
+
+                // TODO: does not take JumpQueue into account
+                elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(destination, false));
+            }
+            return elevatorCommands;
+        }
         #endregion
     }
 }

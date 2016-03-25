@@ -13,6 +13,7 @@ namespace ElevatorSharp.Web.ViewModels
             GoToFloor = new Queue<GoToFloorCommand>();
         }
 
+        public int ElevatorIndex { get; set; }
         public Queue<GoToFloorCommand> GoToFloor { get; set; }
     }
 
