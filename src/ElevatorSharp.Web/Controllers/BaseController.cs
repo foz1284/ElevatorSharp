@@ -26,38 +26,8 @@ namespace ElevatorSharp.Web.Controllers
         /// <summary>
         /// Transfer all required data from client.
         /// </summary>
-        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        protected static Skyscraper SyncSkyscraper(ElevatorDto elevatorDto)
-        {
-            var skyscraper = LoadSkyscraper();
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].PressedFloors = elevatorDto.PressedFloors;
-
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue.Clear();
-            if (elevatorDto.DestinationQueue != null)
-            {
-                foreach (var floor in elevatorDto.DestinationQueue)
-                    skyscraper.Elevators[elevatorDto.ElevatorIndex].DestinationQueue.Enqueue(floor);
-            }
-
-            return skyscraper;
-        }
-
-        /// <summary>
-        /// Transfer all required data from client.
-        /// </summary>
-        /// <param name="floorDto"></param>
-        /// <returns></returns>
-        protected static Skyscraper SyncSkyscraper(FloorDto floorDto)
-        {
-            var skyscraper = LoadSkyscraper();
-
-            // TODO: What do we need to sync here? Elevators?
-
-            return skyscraper;
-        }
-
-        // Trying to abstract SyncSkyscraper so we don't need two overloads for different dtos
         protected static Skyscraper SyncSkyscraper(SkyscraperDto skyscraperDto)
         {
             var skyscraper = LoadSkyscraper();
@@ -102,35 +72,6 @@ namespace ElevatorSharp.Web.Controllers
             var destination = queue.Dequeue();
             var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, true);
             elevatorCommands.GoToFloor.Enqueue(goToFloorCommand);
-        }
-
-
-        /// <summary>
-        /// Use ElevatorCommands for sending back to client.
-        /// </summary>
-        /// <param name="floorDto"></param>
-        /// <param name="skyscraper"></param>
-        /// <returns></returns>
-        protected static ElevatorCommands CreateElevatorCommands(FloorDto floorDto, Skyscraper skyscraper)
-        {
-            var elevatorCommands = new ElevatorCommands();
-            
-            foreach (var elevator in skyscraper.Elevators)
-            {
-                if (elevator.JumpQueueDestinations.Count > 0)
-                {
-                    var destination = elevator.JumpQueueDestinations.Dequeue();
-                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevator.Index, destination, true));
-                }
-
-                if (elevator.NewDestinations.Count > 0)
-                {
-                    var destination = elevator.NewDestinations.Dequeue();
-                    elevatorCommands.GoToFloor.Enqueue(new GoToFloorCommand(elevator.Index, destination, false));
-                }
-            }
-
-            return elevatorCommands;
         }
         #endregion
     }
