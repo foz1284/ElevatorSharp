@@ -45,10 +45,15 @@
             function executeElevatorCommands(elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined" && goToFloors != null) {
-                    goToFloors.forEach(function (parameters) {
-                        console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                        elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-                    });
+                    for (var i = goToFloors.length-1; i >= 0; i--) {
+                        var goToFloor = goToFloors[i];
+                        var jumpQueueDebugMessage = "";
+                        if (goToFloor.JumpQueue) {
+                            jumpQueueDebugMessage = " and jump the queue.";
+                        }
+                        console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber);
+                        elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
+                    }
                 }
             };
 

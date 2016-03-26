@@ -9,8 +9,8 @@ namespace ElevatorSharp.Web.ViewModels
             JumpQueue = jumpQueue;
         }
 
-        public int ElevatorIndex { get; set; }
-        public bool JumpQueue { get; set; }
-        public int FloorNumber { get; set; }
+        public int ElevatorIndex { get; }
+        public bool JumpQueue { get; }
+        public int FloorNumber { get; }
     }
 }
