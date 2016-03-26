@@ -114,8 +114,26 @@
 
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
         // But, we only need a subset of properties to create the skyscraper. We don't need currentFloor, floorNumberPressed etc.
-        var elevatorDtos = [{ ElevatorIndex: 1, CurrentFloor: 0 }, { ElevatorIndex: 1, CurrentFloor: 0 }]; // TODO: create array for all elevators
-        var floorDtos = [{ FloorNumberPressed: 1 }, { FloorNumberPressed: 2 }]; // TODO: create array
+        var elevatorDtos = [];
+        var elevatorIndex = -1;
+        elevators.forEach(function(elevator) {
+            elevatorIndex++;
+            elevatorDtos[elevatorIndex] = {
+                ElevatorIndex: elevatorIndex,
+                MaxPassengerCount: elevator.maxPassengerCount,
+                LoadFactor: elevator.loadFactor
+            }
+        });
+
+        var floorDtos = [];
+        var floorNumber = -1;
+        floors.forEach(function(floor) {
+            floorNumber++;
+            floorDtos[floorNumber] = {
+                FloorNumber: floorNumber
+            }
+        });
+
         $.ajax({
             data: {
                 elevators: elevatorDtos,
