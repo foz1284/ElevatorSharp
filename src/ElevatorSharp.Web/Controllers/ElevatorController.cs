@@ -73,7 +73,13 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult StoppedAtFloor(ElevatorDto elevatorDto)
         {
-            var json = JsonConvert.SerializeObject(elevatorDto);
+            var skyscraper = SyncSkyscraper(elevatorDto);
+
+            // This invokes the delegate from IPlayer
+            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnStoppedAtFloor();
+
+            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
         #endregion

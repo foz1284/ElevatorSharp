@@ -1,9 +1,46 @@
 ﻿var player =
 {
     init: function (elevators, floors) {
-        
+
+        var createElevatorDtos = function(e) {
+            var dto = [];
+            for (var ei = 0; ei < e.length; ei++) {
+                dto[ei] = {
+                    ElevatorIndex: ei,
+                    DestinationQueue: e.destinationQueue,
+                    CurrentFloor: e.currentFloor,
+                    GoingUpIndicator: e.goingUpIndicator,
+                    GoingDownIndicator: e.goingDownIndicator,
+                    MaxPassengerCount: e[ei].maxPassengerCount,
+                    LoadFactor: e[ei].loadFactor,
+                    DestinationDirection: e.destinationDirection,
+                    PressedFloors: e.getPressedFloors
+                }
+            }
+            return dto;
+        };
+
+        var createFloorDtos = function(f) {
+            var dto = [];
+            for (var j = 0; j < f.length; j++) {
+                dto[j] = {
+                    FloorNumber: f[j].floorNum
+                }
+            }
+            return dto;
+        };
+
+        var createSkyscraperDto = function() {
+            var elevatorDtos = createElevatorDtos(elevators);
+            var floorDtos = createFloorDtos(floors);
+            var dto = {
+                Elevators: elevatorDtos,
+                Floors: floorDtos
+            }
+            return dto;
+        };
+
         var hookUpAllEvents = function () {
-            var elevatorIndex = -1;
 
             var executeElevatorCommands = function (elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
@@ -15,6 +52,7 @@
                 }
             };
 
+            var elevatorIndex = -1;
             elevators.forEach(function (elevator) {
                 
                 elevatorIndex++;
@@ -117,27 +155,11 @@
         };
 
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
-        // But, we only need a subset of properties to create the skyscraper. We don't need currentFloor, floorNumberPressed etc.
-        var elevatorDtos = [];
-        for (var i = 0; i < elevators.length; i++) {
-            elevatorDtos[i] = {
-                ElevatorIndex: i,
-                MaxPassengerCount: elevators[i].maxPassengerCount,
-                LoadFactor: elevators[i].loadFactor
-            }
-        }
-
-        var floorDtos = [];
-        for (var j = 0; j < floors.length; j++) {
-            floorDtos[j] = {
-                FloorNumber: floors[j].floorNum
-            }
-        }
+        var skyscraperDto = createSkyscraperDto();
 
         $.ajax({
             data: {
-                elevators: elevatorDtos,
-                floors: floorDtos
+                SkyscraperDto: skyscraperDto
             },
             url: "/skyscraper/new",
             success: hookUpAllEvents
