@@ -42,7 +42,7 @@
 
         var hookUpAllEvents = function () {
 
-            var executeElevatorCommands = function (elevatorCommands) {
+            function executeElevatorCommands(elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined" && goToFloors != null) {
                     goToFloors.forEach(function (parameters) {
@@ -57,12 +57,11 @@
                 
                 elevatorIndex++;
 
-                var dto = createSkyscraperDto();
-                dto.EventRaisedElevatorIndex = elevatorIndex;
-
                 // Idle
                 elevator.on("idle", function () {
                     console.debug("Elevator " + elevatorIndex + " is idle.");
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedElevatorIndex = elevatorIndex;
                     $.ajax({
                         data: dto,
                         url: "/elevator/idle",
@@ -73,6 +72,8 @@
                 // Floor Button Pressed
                 elevator.on("floor_button_pressed", function (floorNum) {
                     console.debug("Elevator " + elevatorIndex + " floor button " + floorNum + " pressed.");
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     $.ajax({
                         data: dto,
@@ -84,6 +85,8 @@
                 // Passing Floor
                 elevator.on("passing_floor", function (floorNum, direction) {
                     console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     dto.Elevators[elevatorIndex].Direction = direction;
                     $.ajax({
@@ -96,6 +99,8 @@
                 // Stopped At Floor
                 elevator.on("stopped_at_floor", function (floorNum) {
                     console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].StoppedAtFloorNumber = floorNum;
                     $.ajax({
                         data: dto,
@@ -107,11 +112,10 @@
 
             floors.forEach(function (floor) {
 
-                var dto = createSkyscraperDto();
-                dto.EventRaisedFloorNumber = floor.floorNum;
-
                 floor.on("up_button_pressed", function () {
                     console.debug("Up button pressed on floor " + floor.floorNum());
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedFloorNumber = floor.floorNum;
                     $.ajax({
                         data: dto,
                         url: "/floor/upButtonPressed",
@@ -121,6 +125,8 @@
 
                 floor.on("down_button_pressed", function () {
                     console.debug("Down button pressed on floor " + floor.floorNum());
+                    var dto = createSkyscraperDto();
+                    dto.EventRaisedFloorNumber = floor.floorNum;
                     $.ajax({
                         data: dto,
                         url: "/floor/downButtonPressed",
@@ -131,10 +137,10 @@
         };
 
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
-        var dto = createSkyscraperDto();
+        var skyscraperDto = createSkyscraperDto();
 
         $.ajax({
-            data: dto,
+            data: skyscraperDto,
             url: "/skyscraper/new",
             success: hookUpAllEvents
         });
