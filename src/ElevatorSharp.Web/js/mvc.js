@@ -58,23 +58,14 @@
                 elevatorIndex++;
                 console.debug("ElevatorIndex " + elevatorIndex);
 
-                var elevatorDto = {
-                    ElevatorIndex: elevatorIndex,
-                    DestinationQueue: elevator.destinationQueue,
-                    CurrentFloor: elevator.currentFloor,
-                    GoingUpIndicator: elevator.goingUpIndicator,
-                    GoingDownIndicator: elevator.goingDownIndicator,
-                    MaxPassengerCount: elevator.maxPassengerCount,
-                    LoadFactor: elevator.loadFactor,
-                    DestinationDirection: elevator.destinationDirection,
-                    PressedFloors: elevator.getPressedFloors
-                }
+                var dto = createSkyscraperDto();
+                dto.EventRaisedElevatorIndex = elevatorIndex;
 
                 // Idle
                 elevator.on("idle", function () {
                     console.debug("Elevator " + elevatorIndex + " is idle.");
                     $.ajax({
-                        data: elevatorDto,
+                        data: dto,
                         url: "/elevator/idle",
                         success: executeElevatorCommands
                     });
@@ -83,9 +74,9 @@
                 // Floor Button Pressed
                 elevator.on("floor_button_pressed", function (floorNum) {
                     console.debug("Elevator " + elevatorIndex + " floor button pressed.");
-                    elevatorDto.FloorNumberPressed = floorNum;
+                    dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     $.ajax({
-                        data: elevatorDto,
+                        data: dto,
                         url: "/elevator/floorButtonPressed",
                         success: executeElevatorCommands
                     });
@@ -94,10 +85,10 @@
                 // Passing Floor
                 elevator.on("passing_floor", function (floorNum, direction) {
                     console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
-                    elevatorDto.FloorNumberPressed = floorNum;
-                    elevatorDto.Direction = direction;
+                    dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
+                    dto.Elevators[elevatorIndex].Direction = direction;
                     $.ajax({
-                        data: elevatorDto,
+                        data: dto,
                         url: "/elevator/passingFloor",
                         success: executeElevatorCommands
                     });
@@ -106,9 +97,9 @@
                 // Stopped At Floor
                 elevator.on("stopped_at_floor", function (floorNum) {
                     console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
-                    elevatorDto.StoppedAtFloorNumber = floorNum;
+                    dto.Elevators[elevatorIndex].StoppedAtFloorNumber = floorNum;
                     $.ajax({
-                        data: elevatorDto,
+                        data: dto,
                         url: "/elevator/stoppedAtFloor",
                         success: executeElevatorCommands
                     });
@@ -116,39 +107,25 @@
             });
 
             floors.forEach(function (floor) {
+
+                var dto = createSkyscraperDto();
+                dto.EventRaisedFloorNumber = floor.floorNum;
+
                 floor.on("up_button_pressed", function () {
                     console.debug("Up button pressed on floor " + floor.floorNum());
                     $.ajax({
-                        data: {
-                            FloorNumber: floor.floorNum() 
-                        },
+                        data: dto,
                         url: "/floor/upButtonPressed",
-                        success: function (elevatorCommands) {
-                            var goToFloors = elevatorCommands.GoToFloor; 
-                            goToFloors.forEach(function (parameters) {
-                                console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                                elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-                            });
-                            console.debug(elevatorCommands);
-                        }
+                        success: executeElevatorCommands
                     });
                 });
 
                 floor.on("down_button_pressed", function () {
                     console.debug("Down button pressed on floor " + floor.floorNum());
                     $.ajax({
-                        data: {
-                            FloorNumber: floor.floorNum()
-                        },
+                        data: dto,
                         url: "/floor/downButtonPressed",
-                        success: function (elevatorCommands) {
-                            var goToFloors = elevatorCommands.GoToFloor;
-                            goToFloors.forEach(function (parameters) {
-                                console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
-                                elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
-                            });
-                            console.debug(elevatorCommands);
-                        }
+                        success: executeElevatorCommands
                     });
                 });
             });
