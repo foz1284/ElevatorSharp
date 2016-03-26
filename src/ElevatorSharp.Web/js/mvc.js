@@ -42,7 +42,7 @@
 
         var hookUpAllEvents = function () {
 
-            function executeElevatorCommands(elevatorCommands) {
+            var executeElevatorCommands = function (elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined" && goToFloors != null) {
                     for (var i = goToFloors.length-1; i >= 0; i--) {
