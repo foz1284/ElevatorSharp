@@ -15,7 +15,7 @@
                     LoadFactor: e[ei].loadFactor,
                     DestinationDirection: e.destinationDirection,
                     PressedFloors: e.getPressedFloors
-                }
+            }
             }
             return dto;
         };
@@ -33,7 +33,7 @@
         var createSkyscraperDto = function() {
             var elevatorDtos = createElevatorDtos(elevators);
             var floorDtos = createFloorDtos(floors);
-            var dto = {
+            var dto = { 
                 Elevators: elevatorDtos,
                 Floors: floorDtos
             }
@@ -68,6 +68,7 @@
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/elevator/idle",
                         success: executeElevatorCommands
@@ -81,6 +82,7 @@
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/elevator/floorButtonPressed",
                         success: executeElevatorCommands
@@ -95,6 +97,7 @@
                     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     dto.Elevators[elevatorIndex].Direction = direction;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/elevator/passingFloor",
                         success: executeElevatorCommands
@@ -108,6 +111,7 @@
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].StoppedAtFloorNumber = floorNum;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/elevator/stoppedAtFloor",
                         success: executeElevatorCommands
@@ -122,6 +126,7 @@
                     var dto = createSkyscraperDto();
                     dto.EventRaisedFloorNumber = floor.floorNum;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/floor/upButtonPressed",
                         success: executeElevatorCommands
@@ -133,6 +138,7 @@
                     var dto = createSkyscraperDto();
                     dto.EventRaisedFloorNumber = floor.floorNum;
                     $.ajax({
+                        type: "POST",
                         data: dto,
                         url: "/floor/downButtonPressed",
                         success: executeElevatorCommands
@@ -145,6 +151,7 @@
         var skyscraperDto = createSkyscraperDto();
 
         $.ajax({
+            type: "POST",
             data: skyscraperDto,
             url: "/skyscraper/new",
             success: hookUpAllEvents

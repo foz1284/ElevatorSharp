@@ -31,7 +31,7 @@ namespace ElevatorSharp.Web.Controllers
         protected static Skyscraper SyncSkyscraper(SkyscraperDto skyscraperDto)
         {
             var skyscraper = LoadSkyscraper();
-            for (var i = 0; i < skyscraperDto.Elevators.Length; i++)
+            for (var i = 0; i < skyscraperDto.Elevators.Count; i++)
             {
                 skyscraper.Elevators[i].PressedFloors = skyscraperDto.Elevators[i].PressedFloors;
                 skyscraper.Elevators[i].DestinationQueue.Clear();
