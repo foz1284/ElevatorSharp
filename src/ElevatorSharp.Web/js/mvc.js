@@ -129,8 +129,8 @@
         var floorNumber = -1;
         floors.forEach(function(floor) {
             floorNumber++;
-            floorDtos[floorNumber] = {
-                FloorNumber: floorNumber
+            floorDtos[floor.floorNum] = {
+                FloorNumber: floor.floorNum
             }
         });
 
