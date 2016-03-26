@@ -26,10 +26,9 @@ namespace ElevatorSharp.Domain
             }
 
             Floors = new List<IFloor>();
-            foreach (var floorDto in skyscraperDto.Floors)
+            for (var i = 0; i < skyscraperDto.Floors.Length; i++)
             {
-                var floor = new Floor(floorDto.FloorNumber);
-                Floors.Add(floor);
+                Floors.Add(new Floor(i));
             }
         }
         #endregion

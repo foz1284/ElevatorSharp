@@ -26,8 +26,8 @@ namespace ElevatorSharp.Domain.Players
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            //var elevator = elevators[0];
-            //elevator.GoToFloor(floor.FloorNum);
+            var elevator = elevators[0];
+            elevator.GoToFloor(floor.FloorNum);
         }
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
@@ -36,17 +36,17 @@ namespace ElevatorSharp.Domain.Players
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            //var elevator = elevators[0];
-            //elevator.GoToFloor(floor.FloorNum);
+            var elevator = elevators[0];
+            elevator.GoToFloor(floor.FloorNum);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
         {
             var elevator = (Elevator)sender;
 
-            elevator.GoToFloor(0);
-            elevator.GoToFloor(1);
-            elevator.GoToFloor(2);
+            //elevator.GoToFloor(0);
+            //elevator.GoToFloor(1);
+            //elevator.GoToFloor(2);
         }
 
         private void Elevator_FloorButtonPressed(object sender, int e)
@@ -54,11 +54,11 @@ namespace ElevatorSharp.Domain.Players
             var elevator = (IElevator)sender;
 
             // Check if we're not already going to that floor
-            //if (!elevator.DestinationQueue.Contains(e))
-            //{
-            //    // Go to the floor this passenger wants to go
-            //    elevator.GoToFloor(e);
-            //}
+            if (!elevator.DestinationQueue.Contains(e))
+            {
+                // Go to the floor this passenger wants to go
+                elevator.GoToFloor(e);
+            }
         }
 
         
