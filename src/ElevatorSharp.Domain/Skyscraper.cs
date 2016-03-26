@@ -14,20 +14,21 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
-        public Skyscraper(int elevatorCount, int floorCount, int maxPassengerCount)
+        // TODO: The signature will have to improve once we need different maxPassengerCount per elevator
+        public Skyscraper(int elevatorCount, int floorCount)
         {
-            Elevators = CreateElevators(elevatorCount, maxPassengerCount);
+            Elevators = CreateElevators(elevatorCount);
             Floors = CreateFloors(floorCount);
         }
         #endregion
 
         #region Methods
-        public List<Elevator> CreateElevators(int elevatorCount, int maxPassengerCount)
+        public List<Elevator> CreateElevators(int elevatorCount)
         {
             var elevators = new List<Elevator>();
             for (var i = 0; i < elevatorCount; i++)
             {
-                var elevator = new Elevator(i, maxPassengerCount);
+                var elevator = new Elevator(i);
                 elevators.Add(elevator);
             }
             return elevators;
@@ -36,7 +37,7 @@ namespace ElevatorSharp.Domain
         public List<Floor> CreateFloors(int floorCount)
         {
             var floors = new List<Floor>();
-            for (var j = 0; j <= floorCount; j++)
+            for (var j = 0; j < floorCount; j++)
             {
                 var floor = new Floor(j);
                 floors.Add(floor);

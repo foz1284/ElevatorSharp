@@ -9,7 +9,7 @@
                 var goToFloors = elevatorCommands.GoToFloor;
                 if (typeof goToFloors !== "undefined") {
                     goToFloors.forEach(function (parameters) {
-                        console.log("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
+                        console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
                         elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                     });
                 }
@@ -18,7 +18,7 @@
             elevators.forEach(function (elevator) {
                 
                 elevatorIndex++;
-                console.log("ElevatorIndex " + elevatorIndex);
+                console.debug("ElevatorIndex " + elevatorIndex);
 
                 var elevatorDto = {
                     ElevatorIndex: elevatorIndex,
@@ -34,6 +34,7 @@
 
                 // Idle
                 elevator.on("idle", function () {
+                    console.debug("Elevator " + elevatorIndex + " is idle.");
                     $.ajax({
                         data: elevatorDto,
                         url: "/elevator/idle",
@@ -43,6 +44,7 @@
 
                 // Floor Button Pressed
                 elevator.on("floor_button_pressed", function (floorNum) {
+                    console.debug("Elevator " + elevatorIndex + " floor button pressed.");
                     elevatorDto.FloorNumberPressed = floorNum;
                     $.ajax({
                         data: elevatorDto,
@@ -53,6 +55,7 @@
 
                 // Passing Floor
                 elevator.on("passing_floor", function (floorNum, direction) {
+                    console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
                     elevatorDto.FloorNumberPressed = floorNum;
                     elevatorDto.Direction = direction;
                     $.ajax({
@@ -64,6 +67,7 @@
 
                 // Stopped At Floor
                 elevator.on("stopped_at_floor", function (floorNum) {
+                    console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
                     elevatorDto.StoppedAtFloorNumber = floorNum;
                     $.ajax({
                         data: elevatorDto,
@@ -75,25 +79,25 @@
 
             floors.forEach(function (floor) {
                 floor.on("up_button_pressed", function () {
-                    console.log("Up button pressed on floor " + floor.floorNum());
+                    console.debug("Up button pressed on floor " + floor.floorNum());
                     $.ajax({
                         data: {
-                            FloorNumber: floor.floorNum() // TODO: I think we might need to pass all elevator data here
+                            FloorNumber: floor.floorNum() 
                         },
                         url: "/floor/upButtonPressed",
                         success: function (elevatorCommands) {
-                            var goToFloors = elevatorCommands.GoToFloor; // NOTE: and we are still receiving elevatorCommands, because there are no commands on Floor
+                            var goToFloors = elevatorCommands.GoToFloor; 
                             goToFloors.forEach(function (parameters) {
-                                console.log(parameters.FloorNumber);
+                                console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
                                 elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                             });
-                            console.log(elevatorCommands);
+                            console.debug(elevatorCommands);
                         }
                     });
                 });
 
                 floor.on("down_button_pressed", function () {
-                    console.log("Down button pressed on floor " + floor.floorNum());
+                    console.debug("Down button pressed on floor " + floor.floorNum());
                     $.ajax({
                         data: {
                             FloorNumber: floor.floorNum()
@@ -102,10 +106,10 @@
                         success: function (elevatorCommands) {
                             var goToFloors = elevatorCommands.GoToFloor;
                             goToFloors.forEach(function (parameters) {
-                                console.log(parameters.FloorNumber);
+                                console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
                                 elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
                             });
-                            console.log(elevatorCommands);
+                            console.debug(elevatorCommands);
                         }
                     });
                 });
@@ -115,24 +119,20 @@
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
         // But, we only need a subset of properties to create the skyscraper. We don't need currentFloor, floorNumberPressed etc.
         var elevatorDtos = [];
-        var elevatorIndex = -1;
-        elevators.forEach(function(elevator) {
-            elevatorIndex++;
-            elevatorDtos[elevatorIndex] = {
-                ElevatorIndex: elevatorIndex,
-                MaxPassengerCount: elevator.maxPassengerCount,
-                LoadFactor: elevator.loadFactor
+        for (var i = 0; i < elevators.length; i++) {
+            elevatorDtos[i] = {
+                ElevatorIndex: i,
+                MaxPassengerCount: elevators[i].maxPassengerCount,
+                LoadFactor: elevators[i].loadFactor
             }
-        });
+        }
 
         var floorDtos = [];
-        var floorNumber = -1;
-        floors.forEach(function(floor) {
-            floorNumber++;
-            floorDtos[floor.floorNum] = {
-                FloorNumber: floor.floorNum
+        for (var j = 0; j < floors.length; j++) {
+            floorDtos[j] = {
+                FloorNumber: floors[j].floorNum
             }
-        });
+        }
 
         $.ajax({
             data: {
