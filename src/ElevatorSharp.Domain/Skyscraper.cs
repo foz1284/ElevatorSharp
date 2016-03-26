@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Domain.Players;
 
 namespace ElevatorSharp.Domain
@@ -9,42 +11,30 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Properties
-        public IList<Elevator> Elevators { get; }
-        public IList<Floor> Floors { get; }
+        public IList<IElevator> Elevators { get; }
+        public IList<IFloor> Floors { get; }
         #endregion
 
         #region Constructors
-        // TODO: The signature will have to improve once we need different maxPassengerCount per elevator
-        public Skyscraper(int elevatorCount, int floorCount)
+        public Skyscraper(SkyscraperDto skyscraperDto)
         {
-            Elevators = CreateElevators(elevatorCount);
-            Floors = CreateFloors(floorCount);
+            Elevators = new List<IElevator>();
+            foreach (var elevatorDto in skyscraperDto.Elevators)
+            {
+                var elevator = new Elevator(elevatorDto.ElevatorIndex, elevatorDto.MaxPassengerCount);
+                Elevators.Add(elevator);
+            }
+
+            Floors = new List<IFloor>();
+            foreach (var floorDto in skyscraperDto.Floors)
+            {
+                var floor = new Floor(floorDto.FloorNumber);
+                Floors.Add(floor);
+            }
         }
         #endregion
 
         #region Methods
-        public List<Elevator> CreateElevators(int elevatorCount)
-        {
-            var elevators = new List<Elevator>();
-            for (var i = 0; i < elevatorCount; i++)
-            {
-                var elevator = new Elevator(i);
-                elevators.Add(elevator);
-            }
-            return elevators;
-        }
-
-        public List<Floor> CreateFloors(int floorCount)
-        {
-            var floors = new List<Floor>();
-            for (var j = 0; j < floorCount; j++)
-            {
-                var floor = new Floor(j);
-                floors.Add(floor);
-            }
-            return floors;
-        }
-
         public void LoadPlayer(IPlayer player)
         {
             player.Init(Elevators, Floors);

@@ -7,8 +7,8 @@ using System.Runtime.Caching;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
+using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Domain.Players;
-using ElevatorSharp.Web.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -53,11 +53,11 @@ namespace ElevatorSharp.Web.Controllers
             return RedirectToAction("Index", new { message });
         }
 
-        public ContentResult New(ElevatorDto[] elevators, FloorDto[] floors)
+        public ContentResult New(SkyscraperDto skyscraperDto)
         {
-            var skyscraper = new Skyscraper(elevators.Length, floors.Length);
+            var skyscraper = new Skyscraper(skyscraperDto);
             var player = LoadPlayer();
-            skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
+            skyscraper.LoadPlayer(player); // This calls the Init method on Player and hooks up events
             SaveSkyscraper(skyscraper);
 
             var json = JsonConvert.SerializeObject("Ready."); // TODO: Not needed, unless you want to pass some UI message back.

@@ -1,6 +1,4 @@
-﻿using ElevatorSharp.Domain;
-
-namespace ElevatorSharp.Web.DataTransferObjects
+﻿namespace ElevatorSharp.Domain.DataTransferObjects
 {
     public class ElevatorDto
     {

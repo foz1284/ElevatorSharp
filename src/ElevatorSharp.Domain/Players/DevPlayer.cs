@@ -5,7 +5,7 @@ namespace ElevatorSharp.Domain.Players
 {
     public class DevPlayer : IPlayer
     {
-        public void Init(IList<Elevator> elevators, IList<Floor> floors)
+        public void Init(IList<IElevator> elevators, IList<IFloor> floors)
         {
             foreach (var elevator in elevators)
             {
@@ -20,7 +20,7 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
-        private void Floor_DownButtonPressed(object sender, IList<Elevator> elevators)
+        private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (Floor)sender;
 
@@ -30,7 +30,7 @@ namespace ElevatorSharp.Domain.Players
             elevator.GoToFloor(floor.FloorNum);
         }
 
-        private void Floor_UpButtonPressed(object sender, IList<Elevator> elevators)
+        private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (Floor) sender;
 
@@ -51,7 +51,7 @@ namespace ElevatorSharp.Domain.Players
 
         private void Elevator_FloorButtonPressed(object sender, int e)
         {
-            var elevator = (Elevator)sender;
+            var elevator = (IElevator)sender;
 
             // Check if we're not already going to that floor
             if (!elevator.DestinationQueue.Contains(e))
@@ -63,7 +63,7 @@ namespace ElevatorSharp.Domain.Players
 
         
 
-        public void Update(IList<Elevator> elevators, IList<Floor> floors)
+        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
         {
             // We normally don't need to do anything here
         }

@@ -172,8 +172,6 @@
     <Compile Include="Controllers\ElevatorController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
     <Compile Include="Controllers\SkyscraperController.cs" />
-    <Compile Include="DataTransferObjects\ElevatorDto.cs" />
-    <Compile Include="DataTransferObjects\FloorDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

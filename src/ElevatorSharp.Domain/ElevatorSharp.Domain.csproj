@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\ElevatorDto.cs" />
+    <Compile Include="DataTransferObjects\FloorDto.cs" />
+    <Compile Include="DataTransferObjects\SkyscraperDto.cs" />
     <Compile Include="Elevator.cs" />
     <Compile Include="ElevatorDirection.cs" />
     <Compile Include="Floor.cs" />
-    <Compile Include="IClientSideTracking.cs" />
     <Compile Include="IElevator.cs" />
     <Compile Include="IFloor.cs" />
     <Compile Include="Players\IPlayer.cs" />

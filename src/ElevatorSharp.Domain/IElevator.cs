@@ -9,9 +9,17 @@ namespace ElevatorSharp.Domain
         event EventHandler Idle;
         event EventHandler<int> FloorButtonPressed;
         event EventHandler PassingFloor;
-        event EventHandler StoppedAtFloor; 
+        event EventHandler StoppedAtFloor;
         #endregion
 
+        #region Event Invocators
+        void OnIdle();
+        void OnFloorButtonPressed(int floorNumber);
+        void OnPassingFloor();
+        void OnStoppedAtFloor();
+        #endregion
+
+        #region Public API
         /// <summary>
         /// Queue the elevator to go to specified floor number. 
         /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
@@ -31,7 +39,7 @@ namespace ElevatorSharp.Domain
         /// Clear the destination queue and stop the elevator if it is moving. Note that you normally don't need to stop elevators - it is intended for advanced solutions with in-transit rescheduling logic. Also, note that the elevator will probably not stop at a floor, so passengers will not get out.
         /// </summary>
         void Stop();
-        
+
         /// <summary>
         /// Gets the currently pressed floor numbers as an array.
         /// </summary>
@@ -73,5 +81,20 @@ namespace ElevatorSharp.Domain
         /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.
         /// </summary>
         Queue<int> DestinationQueue { get; }
+        #endregion
+
+        #region Client side tracking
+        int Index { get; }
+
+        /// <summary>
+        /// Used to keep track of newly added destinations. Used for client-side sync.
+        /// </summary>
+        Queue<int> NewDestinations { get; set; }
+
+        /// <summary>
+        /// Used to keep track of newly added destinations. Used for client-side sync.
+        /// </summary>
+        Queue<int> JumpQueueDestinations { get; set; }
+        #endregion
     }
 }
