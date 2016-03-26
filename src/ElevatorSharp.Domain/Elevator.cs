@@ -27,10 +27,10 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
-        public Elevator(int index, int maxPassengerCount)
+        // TODO: We have to pass maxPassengerCount in the ctor, otherwise it will be hackable
+        public Elevator(int index)
         {
             Index = index;
-            MaxPassengerCount = maxPassengerCount;
             DestinationQueue = new Queue<int>();
             NewDestinations = new Queue<int>();
             JumpQueueDestinations = new Queue<int>();

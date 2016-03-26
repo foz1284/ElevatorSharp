@@ -18,11 +18,6 @@ namespace ElevatorSharp.Web.Controllers
     {
         public ActionResult Index(string message = null)
         {
-            var skyscraper = new Skyscraper(1, 3, 5);
-            var player = LoadPlayer();
-            skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
-            SaveSkyscraper(skyscraper);
-
             var viewModel = new SkyscraperIndexViewModel
             {
                 Player = "Test Player",
@@ -58,9 +53,9 @@ namespace ElevatorSharp.Web.Controllers
             return RedirectToAction("Index", new { message });
         }
 
-        public ContentResult New(IEnumerable<ElevatorDto> elevators, IEnumerable<FloorDto> floors)
+        public ContentResult New(ElevatorDto[] elevators, FloorDto[] floors)
         {
-            var skyscraper = new Skyscraper(elevators.Count(), floors.Count(), 5);
+            var skyscraper = new Skyscraper(elevators.Length, floors.Length);
             var player = LoadPlayer();
             skyscraper.LoadPlayer(player); // This calls the Init method on Player and hook up events
             SaveSkyscraper(skyscraper);
@@ -73,17 +68,8 @@ namespace ElevatorSharp.Web.Controllers
         private static void SaveSkyscraper(Skyscraper skyscraper)
         {
             var cache = MemoryCache.Default;
+            cache.Remove("skyscraper");
             cache.Set("skyscraper", skyscraper, new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddDays(1) });
-        }
-
-        private static Skyscraper LoadSkyscraper()
-        {
-            var cache = MemoryCache.Default;
-            if (cache.Contains("skyscraper"))
-            {
-                return (Skyscraper)cache.Get("skyscraper");
-            }
-            return null;
         }
 
         private static void SavePlayer(IPlayer player)
