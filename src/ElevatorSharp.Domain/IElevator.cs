@@ -19,7 +19,7 @@ namespace ElevatorSharp.Domain
         void OnStoppedAtFloor();
         #endregion
 
-        #region Public API
+        #region Public Api
         /// <summary>
         /// Queue the elevator to go to specified floor number. 
         /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.

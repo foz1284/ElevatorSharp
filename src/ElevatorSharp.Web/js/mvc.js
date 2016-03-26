@@ -44,7 +44,7 @@
 
             var executeElevatorCommands = function (elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloor;
-                if (typeof goToFloors !== "undefined") {
+                if (typeof goToFloors !== "undefined" && goToFloors != null) {
                     goToFloors.forEach(function (parameters) {
                         console.debug("Elevator " + parameters.ElevatorIndex + " go to floor " + parameters.FloorNumber);
                         elevators[parameters.ElevatorIndex].goToFloor(parameters.FloorNumber, parameters.JumpQueue);
@@ -56,7 +56,6 @@
             elevators.forEach(function (elevator) {
                 
                 elevatorIndex++;
-                console.debug("ElevatorIndex " + elevatorIndex);
 
                 var dto = createSkyscraperDto();
                 dto.EventRaisedElevatorIndex = elevatorIndex;
@@ -73,7 +72,7 @@
 
                 // Floor Button Pressed
                 elevator.on("floor_button_pressed", function (floorNum) {
-                    console.debug("Elevator " + elevatorIndex + " floor button pressed.");
+                    console.debug("Elevator " + elevatorIndex + " floor button " + floorNum + " pressed.");
                     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
                     $.ajax({
                         data: dto,

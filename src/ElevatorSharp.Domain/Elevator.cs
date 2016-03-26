@@ -125,6 +125,5 @@ namespace ElevatorSharp.Domain
             throw new NotImplementedException();
         }
         #endregion
-        
     }
 }
