@@ -132,12 +132,10 @@
         };
 
         // First thing to do is to create our Skyscraper in C# passing elevators and floors from here, because each challenge has new config
-        var skyscraperDto = createSkyscraperDto();
+        var dto = createSkyscraperDto();
 
         $.ajax({
-            data: {
-                SkyscraperDto: skyscraperDto
-            },
+            data: dto,
             url: "/skyscraper/new",
             success: hookUpAllEvents
         });
