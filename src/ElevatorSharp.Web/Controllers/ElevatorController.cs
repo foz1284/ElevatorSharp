@@ -6,7 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
-using ElevatorSharp.Web.DataTransferObjects;
+using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -18,16 +18,16 @@ namespace ElevatorSharp.Web.Controllers
         /// <summary>
         /// Triggered when the elevator has completed all its tasks and is not doing anything.
         /// </summary>
-        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult Idle(ElevatorDto elevatorDto)
+        public ContentResult Idle(SkyscraperDto skyscraperDto)
         {
-            var skyscraper = SyncSkyscraper(elevatorDto);
+            var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnIdle(); 
+            skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].OnIdle(); 
 
-            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -37,16 +37,18 @@ namespace ElevatorSharp.Web.Controllers
         /// This tells us which floor the passenger wants to go to.
         /// Maybe tell the elevator to go to that floor?
         /// </summary>
-        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult FloorButtonPressed(ElevatorDto elevatorDto)
+        public ContentResult FloorButtonPressed(SkyscraperDto skyscraperDto)
         {
-            var skyscraper = SyncSkyscraper(elevatorDto);
+            var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            skyscraper.Elevators[elevatorDto.ElevatorIndex].OnFloorButtonPressed(elevatorDto.FloorNumberPressed);
+            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+            var floorNumberPressed = skyscraperDto.Elevators[eventRaisedElevatorIndex].FloorNumberPressed;
+            skyscraper.Elevators[eventRaisedElevatorIndex].OnFloorButtonPressed(floorNumberPressed);
 
-            var elevatorCommands = CreateElevatorCommands(elevatorDto, skyscraper);
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -57,11 +59,11 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that this event is not triggered for the destination floor. 
         /// Direction is either "up" or "down".
         /// </summary>
-        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult PassingFloor(ElevatorDto elevatorDto)
+        public ContentResult PassingFloor(SkyscraperDto skyscraperDto)
         {
-            var json = JsonConvert.SerializeObject(elevatorDto);
+            var json = JsonConvert.SerializeObject(skyscraperDto);
             return Content(json, "application/json");
         }
 
@@ -69,11 +71,17 @@ namespace ElevatorSharp.Web.Controllers
         /// Triggered when the elevator has arrived at a floor.
         /// Maybe decide where to go next?
         /// </summary>
-        /// <param name="elevatorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult StoppedAtFloor(ElevatorDto elevatorDto)
+        public ContentResult StoppedAtFloor(SkyscraperDto skyscraperDto)
         {
-            var json = JsonConvert.SerializeObject(elevatorDto);
+            var skyscraper = SyncSkyscraper(skyscraperDto);
+
+            // This invokes the delegate from IPlayer
+            skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].OnStoppedAtFloor();
+
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
         #endregion

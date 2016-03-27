@@ -1,72 +1,45 @@
 ﻿@model ElevatorSharp.Web.ViewModels.SkyscraperIndexViewModel
-<div class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <img src="/img/leeds-sharp-logo.png" />
-            </div>
-            <div class="col-md-10 maze-form">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label class="sr-only" for="elevators">Elevators</label>
-                        <input type="text" class="form-control" id="elevators" placeholder="Elevators">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="floors">Floors</label>
-                        <input type="text" class="form-control" id="floors" placeholder="Floors">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="floors">Max Passengers</label>
-                        <input type="text" class="form-control" id="max-passengers" placeholder="Max Passengers">
-                    </div>
-                    <button type="button" id="build" class="btn btn-success">Build</button>
-                    <button type="button" id="demolish" class="btn btn-danger">Demolish</button>
-                </form>
-            </div>
+<div class="container">
+    <div class="header">
+        <h1 class="left">Elevator Sharp <em class="emphasis-color">The elevator programming game ported to .NET</em></h1>
+    </div>
+
+    <noscript>
+        <h2>Your browser does not appear to support JavaScript. This page contains a browser-based programming game implemented in JavaScript.</h2>
+    </noscript>
+
+    <div class="challenge" style="height: 40px">
+    </div>
+
+    <div class="world">
+        <div class="feedbackcontainer"></div>
+        <div class="innerworld">
+        </div>
+        <div class="statscontainer">
+            <div style="top: 20px"><span class="key">Transported</span><span class="value transportedcounter"></span></div>
+            <div style="top: 40px"><span class="key">Elapsed time</span><span class="value elapsedtime"></span></div>
+            <div style="top: 60px"><span class="key">Transported/s</span><span class="value transportedpersec"></span></div>
+            <div style="top: 80px"><span class="key">Avg waiting time</span><span class="value avgwaittime"></span></div>
+            <div style="top: 100px"><span class="key">Max waiting time</span><span class="value maxwaittime"></span></div>
+            <div style="top: 120px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
         </div>
     </div>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <h2>@Model.Player</h2>
-            <form action="/home/uploadPlayer" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <div class="btn btn-success btn-file btn-block">
-                        Select Player <input id="player" type="file" name="dll" size="10" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" id="upload-player" class="btn btn-success btn-block">Upload Player</button>
-                </div>
-                <div class="form-group">
-                    <button type="button" id="solve-maze" class="btn btn-success btn-block">Start</button>
-                </div>
-                <div class="form-group">
-                    <button type="button" id="solve-stop" class="btn btn-danger btn-block">Stop</button>
-                </div>
-            </form>
-            <div class="message">@Model.Message</div>
-            <div id="countdown" class="pull-left"></div>
-            <div id="visited-counter" class="pull-right">
-                <div class="visited-number">
-                    Efficiency: <span id="algorithm-efficiency">1</span>
-                    Efficiency: <span id="visited-number">1</span>/<span id="total-moves">1</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9 world">
-            <div class="feedbackcontainer"></div>
-            <div class="innerworld">
-            </div>
-            <div class="statscontainer">
-                <div style="top: 20px"><span class="key">Transported</span><span class="value transportedcounter"></span></div>
-                <div style="top: 40px"><span class="key">Elapsed time</span><span class="value elapsedtime"></span></div>
-                <div style="top: 60px"><span class="key">Transported/s</span><span class="value transportedpersec"></span></div>
-                <div style="top: 80px"><span class="key">Avg waiting time</span><span class="value avgwaittime"></span></div>
-                <div style="top: 100px"><span class="key">Max waiting time</span><span class="value maxwaittime"></span></div>
-                <div style="top: 120px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
-            </div>
-        </div>
+
+    <div class="codestatus"></div>
+    <div class="code" style="display: none;">
+        <textarea name="Code" id="code"></textarea>
+    </div>
+    <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
+        <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
+        <input type="file" name="fileToUpload" id="fileToUpload" style="float: left" />
+        @ViewBag.Message
+    </form>
+    <span id="save_message" style="float: right"></span>
+    <span id="fitness_message" style="float: right"></span>
+    <div style="clear: both;"></div>
+    <div class="footer">
+        <h4>Based on the excellent <a href="http://play.elevatorsaga.com/">Elevator Saga</a> game by Magnus Wolffelt and contributors</h4>
+        <h4>Ported to .NET by <a href="http://www.leeds-sharp.org/">Leeds Sharp</a></h4>
+        <h4><a href="https://github.com/LeedsSharp/ElevatorSharp">Source code</a> on GitHub</h4>
     </div>
 </div>

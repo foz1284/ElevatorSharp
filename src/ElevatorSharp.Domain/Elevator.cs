@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ElevatorSharp.Domain
 {
-    public sealed class Elevator : IElevator, IClientSideTracking
+    public sealed class Elevator : IElevator
     {
         #region Events
         public event EventHandler Idle;
@@ -27,13 +27,17 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
-        // TODO: We have to pass maxPassengerCount in the ctor, otherwise it will be hackable
         public Elevator(int index)
         {
             Index = index;
             DestinationQueue = new Queue<int>();
             NewDestinations = new Queue<int>();
             JumpQueueDestinations = new Queue<int>();
+        }
+
+        public Elevator(int index, int maxPassengerCount) : this(index)
+        {
+            MaxPassengerCount = maxPassengerCount;
         }
         #endregion
 
@@ -121,6 +125,5 @@ namespace ElevatorSharp.Domain
             throw new NotImplementedException();
         }
         #endregion
-        
     }
 }

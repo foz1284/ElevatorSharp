@@ -39,15 +39,19 @@ var createEditor = function() {
     });
 
     var reset = function() {
-        cm.setValue($("#default-elev-implementation").text().trim());
-    };
-    var saveCode = function() {
-        localStorage.setItem(lsKey, cm.getValue());
-        $("#save_message").text("Code saved " + new Date().toTimeString());
-        returnObj.trigger("change");
+        cm.setValue($("#mvc-elevator-implementation").text().trim());
     };
 
-    var existingCode = localStorage.getItem(lsKey);
+    var saveCode = function () {
+        // Don't save in mvc mode
+
+        //localStorage.setItem(lsKey, cm.getValue());
+        //$("#save_message").text("Code saved " + new Date().toTimeString());
+        //returnObj.trigger("change");
+    };
+
+    //var existingCode = localStorage.getItem(lsKey);
+    var existingCode = false; // don't use local storage in mvc mode
     if(existingCode) {
         cm.setValue(existingCode);
     } else {
@@ -218,6 +222,7 @@ $(function() {
         //     $("#fitness_message").html(message).removeClass("faded");
         // });
     });
+
     editor.trigger("change");
 
     riot.route(function(path) {

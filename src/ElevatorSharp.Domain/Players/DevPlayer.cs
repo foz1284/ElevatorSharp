@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ElevatorSharp.Domain.Players
 {
     public class DevPlayer : IPlayer
     {
-        public void Init(IList<Elevator> elevators, IList<Floor> floors)
+        public void Init(IList<IElevator> elevators, IList<IFloor> floors)
         {
             foreach (var elevator in elevators)
             {
@@ -20,24 +21,28 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
-        private void Floor_DownButtonPressed(object sender, IList<Elevator> elevators)
+        private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (Floor)sender;
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            var elevator = elevators[0];
-            elevator.GoToFloor(floor.FloorNum);
+
+            // grab the first elevator that is going up
+            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
+            elevator?.GoToFloor(floor.FloorNum);
         }
 
-        private void Floor_UpButtonPressed(object sender, IList<Elevator> elevators)
+        private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (Floor) sender;
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            var elevator = elevators[0];
-            elevator.GoToFloor(floor.FloorNum);
+
+            // grab the first elevator that is going up
+            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
+            elevator?.GoToFloor(floor.FloorNum);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
@@ -51,7 +56,7 @@ namespace ElevatorSharp.Domain.Players
 
         private void Elevator_FloorButtonPressed(object sender, int e)
         {
-            var elevator = (Elevator)sender;
+            var elevator = (IElevator)sender;
 
             // Check if we're not already going to that floor
             if (!elevator.DestinationQueue.Contains(e))
@@ -63,7 +68,7 @@ namespace ElevatorSharp.Domain.Players
 
         
 
-        public void Update(IList<Elevator> elevators, IList<Floor> floors)
+        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
         {
             // We normally don't need to do anything here
         }

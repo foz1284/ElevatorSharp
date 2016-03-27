@@ -5,7 +5,7 @@ namespace ElevatorSharp.Domain.Players
 {
     public class TestPlayer : IPlayer
     {
-        public void Init(IList<Elevator> elevators, IList<Floor> floors)
+        public void Init(IList<IElevator> elevators, IList<IFloor> floors)
         {
             var elevator = elevators[0];
             elevator.Idle += ElevatorOnIdle;
@@ -13,14 +13,14 @@ namespace ElevatorSharp.Domain.Players
         
         private void ElevatorOnIdle(object sender, EventArgs eventArgs)
         {
-            var elevator = (Elevator) sender;
+            var elevator = (IElevator) sender;
 
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
             elevator.GoToFloor(2);
         }
 
-        public void Update(IList<Elevator> elevators, IList<Floor> floors)
+        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
         {
             // We normally don't need to do anything here
         }

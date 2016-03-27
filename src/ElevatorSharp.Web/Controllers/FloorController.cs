@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ElevatorSharp.Web.DataTransferObjects;
+using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -13,12 +13,12 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        /// <param name="floorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult UpButtonPressed(FloorDto floorDto)
+        public ContentResult UpButtonPressed(SkyscraperDto skyscraperDto)
         {
-            var skyscraper = SyncSkyscraper(floorDto);
-            var floor = skyscraper.Floors[floorDto.FloorNumber];
+            var skyscraper = SyncSkyscraper(skyscraperDto);
+            var floor = skyscraper.Floors[skyscraperDto.EventRaisedFloorNumber];
             var elevators = skyscraper.Elevators;
             foreach (var elevator in elevators)
             {
@@ -30,7 +30,7 @@ namespace ElevatorSharp.Web.Controllers
             // This invokes the delegate from IPlayer
             floor.OnUpButtonPressed(elevators);
 
-            var elevatorCommands = CreateElevatorCommands(floorDto, skyscraper);
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -40,12 +40,12 @@ namespace ElevatorSharp.Web.Controllers
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        /// <param name="floorDto"></param>
+        /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        public ContentResult DownButtonPressed(FloorDto floorDto)
+        public ContentResult DownButtonPressed(SkyscraperDto skyscraperDto)
         {
-            var skyscraper = SyncSkyscraper(floorDto);
-            var floor = skyscraper.Floors[floorDto.FloorNumber];
+            var skyscraper = SyncSkyscraper(skyscraperDto);
+            var floor = skyscraper.Floors[skyscraperDto.EventRaisedFloorNumber];
             var elevators = skyscraper.Elevators;
             foreach (var elevator in elevators)
             {
@@ -57,7 +57,7 @@ namespace ElevatorSharp.Web.Controllers
             // This invokes the delegate from IPlayer
             floor.OnDownButtonPressed(elevators);
 
-            var elevatorCommands = CreateElevatorCommands(floorDto, skyscraper);
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
