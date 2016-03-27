@@ -42,6 +42,7 @@ namespace ElevatorSharp.Domain
 
         /// <summary>
         /// Gets the currently pressed floor numbers as an array.
+        /// Maybe go to some chosen floor first?
         /// </summary>
         /// <returns></returns>
         int[] PressedFloors { get; set; }
@@ -69,6 +70,7 @@ namespace ElevatorSharp.Domain
 
         /// <summary>
         /// Gets the maximum number of passengers that can occupy the elevator at the same time.
+        /// If it's above five, then maybe use this for something special, because it's big?
         /// </summary>
         int MaxPassengerCount { get; }
 
