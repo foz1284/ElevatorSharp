@@ -79,7 +79,12 @@ namespace ElevatorSharp.Domain.Players
         {
             var elevator = (Elevator)sender;
 
+            // remember that elevator.GoingUp(and Down)Indicator influences if passengers get on.
+
             // TODO: Do something here?
+            // A passenger will only get on if the
+            // indicator was pointing in the direction in which
+            // they want to travel.
         }
         #endregion
 
