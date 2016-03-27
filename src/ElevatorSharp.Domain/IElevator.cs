@@ -75,6 +75,11 @@ namespace ElevatorSharp.Domain
         int MaxPassengerCount { get; }
 
         /// <summary>
+        /// Gets the load factor of the elevator. 0 means empty, 1 means full. Varies with passenger weights, which vary - not an exact measure.
+        /// </summary>
+        decimal LoadFactor { get; set; }
+
+        /// <summary>
         /// Gets the direction the elevator is currently going to move toward. Can be "Up", "Down" or "Stopped".
         /// </summary>
         ElevatorDirection DestinationDirection { get; }
