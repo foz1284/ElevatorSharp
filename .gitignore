@@ -234,3 +234,4 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+src/ElevatorSharp.Web/App_Data/*.dll
