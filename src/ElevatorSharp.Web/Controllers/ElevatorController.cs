@@ -78,7 +78,8 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].OnStoppedAtFloor();
+            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+            skyscraper.Elevators[eventRaisedElevatorIndex].OnStoppedAtFloor(skyscraperDto.Elevators[eventRaisedElevatorIndex].StoppedAtFloorNumber);
 
             var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);

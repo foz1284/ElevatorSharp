@@ -9,14 +9,14 @@ namespace ElevatorSharp.Domain
         event EventHandler Idle;
         event EventHandler<int> FloorButtonPressed;
         event EventHandler PassingFloor;
-        event EventHandler StoppedAtFloor;
+        event EventHandler<int> StoppedAtFloor;
         #endregion
 
         #region Event Invocators
         void OnIdle();
         void OnFloorButtonPressed(int floorNumber);
         void OnPassingFloor();
-        void OnStoppedAtFloor();
+        void OnStoppedAtFloor(int floorNumber);
         #endregion
 
         #region Public Api
