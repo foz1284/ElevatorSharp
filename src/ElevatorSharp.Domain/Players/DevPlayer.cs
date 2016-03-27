@@ -6,12 +6,14 @@ namespace ElevatorSharp.Domain.Players
 {
     public class DevPlayer : IPlayer
     {
+        #region Implementation of IPlayer
         public void Init(IList<IElevator> elevators, IList<IFloor> floors)
         {
             foreach (var elevator in elevators)
             {
                 elevator.Idle += Elevator_Idle; ;
                 elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+                elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
             }
 
             foreach (var floor in floors)
@@ -21,6 +23,13 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
+        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
+        {
+            // We normally don't need to do anything here
+        }
+        #endregion
+        
+        #region Event Handlers
         private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (Floor)sender;
@@ -35,7 +44,7 @@ namespace ElevatorSharp.Domain.Players
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
         {
-            var floor = (Floor) sender;
+            var floor = (Floor)sender;
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
@@ -66,11 +75,21 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
-        
-
-        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
+        private void Elevator_StoppedAtFloor(object sender, int e)
         {
-            // We normally don't need to do anything here
+            var elevator = (Elevator)sender;
+
+            // remember that elevator.GoingUp(and Down)Indicator influences if passengers get on.
+
+            // TODO: Do something here?
+            // A passenger will only get on if the
+            // indicator was pointing in the direction in which
+            // they want to travel.
         }
+        #endregion
+
+
+
+
     }
 }
