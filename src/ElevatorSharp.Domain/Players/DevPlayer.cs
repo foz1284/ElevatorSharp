@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ElevatorSharp.Domain.Players
 {
@@ -26,8 +27,10 @@ namespace ElevatorSharp.Domain.Players
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            var elevator = elevators[0];
-            elevator.GoToFloor(floor.FloorNum);
+
+            // grab the first elevator that is going up
+            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
+            elevator?.GoToFloor(floor.FloorNum);
         }
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
@@ -36,8 +39,10 @@ namespace ElevatorSharp.Domain.Players
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
-            var elevator = elevators[0];
-            elevator.GoToFloor(floor.FloorNum);
+
+            // grab the first elevator that is going up
+            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
+            elevator?.GoToFloor(floor.FloorNum);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)

@@ -18,14 +18,8 @@ namespace ElevatorSharp.Web.Controllers
     {
         public ActionResult Index(string message = null)
         {
-            var viewModel = new SkyscraperIndexViewModel
-            {
-                Player = "Test Player",
-                Title = "Elevator Sharp"
-            };
-
             ViewBag.Message = message;
-            return View("Original", viewModel);
+            return View();
         }
 
         public ActionResult UploadPlayer(HttpPostedFileBase dll)
