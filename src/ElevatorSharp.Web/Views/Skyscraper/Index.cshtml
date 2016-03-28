@@ -31,7 +31,7 @@
     </div>
     <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
-        <input type="file" name="fileToUpload" id="fileToUpload" style="float: left" />
+        <input type="file" name="dll" id="fileToUpload" style="float: left" />
         @ViewBag.Message
     </form>
     <span id="save_message" style="float: right"></span>
