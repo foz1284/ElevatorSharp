@@ -73,7 +73,7 @@ namespace ElevatorSharp.Game
         /// <summary>
         /// Gets the direction the elevator is currently going to move toward. Can be "Up", "Down" or "Stopped".
         /// </summary>
-        ElevatorDirection DestinationDirection { get; }
+        ElevatorDirection DestinationDirection { get; set; }
 
         /// <summary>
         /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.
