@@ -34,6 +34,12 @@ namespace ElevatorSharp.Web.Controllers
             for (var i = 0; i < skyscraperDto.Elevators.Count; i++)
             {
                 skyscraper.Elevators[i].PressedFloors = skyscraperDto.Elevators[i].PressedFloors;
+                skyscraper.Elevators[i].LoadFactor = skyscraperDto.Elevators[i].LoadFactor;
+                skyscraper.Elevators[i].GoingDownIndicator = skyscraperDto.Elevators[i].GoingDownIndicator;
+                skyscraper.Elevators[i].GoingUpIndicator = skyscraperDto.Elevators[i].GoingUpIndicator;
+                skyscraper.Elevators[i].CurrentFloor = skyscraperDto.Elevators[i].CurrentFloor;
+                skyscraper.Elevators[i].DestinationDirection = skyscraperDto.Elevators[i].DestinationDirection;
+                
                 skyscraper.Elevators[i].DestinationQueue.Clear();
                 if (skyscraperDto.Elevators[i].DestinationQueue == null) continue;
                 foreach (var floor in skyscraperDto.Elevators[i].DestinationQueue)

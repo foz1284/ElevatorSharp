@@ -39,7 +39,10 @@ namespace ElevatorSharp.Domain.Players
 
             // grab the first elevator that is going up
             var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
-            elevator?.GoToFloor(floor.FloorNum);
+            if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
+            {
+                elevator.GoToFloor(floor.FloorNum);
+            }
         }
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
@@ -51,7 +54,10 @@ namespace ElevatorSharp.Domain.Players
 
             // grab the first elevator that is going up
             var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
-            elevator?.GoToFloor(floor.FloorNum);
+            if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
+            {
+                elevator.GoToFloor(floor.FloorNum); 
+            }
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
@@ -66,6 +72,12 @@ namespace ElevatorSharp.Domain.Players
         private void Elevator_FloorButtonPressed(object sender, int e)
         {
             var elevator = (IElevator)sender;
+
+            // If the elevator is full, then drop off some dudes first by jumping the queue
+            if (elevator.LoadFactor > 0.6M)
+            {
+                elevator.GoToFloor(e, true); // jump queue
+            }
 
             // Check if we're not already going to that floor
             if (!elevator.DestinationQueue.Contains(e))
@@ -87,9 +99,5 @@ namespace ElevatorSharp.Domain.Players
             // they want to travel.
         }
         #endregion
-
-
-
-
     }
 }

@@ -51,7 +51,7 @@
                         if (goToFloor.JumpQueue) {
                             jumpQueueDebugMessage = " and jump the queue.";
                         }
-                        console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber);
+                        console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
                         elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
                     }
                 }

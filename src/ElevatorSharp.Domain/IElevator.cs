@@ -42,6 +42,7 @@ namespace ElevatorSharp.Domain
 
         /// <summary>
         /// Gets the currently pressed floor numbers as an array.
+        /// Maybe go to some chosen floor first?
         /// </summary>
         /// <returns></returns>
         int[] PressedFloors { get; set; }
@@ -69,8 +70,14 @@ namespace ElevatorSharp.Domain
 
         /// <summary>
         /// Gets the maximum number of passengers that can occupy the elevator at the same time.
+        /// If it's above five, then maybe use this for something special, because it's big?
         /// </summary>
         int MaxPassengerCount { get; }
+
+        /// <summary>
+        /// Gets the load factor of the elevator. 0 means empty, 1 means full. Varies with passenger weights, which vary - not an exact measure.
+        /// </summary>
+        decimal LoadFactor { get; set; }
 
         /// <summary>
         /// Gets the direction the elevator is currently going to move toward. Can be "Up", "Down" or "Stopped".

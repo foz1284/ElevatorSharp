@@ -23,6 +23,7 @@ namespace ElevatorSharp.Domain
         public bool GoingUpIndicator { get; set; }
         public bool GoingDownIndicator { get; set; }
         public int MaxPassengerCount { get; }
+        public decimal LoadFactor { get; set; }
         public int[] PressedFloors { get; set; }
         #endregion
 
