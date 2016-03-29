@@ -30,13 +30,19 @@
     </div>
     <form action="@Url.Action("UploadPlayerAsCode")" method="post">
         @ViewBag.Message
-        
+        <ul>
+            @foreach (var diagnostic in ViewBag.Diagnostics)
+            {
+                <li>@diagnostic</li>
+            }
+        </ul>
         <div class="codestatus"></div>
         <div class="code">
             <textarea name="Source" id="source">@ViewBag.Source</textarea>
         </div>
-        <button type="submit" name="submit" style="float: left">Upload Code</button>
+        <button type="submit" name="submit" style="float: left">Compile</button>
     </form>
+    <div style="clear: both;"></div>
     <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
         <input type="file" name="dll" id="fileToUpload" style="float: left" />

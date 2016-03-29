@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,12 +20,20 @@ namespace ElevatorSharp.Web.Controllers
 {
     public class SkyscraperController : Controller
     {
-        public ActionResult Index(string message = null, string source = null)
+        public ActionResult Index(string message = null, string source = null, string diagnostics = null)
         {
             ViewBag.Message = message;
             if (!string.IsNullOrWhiteSpace(source))
             {
                 ViewBag.Source = Encoding.Default.GetString(Convert.FromBase64String(source));
+            }
+            if (diagnostics != null && diagnostics.Any())
+            {
+                ViewBag.Diagnostics = Encoding.Default.GetString(Convert.FromBase64String(diagnostics)).Split('±');
+            }
+            else
+            {
+                ViewBag.Diagnostics = new string[0];
             }
             return View();
         }
@@ -52,11 +61,10 @@ namespace ElevatorSharp.Web.Controllers
                     var player = Activator.CreateInstance(type) as IPlayer;
                     SavePlayer(player);
                     message = type.Name + " uploaded.";
-                    return RedirectToAction("Index", new {message, source = Convert.ToBase64String(Encoding.Default.GetBytes(source)) });
+                    return RedirectToAction("Index", new {message, source });
                 }
             }
-            message = "No player implementing IPlayer found.";
-            return RedirectToAction("Index", new {message});
+            return RedirectToAction("Index", new {message= "No player implementing IPlayer found." });
         }
 
         public ActionResult UploadPlayerAsCode(string source)
@@ -75,14 +83,16 @@ namespace ElevatorSharp.Web.Controllers
             using (var ms = new MemoryStream())
             {
                 var result = compilation.Emit(ms);
+                source = Convert.ToBase64String(Encoding.Default.GetBytes(source));
                 if (result.Success)
                 {
                     ms.Seek(0, SeekOrigin.Begin);
                     var dll = Assembly.Load(ms.ToArray());
                     return FindPlayer(dll, source);
                 }
+
+                return RedirectToAction("Index", new { message = "Compilation issues", source, diagnostics = Convert.ToBase64String(Encoding.Default.GetBytes(string.Join("±", result.Diagnostics))) });
             }
-            return new HttpNotFoundResult();
         }
 
         public ContentResult New(SkyscraperDto skyscraperDto)
