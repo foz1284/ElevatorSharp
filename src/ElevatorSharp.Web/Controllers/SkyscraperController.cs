@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Caching;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
@@ -18,9 +19,13 @@ namespace ElevatorSharp.Web.Controllers
 {
     public class SkyscraperController : Controller
     {
-        public ActionResult Index(string message = null)
+        public ActionResult Index(string message = null, string source = null)
         {
             ViewBag.Message = message;
+            if (!string.IsNullOrWhiteSpace(source))
+            {
+                ViewBag.Source = Encoding.Default.GetString(Convert.FromBase64String(source));
+            }
             return View();
         }
 
@@ -37,7 +42,7 @@ namespace ElevatorSharp.Web.Controllers
             return FindPlayer(playerAssembly);
         }
 
-        private ActionResult FindPlayer(Assembly playerAssembly)
+        private ActionResult FindPlayer(Assembly playerAssembly, string source = null)
         {
             string message;
             foreach (var type in playerAssembly.GetTypes().OrderBy(t => t.Name))
@@ -47,7 +52,7 @@ namespace ElevatorSharp.Web.Controllers
                     var player = Activator.CreateInstance(type) as IPlayer;
                     SavePlayer(player);
                     message = type.Name + " uploaded.";
-                    return RedirectToAction("Index", new {message});
+                    return RedirectToAction("Index", new {message, source = Convert.ToBase64String(Encoding.Default.GetBytes(source)) });
                 }
             }
             message = "No player implementing IPlayer found.";
@@ -74,7 +79,7 @@ namespace ElevatorSharp.Web.Controllers
                 {
                     ms.Seek(0, SeekOrigin.Begin);
                     var dll = Assembly.Load(ms.ToArray());
-                    return FindPlayer(dll);
+                    return FindPlayer(dll, source);
                 }
             }
             return new HttpNotFoundResult();
