@@ -24,11 +24,19 @@
             <div style="top: 120px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
         </div>
     </div>
-
     <div class="codestatus"></div>
     <div class="code" style="display: none;">
         <textarea name="Code" id="code"></textarea>
     </div>
+    <form action="@Url.Action("UploadPlayerAsCode")" method="post">
+        <button type="submit" name="submit" style="float: left">Upload Code</button>
+        @ViewBag.Message
+        
+        <div class="codestatus"></div>
+        <div class="code">
+            <textarea name="Source" id="source"></textarea>
+        </div>
+    </form>
     <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
         <input type="file" name="dll" id="fileToUpload" style="float: left" />
