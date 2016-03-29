@@ -30,11 +30,11 @@ namespace ElevatorSharp.Tests.Players
             // We normally don't need to do anything here
         }
         #endregion
-        
+
         #region Event Handlers
         private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
-            var floor = (Floor)sender;
+            var floor = (IFloor)sender;
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
@@ -49,7 +49,7 @@ namespace ElevatorSharp.Tests.Players
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
         {
-            var floor = (Floor)sender;
+            var floor = (IFloor)sender;
 
             // Just pick first elevator to start with and go to the floor the button was pressed.
             // Could check which floor each elevator is currently on and which direction they are travelling?
@@ -58,13 +58,13 @@ namespace ElevatorSharp.Tests.Players
             var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
             if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
             {
-                elevator.GoToFloor(floor.FloorNum); 
+                elevator.GoToFloor(floor.FloorNum);
             }
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
         {
-            var elevator = (Elevator)sender;
+            var elevator = (IElevator)sender;
 
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
@@ -100,7 +100,7 @@ namespace ElevatorSharp.Tests.Players
 
         private void Elevator_StoppedAtFloor(object sender, int e)
         {
-            var elevator = (Elevator)sender;
+            var elevator = (IElevator)sender;
 
             // remember that elevator.GoingUp(and Down)Indicator influences if passengers get on.
 
