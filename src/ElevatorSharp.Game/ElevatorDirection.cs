@@ -1,4 +1,4 @@
-namespace ElevatorSharp.Domain
+namespace ElevatorSharp.Game
 {
     public enum ElevatorDirection
     {
