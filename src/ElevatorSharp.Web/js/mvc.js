@@ -55,6 +55,11 @@
                         elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
                     }
                 }
+                switch (elevatorCommands.GoingUpIndicator) {
+                case "Up":
+                    
+                default:
+                }
             };
 
             var elevatorIndex = -1;

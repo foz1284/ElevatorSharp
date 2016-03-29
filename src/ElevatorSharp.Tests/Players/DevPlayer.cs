@@ -74,6 +74,10 @@ namespace ElevatorSharp.Tests.Players
             elevator.GoToFloor(5);
             elevator.GoToFloor(6);
             elevator.GoToFloor(7);
+
+
+            elevator.GoingUpIndicator = true;
+            elevator.GoingDownIndicator = false;
         }
 
         private void Elevator_FloorButtonPressed(object sender, int e)
