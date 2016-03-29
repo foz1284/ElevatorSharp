@@ -46,8 +46,9 @@ var createEditor = function() {
         lineNumbers: true,
         indentUnit: 4,
         indentWithTabs: false,
+        viewportMargin: Infinity,
         theme: "solarized light",
-        mode: "javascript",
+        mode: "text/x-csharp",
         autoCloseBrackets: true,
         extraKeys: {
             // the following Tab key mapping is from http://codemirror.net/doc/manual.html#keymaps

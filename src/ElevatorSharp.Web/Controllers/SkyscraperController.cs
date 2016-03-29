@@ -23,10 +23,8 @@ namespace ElevatorSharp.Web.Controllers
         public ActionResult Index(string message = null, string source = null, string diagnostics = null)
         {
             ViewBag.Message = message;
-            if (!string.IsNullOrWhiteSpace(source))
-            {
-                ViewBag.Source = Encoding.Default.GetString(Convert.FromBase64String(source));
-            }
+            ViewBag.Source = string.IsNullOrWhiteSpace(source) ? _defaultCode : Encoding.Default.GetString(Convert.FromBase64String(source));
+
             if (diagnostics != null && diagnostics.Any())
             {
                 ViewBag.Diagnostics = Encoding.Default.GetString(Convert.FromBase64String(diagnostics)).Split('±');
@@ -37,6 +35,35 @@ namespace ElevatorSharp.Web.Controllers
             }
             return View();
         }
+
+        private string _defaultCode = @"using System;
+using ElevatorSharp.Game;
+
+namespace ElevatorSharp.Default
+{
+    public class TestPlayer : IPlayer
+    {
+        public void Init(IElevator[] elevators, IFloor[] floors)
+        {
+            var elevator = elevators[0];
+            elevator.Idle += ElevatorOnIdle;
+        }
+        
+        private void ElevatorOnIdle(object sender, EventArgs eventArgs)
+        {
+            var elevator = (IElevator) sender;
+
+            elevator.GoToFloor(0);
+            elevator.GoToFloor(1);
+            elevator.GoToFloor(2);
+        }
+
+        public void Update(IElevator[] elevators, IFloor[] floors)
+        {
+            // We normally don't need to do anything here
+        }
+    }
+}";
 
         public ActionResult UploadPlayer(HttpPostedFileBase dll)
         {
