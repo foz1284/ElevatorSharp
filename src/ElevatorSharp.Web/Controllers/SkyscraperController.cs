@@ -23,7 +23,7 @@ namespace ElevatorSharp.Web.Controllers
         public ActionResult Index(string message = null, string source = null, string diagnostics = null)
         {
             ViewBag.Message = message;
-            ViewBag.Source = string.IsNullOrWhiteSpace(source) ? _defaultCode : Encoding.Default.GetString(Convert.FromBase64String(source));
+            ViewBag.Source = string.IsNullOrWhiteSpace(source) ? _defaultCode : Encoding.Default.GetString(Convert.FromBase64String((string)MemoryCache.Default.Get(source)));
 
             if (diagnostics != null && diagnostics.Any())
             {
@@ -111,15 +111,16 @@ namespace ElevatorSharp.Default
             using (var ms = new MemoryStream())
             {
                 var result = compilation.Emit(ms);
-                source = Convert.ToBase64String(Encoding.Default.GetBytes(source));
+                var sourceGuid = Guid.NewGuid().ToString();
+                MemoryCache.Default.Add(sourceGuid, Convert.ToBase64String(Encoding.Default.GetBytes(source)), new CacheItemPolicy {AbsoluteExpiration = DateTimeOffset.Now.AddDays(1)});
                 if (result.Success)
                 {
                     ms.Seek(0, SeekOrigin.Begin);
                     var dll = Assembly.Load(ms.ToArray());
-                    return FindPlayer(dll, source);
+                    return FindPlayer(dll, sourceGuid);
                 }
 
-                return RedirectToAction("Index", new { message = "Compilation issues", source, diagnostics = Convert.ToBase64String(Encoding.Default.GetBytes(string.Join("±", result.Diagnostics))) });
+                return RedirectToAction("Index", new { message = "Compilation issues", source = sourceGuid, diagnostics = Convert.ToBase64String(Encoding.Default.GetBytes(string.Join("±", result.Diagnostics))) });
             }
         }
 
