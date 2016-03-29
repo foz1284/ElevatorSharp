@@ -71,6 +71,12 @@ namespace ElevatorSharp.Web.Controllers
                 AddGoToFloorCommands(skyscraperDto, newDestinations, elevatorCommands);
             }
 
+            foreach (var elevator in skyscraper.Elevators)
+            {
+                elevatorCommands.SetUpIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingUpIndicator));
+                elevatorCommands.SetDownIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingDownIndicator));
+            }
+
             return elevatorCommands;
         }
 

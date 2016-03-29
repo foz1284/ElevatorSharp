@@ -55,6 +55,22 @@
                         elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
                     }
                 }
+
+                var setUpIndicators = elevatorCommands.SetUpIndicators;
+                if (typeof setUpIndicators !== "undefined" && setUpIndicators != null) {
+                    for (var j = 0; j < setUpIndicators.length; j++) {
+                        console.debug("Setting UpIndicator on elevator " + setUpIndicators.ElevatorIndex + " to " + setUpIndicators.IsOn);
+                        elevators[setUpIndicators.ElevatorIndex].goingUpIndicator = setUpIndicators.IsOn;
+                    }
+                }
+
+                var setDownIndicators = elevatorCommands.SetDownIndicators;
+                if (typeof setDownIndicators !== "undefined" && setDownIndicators != null) {
+                    for (var j = 0; j < setDownIndicators.length; j++) {
+                        console.debug("Setting DownIndicator on elevator " + setDownIndicators.ElevatorIndex + " to " + setDownIndicators.IsOn);
+                        elevators[setDownIndicators.ElevatorIndex].goingDownIndicator = setDownIndicators.IsOn;
+                    }
+                }
             };
 
             var elevatorIndex = -1;

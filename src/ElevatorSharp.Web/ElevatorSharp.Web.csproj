@@ -198,8 +198,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ElevatorCommands.cs" />
     <Compile Include="ViewModels\GoToFloorCommand.cs" />
-    <Compile Include="ViewModels\SetElevatorDownIndicator.cs" />
-    <Compile Include="ViewModels\SetElevatorUpIndicator.cs" />
+    <Compile Include="ViewModels\IndicatorCommand.cs" />
+    <Compile Include="ViewModels\SetIndicatorCommand.cs" />
     <Compile Include="ViewModels\SkyscraperIndexViewModel.cs" />
     <Compile Include="ViewModels\StopElevator.cs" />
   </ItemGroup>

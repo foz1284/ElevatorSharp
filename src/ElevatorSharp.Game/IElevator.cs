@@ -51,12 +51,12 @@ namespace ElevatorSharp.Game
         /// <summary>
         /// Gets or sets the going up indicator, which will affect passenger behaviour when stopping at floors.
         /// </summary>
-        bool GoingUpIndicator { get; }
+        bool GoingUpIndicator { get; set; }
 
         /// <summary>
         /// Gets or sets the going down indicator, which will affect passenger behaviour when stopping at floors.
         /// </summary>
-        bool GoingDownIndicator { get; }
+        bool GoingDownIndicator { get; set; }
 
         /// <summary>
         /// Gets the maximum number of passengers that can occupy the elevator at the same time.

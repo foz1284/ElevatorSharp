@@ -17,9 +17,6 @@ namespace ElevatorSharp.Domain
         public ElevatorDirection DestinationDirection { get; set; }
         public Queue<int> DestinationQueue { get; set; }
         public int Index { get; }
-        public Queue<int> NewDestinations { get; set; }
-        public Queue<int> JumpQueueDestinations { get; set; }
-
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
         public bool GoingDownIndicator { get; set; }
@@ -128,6 +125,10 @@ namespace ElevatorSharp.Domain
         }
         #endregion
 
-        
+
+        #region Client-side tracking
+        public Queue<int> NewDestinations { get; set; }
+        public Queue<int> JumpQueueDestinations { get; set; }
+        #endregion
     }
 }
