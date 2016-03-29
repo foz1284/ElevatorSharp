@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ElevatorSharp.Domain;
 
 namespace ElevatorSharp.Game
 {
@@ -36,7 +35,7 @@ namespace ElevatorSharp.Game
         /// Maybe go to some chosen floor first?
         /// </summary>
         /// <returns></returns>
-        int[] PressedFloors { get; set; }
+        int[] PressedFloors { get; }
 
         /// <summary>
         /// Checks the destination queue for any new destinations to go to. Note that you only need to call this if you modify the destination queue explicitly.
@@ -47,17 +46,17 @@ namespace ElevatorSharp.Game
         /// <summary>
         /// Gets the floor number that the elevator currently is on.
         /// </summary>
-        int CurrentFloor { get; set; }
+        int CurrentFloor { get; }
 
         /// <summary>
         /// Gets or sets the going up indicator, which will affect passenger behaviour when stopping at floors.
         /// </summary>
-        bool GoingUpIndicator { get; set; }
+        bool GoingUpIndicator { get; }
 
         /// <summary>
         /// Gets or sets the going down indicator, which will affect passenger behaviour when stopping at floors.
         /// </summary>
-        bool GoingDownIndicator { get; set; }
+        bool GoingDownIndicator { get; }
 
         /// <summary>
         /// Gets the maximum number of passengers that can occupy the elevator at the same time.
@@ -68,12 +67,12 @@ namespace ElevatorSharp.Game
         /// <summary>
         /// Gets the load factor of the elevator. 0 means empty, 1 means full. Varies with passenger weights, which vary - not an exact measure.
         /// </summary>
-        decimal LoadFactor { get; set; }
+        decimal LoadFactor { get; }
 
         /// <summary>
         /// Gets the direction the elevator is currently going to move toward. Can be "Up", "Down" or "Stopped".
         /// </summary>
-        ElevatorDirection DestinationDirection { get; set; }
+        ElevatorDirection DestinationDirection { get; }
 
         /// <summary>
         /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.

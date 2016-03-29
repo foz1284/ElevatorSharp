@@ -24,12 +24,26 @@
             <div style="top: 120px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
         </div>
     </div>
-
     <div class="codestatus"></div>
     <div class="code" style="display: none;">
         <textarea name="Code" id="code"></textarea>
     </div>
-    <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
+    <form action="@Url.Action("UploadPlayerAsCode")" method="post">
+        @ViewBag.Message
+        <ul>
+            @foreach (var diagnostic in ViewBag.Diagnostics)
+            {
+                <li>@diagnostic</li>
+            }
+        </ul>
+        <div class="codestatus"></div>
+        <div class="code">
+            <textarea name="Source" id="source">@ViewBag.Source</textarea>
+        </div>
+        <button type="submit" name="submit" style="float: left">Compile</button>
+    </form>
+    <div style="clear: both;"></div>
+    <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data"  style="display: none;">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
         <input type="file" name="dll" id="fileToUpload" style="float: left" />
         @ViewBag.Message
