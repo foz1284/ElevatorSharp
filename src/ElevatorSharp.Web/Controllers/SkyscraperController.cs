@@ -30,7 +30,7 @@ namespace ElevatorSharp.Web.Controllers
             if (dll == null || dll.ContentLength <= 0) return RedirectToAction("Index", new {message});
 
             // Load player dll
-            var fileName = Path.GetFileName(dll.FileName);
+            var fileName = $"{Guid.NewGuid()},{Path.GetFileName(dll.FileName)}";
             var path = Path.Combine(Server.MapPath("~/App_Data"), fileName);
             dll.SaveAs(path);
             var playerAssembly = Assembly.LoadFile(path);
