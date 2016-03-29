@@ -12,6 +12,7 @@ namespace ElevatorSharp.Web.ViewModels
         {
             GoToFloors = new Queue<GoToFloorCommand>();
             SetUpIndicators = new List<SetIndicatorCommand>();
+            SetDownIndicators = new List<SetIndicatorCommand>();
             StopElevators = new List<StopElevator>();
         }
 
