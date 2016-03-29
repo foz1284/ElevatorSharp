@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ElevatorSharp.Domain
+namespace ElevatorSharp.Game
 {
     public interface IFloor
     {
@@ -11,19 +10,19 @@ namespace ElevatorSharp.Domain
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        event EventHandler<IList<IElevator>> UpButtonPressed;
+        event EventHandler<IElevator[]> UpButtonPressed;
 
         /// <summary>
         /// Triggered when someone has pressed the down button at a floor. 
         /// Note that passengers will press the button again if they fail to enter an elevator.
         /// Maybe tell an elevator to go to this floor?
         /// </summary>
-        event EventHandler<IList<IElevator>> DownButtonPressed;
+        event EventHandler<IElevator[]> DownButtonPressed;
         #endregion
 
         #region Event Invocators
-        void OnUpButtonPressed(IList<IElevator> e);
-        void OnDownButtonPressed(IList<IElevator> e);
+        void OnUpButtonPressed(IElevator[] e);
+        void OnDownButtonPressed(IElevator[] e);
         #endregion
 
         #region Properties

@@ -28,7 +28,7 @@ namespace ElevatorSharp.Web.Controllers
         /// </summary>
         /// <param name="skyscraperDto"></param>
         /// <returns></returns>
-        protected static Skyscraper SyncSkyscraper(SkyscraperDto skyscraperDto)
+        internal static Skyscraper SyncSkyscraper(SkyscraperDto skyscraperDto)
         {
             var skyscraper = LoadSkyscraper();
             for (var i = 0; i < skyscraperDto.Elevators.Count; i++)
@@ -55,7 +55,7 @@ namespace ElevatorSharp.Web.Controllers
         /// <param name="skyscraperDto"></param>
         /// <param name="skyscraper"></param>
         /// <returns></returns>
-        protected static ElevatorCommands CreateElevatorCommands(SkyscraperDto skyscraperDto, Skyscraper skyscraper)
+        internal static ElevatorCommands CreateElevatorCommands(SkyscraperDto skyscraperDto, Skyscraper skyscraper)
         {
             var elevatorCommands = new ElevatorCommands();
             var jumpQueueDestinations = skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].JumpQueueDestinations;

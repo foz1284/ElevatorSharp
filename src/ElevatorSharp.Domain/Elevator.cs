@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using ElevatorSharp.Game;
 
 namespace ElevatorSharp.Domain
 {
-    public sealed class Elevator : IElevator
+    internal sealed class Elevator : IElevator
     {
         #region Events
         public event EventHandler Idle;
@@ -28,7 +29,7 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Constructors
-        public Elevator(int index)
+        internal Elevator(int index)
         {
             Index = index;
             DestinationQueue = new Queue<int>();
@@ -36,7 +37,7 @@ namespace ElevatorSharp.Domain
             JumpQueueDestinations = new Queue<int>();
         }
 
-        public Elevator(int index, int maxPassengerCount) : this(index)
+        internal Elevator(int index, int maxPassengerCount) : this(index)
         {
             MaxPassengerCount = maxPassengerCount;
         }

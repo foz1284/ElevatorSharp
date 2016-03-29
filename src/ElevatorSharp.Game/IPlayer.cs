@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ElevatorSharp.Domain.Players
+namespace ElevatorSharp.Game
 {
     public interface IPlayer
     {
@@ -9,13 +9,13 @@ namespace ElevatorSharp.Domain.Players
         /// </summary>
         /// <param name="elevators"></param>
         /// <param name="floors"></param>
-        void Init(IList<IElevator> elevators, IList<IFloor> floors);
+        void Init(IElevator[] elevators, IFloor[] floors);
 
         /// <summary>
         /// We normally don't need to do anything here
         /// </summary>
         /// <param name="elevators"></param>
         /// <param name="floors"></param>
-        void Update(IList<IElevator> elevators, IList<IFloor> floors);
+        void Update(IElevator[] elevators, IFloor[] floors);
     }
 }

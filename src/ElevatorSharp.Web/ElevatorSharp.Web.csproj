@@ -285,6 +285,14 @@
       <Project>{88937ac7-ed0e-4561-9163-16ea481b921e}</Project>
       <Name>ElevatorSharp.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ElevatorSharp.Game\ElevatorSharp.Game.csproj">
+      <Project>{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}</Project>
+      <Name>ElevatorSharp.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElevatorSharp.Tests\ElevatorSharp.Tests.csproj">
+      <Project>{3B05D2CE-19DC-4869-AB86-43D82A64C031}</Project>
+      <Name>ElevatorSharp.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
