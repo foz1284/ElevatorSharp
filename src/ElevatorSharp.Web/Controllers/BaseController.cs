@@ -63,12 +63,12 @@ namespace ElevatorSharp.Web.Controllers
 
             while (jumpQueueDestinations.Count > 0)
             {
-                AddGoToFloorCommands(skyscraperDto, jumpQueueDestinations, elevatorCommands);
+                AddGoToFloorCommands(skyscraperDto, jumpQueueDestinations, elevatorCommands, true);
             }
 
             while (newDestinations.Count > 0)
             {
-                AddGoToFloorCommands(skyscraperDto, newDestinations, elevatorCommands);
+                AddGoToFloorCommands(skyscraperDto, newDestinations, elevatorCommands, false);
             }
 
             foreach (var elevator in skyscraper.Elevators)
@@ -80,12 +80,12 @@ namespace ElevatorSharp.Web.Controllers
             return elevatorCommands;
         }
 
-        private static void AddGoToFloorCommands(SkyscraperDto skyscraperDto, Queue<int> queue, ElevatorCommands elevatorCommands)
+        private static void AddGoToFloorCommands(SkyscraperDto skyscraperDto, Queue<int> queue, ElevatorCommands elevatorCommands, bool jumpQueue)
         {
             if (queue.Count > 0)
             {
                 var destination = queue.Dequeue();
-                var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, true);
+                var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, jumpQueue);
                 elevatorCommands.GoToFloors.Enqueue(goToFloorCommand); 
             }
         }
