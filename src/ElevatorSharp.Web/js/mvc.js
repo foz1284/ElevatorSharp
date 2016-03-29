@@ -60,7 +60,7 @@
                 if (typeof setUpIndicators !== "undefined" && setUpIndicators != null) {
                     for (var j = 0; j < setUpIndicators.length; j++) {
                         console.debug("Setting UpIndicator on elevator " + setUpIndicators[j].ElevatorIndex + " to " + setUpIndicators[j].IsOn);
-                        elevators[setUpIndicators[j].ElevatorIndex].goingUpIndicator = setUpIndicators[j].IsOn;
+                        elevators[setUpIndicators[j].ElevatorIndex].goingUpIndicator(setUpIndicators[j].IsOn);
                     }
                 }
 
@@ -68,7 +68,7 @@
                 if (typeof setDownIndicators !== "undefined" && setDownIndicators != null) {
                     for (var k = 0; k < setDownIndicators.length; k++) {
                         console.debug("Setting DownIndicator on elevator " + setDownIndicators[k].ElevatorIndex + " to " + setDownIndicators[k].IsOn);
-                        elevators[setDownIndicators[k].ElevatorIndex].goingDownIndicator = setDownIndicators[k].IsOn;
+                        elevators[setDownIndicators[k].ElevatorIndex].goingDownIndicator(setDownIndicators[k].IsOn);
                     }
                 }
             };
@@ -81,6 +81,7 @@
                 // Idle
                 elevator.on("idle", function () {
                     console.debug("Elevator " + elevatorIndex + " is idle.");
+                    console.debug("Elevator " + elevatorIndex + " goingUpIndicator is " + elevator.goingUpIndicator());
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     $.ajax({
