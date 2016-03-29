@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Caching;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
@@ -24,11 +27,11 @@ namespace ElevatorSharp.Web.Controllers
             ViewBag.Message = message;
             ViewBag.Source = string.IsNullOrWhiteSpace(source) || !MemoryCache.Default.Contains(source) 
                 ? _defaultCode 
-                : Encoding.Default.GetString(Convert.FromBase64String((string)MemoryCache.Default.Get(source)));
+                : (string)MemoryCache.Default.Get(source);
 
-            if (diagnostics != null && diagnostics.Any())
+            if (diagnostics != null && MemoryCache.Default.Contains(diagnostics))
             {
-                ViewBag.Diagnostics = Encoding.Default.GetString(Convert.FromBase64String(diagnostics)).Split('±');
+                ViewBag.Diagnostics = ((ImmutableArray<Diagnostic>)MemoryCache.Default.Get(diagnostics)).Select(d=> d.ToString());
             }
             else
             {
@@ -102,29 +105,38 @@ namespace ElevatorSharp.Default
         public ActionResult UploadPlayerAsCode(string source)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(source);
-            var references = new[]
+            var referenceNames = Regex.Matches(source, "using ([^;]+)").Cast<Match>().Select(m => m.Groups[1].Value);
+            var references = new List<MetadataReference>
             {
-                MetadataReference.CreateFromFile(typeof (object).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof (LambdaExpression).Assembly.Location),
-                MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location),
-                MetadataReference.CreateFromFile(typeof(IPlayer).Assembly.Location),
-                MetadataReference.CreateFromFile(typeof(IPlayer).Assembly.Location)
+                MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                MetadataReference.CreateFromFile(Assembly.LoadWithPartialName("System.Core").Location)
             };
+            foreach (var reference in referenceNames)
+            {
+                try
+                {
+                    references.Add(MetadataReference.CreateFromFile(Assembly.LoadWithPartialName(reference).Location));
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
             var compilation = CSharpCompilation.Create("IPlayer", new[] { syntaxTree }, references, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
             
             using (var ms = new MemoryStream())
             {
                 var result = compilation.Emit(ms);
                 var sourceGuid = Guid.NewGuid().ToString();
-                MemoryCache.Default.Add(sourceGuid, Convert.ToBase64String(Encoding.Default.GetBytes(source)), new CacheItemPolicy {AbsoluteExpiration = DateTimeOffset.Now.AddDays(1)});
+                MemoryCache.Default.Add(sourceGuid, source, new CacheItemPolicy {AbsoluteExpiration = DateTimeOffset.Now.AddDays(1)});
                 if (result.Success)
                 {
                     ms.Seek(0, SeekOrigin.Begin);
                     var dll = Assembly.Load(ms.ToArray());
                     return FindPlayer(dll, sourceGuid);
                 }
-
-                return RedirectToAction("Index", new { message = "Compilation issues", source = sourceGuid, diagnostics = Convert.ToBase64String(Encoding.Default.GetBytes(string.Join("±", result.Diagnostics))) });
+                var diagnosticsGuid = Guid.NewGuid().ToString();
+                MemoryCache.Default.Add(diagnosticsGuid, result.Diagnostics, new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddDays(1) });
+                return RedirectToAction("Index", new { message = "Compilation issues", source = sourceGuid, diagnostics = diagnosticsGuid });
             }
         }
 
