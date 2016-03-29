@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -23,7 +22,9 @@ namespace ElevatorSharp.Web.Controllers
         public ActionResult Index(string message = null, string source = null, string diagnostics = null)
         {
             ViewBag.Message = message;
-            ViewBag.Source = string.IsNullOrWhiteSpace(source) ? _defaultCode : Encoding.Default.GetString(Convert.FromBase64String((string)MemoryCache.Default.Get(source)));
+            ViewBag.Source = string.IsNullOrWhiteSpace(source) || !MemoryCache.Default.Contains(source) 
+                ? _defaultCode 
+                : Encoding.Default.GetString(Convert.FromBase64String((string)MemoryCache.Default.Get(source)));
 
             if (diagnostics != null && diagnostics.Any())
             {
