@@ -82,9 +82,12 @@ namespace ElevatorSharp.Web.Controllers
 
         private static void AddGoToFloorCommands(SkyscraperDto skyscraperDto, Queue<int> queue, ElevatorCommands elevatorCommands)
         {
-            var destination = queue.Dequeue();
-            var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, true);
-            elevatorCommands.GoToFloors.Enqueue(goToFloorCommand);
+            if (queue.Count > 0)
+            {
+                var destination = queue.Dequeue();
+                var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, true);
+                elevatorCommands.GoToFloors.Enqueue(goToFloorCommand); 
+            }
         }
         #endregion
     }
