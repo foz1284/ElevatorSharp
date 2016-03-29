@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,8 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using ElevatorSharp.Domain;
 using ElevatorSharp.Domain.DataTransferObjects;
-using ElevatorSharp.Domain.Players;
-using ElevatorSharp.Web.ViewModels;
+using ElevatorSharp.Game;
+using ElevatorSharp.Tests.Players;
 using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers

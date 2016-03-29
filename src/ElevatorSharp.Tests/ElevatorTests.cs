@@ -1,4 +1,5 @@
 ﻿using ElevatorSharp.Domain;
+using ElevatorSharp.Game;
 using NUnit.Framework;
 
 namespace ElevatorSharp.Tests

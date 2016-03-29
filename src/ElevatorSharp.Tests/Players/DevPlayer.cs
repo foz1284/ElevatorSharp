@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ElevatorSharp.Domain;
+using ElevatorSharp.Game;
 
-namespace ElevatorSharp.Domain.Players
+namespace ElevatorSharp.Tests.Players
 {
     public class DevPlayer : IPlayer
     {
         #region Implementation of IPlayer
-        public void Init(IList<IElevator> elevators, IList<IFloor> floors)
+        public void Init(IElevator[] elevators, IFloor[] floors)
         {
             foreach (var elevator in elevators)
             {
@@ -23,7 +25,7 @@ namespace ElevatorSharp.Domain.Players
             }
         }
 
-        public void Update(IList<IElevator> elevators, IList<IFloor> floors)
+        public void Update(IElevator[] elevators, IFloor[] floors)
         {
             // We normally don't need to do anything here
         }

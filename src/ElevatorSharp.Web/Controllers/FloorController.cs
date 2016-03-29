@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using ElevatorSharp.Domain.DataTransferObjects;
+using ElevatorSharp.Game;
 using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
@@ -28,7 +30,7 @@ namespace ElevatorSharp.Web.Controllers
             }
 
             // This invokes the delegate from IPlayer
-            floor.OnUpButtonPressed(elevators);
+            floor.OnUpButtonPressed(elevators.ToArray());
 
             var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
@@ -55,7 +57,7 @@ namespace ElevatorSharp.Web.Controllers
             }
 
             // This invokes the delegate from IPlayer
-            floor.OnDownButtonPressed(elevators);
+            floor.OnDownButtonPressed(elevators.ToArray());
 
             var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
