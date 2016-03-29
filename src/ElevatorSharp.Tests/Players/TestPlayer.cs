@@ -18,9 +18,6 @@ namespace ElevatorSharp.Tests.Players
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
             elevator.GoToFloor(2);
-
-            elevator.GoingUpIndicator = true;
-            elevator.GoingDownIndicator = false;
         }
 
         public void Update(IElevator[] elevators, IFloor[] floors)
