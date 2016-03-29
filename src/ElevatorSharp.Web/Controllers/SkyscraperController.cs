@@ -45,8 +45,7 @@ namespace ElevatorSharp.Web.Controllers
                 if (type.GetInterface("IPlayer") != null)
                 {
                     var player = Activator.CreateInstance(type) as IPlayer;
-                    SavePlayer((IPlayer) player);
-                    //SavePlayerName(type.Name);
+                    SavePlayer(player);
                     message = type.Name + " uploaded.";
                     return RedirectToAction("Index", new {message});
                 }

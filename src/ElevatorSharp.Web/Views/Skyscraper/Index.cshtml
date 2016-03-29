@@ -29,13 +29,13 @@
         <textarea name="Code" id="code"></textarea>
     </div>
     <form action="@Url.Action("UploadPlayerAsCode")" method="post">
-        <button type="submit" name="submit" style="float: left">Upload Code</button>
         @ViewBag.Message
         
         <div class="codestatus"></div>
         <div class="code">
             <textarea name="Source" id="source"></textarea>
         </div>
+        <button type="submit" name="submit" style="float: left">Upload Code</button>
     </form>
     <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
