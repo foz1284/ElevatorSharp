@@ -103,7 +103,11 @@ namespace ElevatorSharp.Default
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(source);
             var referenceNames = Regex.Matches(source, "using ([^;]+)").Cast<Match>().Select(m => m.Groups[1].Value);
-            var references = new List<MetadataReference> { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) };
+            var references = new List<MetadataReference>
+            {
+                MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                MetadataReference.CreateFromFile(Assembly.LoadWithPartialName("System.Core").Location)
+            };
             foreach (var reference in referenceNames)
             {
                 try
