@@ -6,21 +6,11 @@ namespace ElevatorSharp.Game
 {
     public interface IElevator
     {
-        #region Events
         event EventHandler Idle;
         event EventHandler<int> FloorButtonPressed;
         event EventHandler PassingFloor;
         event EventHandler<int> StoppedAtFloor;
-        #endregion
 
-//        #region Event Invocators
-//        void OnIdle();
-//        void OnFloorButtonPressed(int floorNumber);
-//        void OnPassingFloor();
-//        void OnStoppedAtFloor(int floorNumber);
-//        #endregion
-
-        #region Public Api
         /// <summary>
         /// Queue the elevator to go to specified floor number. 
         /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
@@ -89,20 +79,5 @@ namespace ElevatorSharp.Game
         /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.
         /// </summary>
         Queue<int> DestinationQueue { get; }
-        #endregion
-
-        #region Client side tracking
-        int Index { get; }
-
-        /// <summary>
-        /// Used to keep track of newly added destinations. Used for client-side sync.
-        /// </summary>
-        Queue<int> NewDestinations { get; set; }
-
-        /// <summary>
-        /// Used to keep track of newly added destinations. Used for client-side sync.
-        /// </summary>
-        Queue<int> JumpQueueDestinations { get; set; }
-        #endregion
     }
 }
