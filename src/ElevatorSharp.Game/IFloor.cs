@@ -20,10 +20,10 @@ namespace ElevatorSharp.Game
         event EventHandler<IElevator[]> DownButtonPressed;
         #endregion
 
-        #region Event Invocators
-        void OnUpButtonPressed(IElevator[] e);
-        void OnDownButtonPressed(IElevator[] e);
-        #endregion
+//        #region Event Invocators
+//        void OnUpButtonPressed(IElevator[] e);
+//        void OnDownButtonPressed(IElevator[] e);
+//        #endregion
 
         #region Properties
         /// <summary>

@@ -13,12 +13,12 @@ namespace ElevatorSharp.Game
         event EventHandler<int> StoppedAtFloor;
         #endregion
 
-        #region Event Invocators
-        void OnIdle();
-        void OnFloorButtonPressed(int floorNumber);
-        void OnPassingFloor();
-        void OnStoppedAtFloor(int floorNumber);
-        #endregion
+//        #region Event Invocators
+//        void OnIdle();
+//        void OnFloorButtonPressed(int floorNumber);
+//        void OnPassingFloor();
+//        void OnStoppedAtFloor(int floorNumber);
+//        #endregion
 
         #region Public Api
         /// <summary>
