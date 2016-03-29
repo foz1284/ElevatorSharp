@@ -14,14 +14,14 @@ namespace ElevatorSharp.Tests.Players
             foreach (var elevator in elevators)
             {
                 elevator.Idle += Elevator_Idle; ;
-                elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
-                elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
+                //elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+                //elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
             }
 
             foreach (var floor in floors)
             {
-                floor.UpButtonPressed += Floor_UpButtonPressed;
-                floor.DownButtonPressed += Floor_DownButtonPressed;
+                //floor.UpButtonPressed += Floor_UpButtonPressed;
+                //floor.DownButtonPressed += Floor_DownButtonPressed;
             }
         }
 
@@ -66,9 +66,14 @@ namespace ElevatorSharp.Tests.Players
         {
             var elevator = (Elevator)sender;
 
-            //elevator.GoToFloor(0);
-            //elevator.GoToFloor(1);
-            //elevator.GoToFloor(2);
+            elevator.GoToFloor(0);
+            elevator.GoToFloor(1);
+            elevator.GoToFloor(2);
+            elevator.GoToFloor(3);
+            elevator.GoToFloor(4);
+            elevator.GoToFloor(5);
+            elevator.GoToFloor(6);
+            elevator.GoToFloor(7);
         }
 
         private void Elevator_FloorButtonPressed(object sender, int e)

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Caching;
-using System.Threading;
-using System.Web;
-using System.Web.Mvc;
-using ElevatorSharp.Domain;
+﻿using System.Web.Mvc;
 using ElevatorSharp.Domain.DataTransferObjects;
-using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
