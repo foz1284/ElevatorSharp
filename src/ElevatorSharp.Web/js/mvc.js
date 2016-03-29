@@ -7,14 +7,14 @@
             for (var ei = 0; ei < e.length; ei++) {
                 dto[ei] = {
                     ElevatorIndex: ei,
-                    DestinationQueue: e.destinationQueue,
-                    CurrentFloor: e.currentFloor,
-                    GoingUpIndicator: e.goingUpIndicator,
-                    GoingDownIndicator: e.goingDownIndicator,
-                    MaxPassengerCount: e[ei].maxPassengerCount,
-                    LoadFactor: e[ei].loadFactor,
-                    DestinationDirection: e.destinationDirection,
-                    PressedFloors: e.getPressedFloors
+                    DestinationQueue: e[ei].destinationQueue,
+                    CurrentFloor: e[ei].currentFloor(),
+                    GoingUpIndicator: e[ei].goingUpIndicator(),
+                    GoingDownIndicator: e[ei].goingDownIndicator(),
+                    MaxPassengerCount: e[ei].maxPassengerCount(),
+                    LoadFactor: e[ei].loadFactor(),
+                    DestinationDirection: e[ei].destinationDirection(),
+                    PressedFloors: e[ei].getPressedFloors()
             }
             }
             return dto;
@@ -24,7 +24,7 @@
             var dto = [];
             for (var j = 0; j < f.length; j++) {
                 dto[j] = {
-                    FloorNumber: f[j].floorNum
+                    FloorNumber: f[j].floorNum()
                 }
             }
             return dto;
