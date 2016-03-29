@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ElevatorSharp.Domain;
-using ElevatorSharp.Domain.Players;
+using ElevatorSharp.Game;
+using ElevatorSharp.Tests.Players;
 using NUnit.Framework;
 
 namespace ElevatorSharp.Tests

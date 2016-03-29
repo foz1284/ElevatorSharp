@@ -88,6 +88,8 @@
   <ItemGroup>
     <Compile Include="ElevatorTests.cs" />
     <Compile Include="FloorTests.cs" />
+    <Compile Include="Players\DevPlayer.cs" />
+    <Compile Include="Players\TestPlayer.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldTests.cs" />
@@ -102,6 +104,10 @@
     <ProjectReference Include="..\ElevatorSharp.Domain\ElevatorSharp.Domain.csproj">
       <Project>{88937AC7-ED0E-4561-9163-16EA481B921E}</Project>
       <Name>ElevatorSharp.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElevatorSharp.Game\ElevatorSharp.Game.csproj">
+      <Project>{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}</Project>
+      <Name>ElevatorSharp.Game</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

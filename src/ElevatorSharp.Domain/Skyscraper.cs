@@ -1,31 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ElevatorSharp.Domain.DataTransferObjects;
-using ElevatorSharp.Domain.Players;
+using ElevatorSharp.Game;
 
 namespace ElevatorSharp.Domain
 {
-    public class Skyscraper
+    internal class Skyscraper
     {
         #region Fields
         #endregion
 
         #region Properties
-        public IList<IElevator> Elevators { get; }
-        public IList<IFloor> Floors { get; }
+
+        internal IList<Elevator> Elevators { get; }
+        internal IList<Floor> Floors { get; }
         #endregion
 
         #region Constructors
-        public Skyscraper(SkyscraperDto skyscraperDto)
+
+        internal Skyscraper(SkyscraperDto skyscraperDto)
         {
-            Elevators = new List<IElevator>();
+            Elevators = new List<Elevator>();
             foreach (var elevatorDto in skyscraperDto.Elevators)
             {
                 var elevator = new Elevator(elevatorDto.ElevatorIndex, elevatorDto.MaxPassengerCount);
                 Elevators.Add(elevator);
             }
 
-            Floors = new List<IFloor>();
+            Floors = new List<Floor>();
             for (var i = 0; i < skyscraperDto.Floors.Count; i++)
             {
                 Floors.Add(new Floor(i));
@@ -34,9 +36,10 @@ namespace ElevatorSharp.Domain
         #endregion
 
         #region Methods
-        public void LoadPlayer(IPlayer player)
+
+        internal void LoadPlayer(IPlayer player)
         {
-            player.Init(Elevators, Floors);
+            player.Init(Elevators.ToArray(), Floors.ToArray());
         }
         #endregion
     }

@@ -1,9 +1,9 @@
 ﻿namespace ElevatorSharp.Domain
 {
-    public class Passenger
+    internal class Passenger
     {
-        public int CurrentFloor { get; set; }
-        public int DestinationFloor { get; set; }
-        public bool Arrived { get; set; }
+        internal int CurrentFloor { get; set; }
+        internal int DestinationFloor { get; set; }
+        internal bool Arrived { get; set; }
     }
 }
