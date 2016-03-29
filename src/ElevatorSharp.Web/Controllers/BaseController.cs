@@ -70,6 +70,7 @@ namespace ElevatorSharp.Web.Controllers
             {
                 AddGoToFloorCommands(skyscraperDto, newDestinations, elevatorCommands);
             }
+
             return elevatorCommands;
         }
 
@@ -77,7 +78,7 @@ namespace ElevatorSharp.Web.Controllers
         {
             var destination = queue.Dequeue();
             var goToFloorCommand = new GoToFloorCommand(skyscraperDto.EventRaisedElevatorIndex, destination, true);
-            elevatorCommands.GoToFloor.Enqueue(goToFloorCommand);
+            elevatorCommands.GoToFloors.Enqueue(goToFloorCommand);
         }
         #endregion
     }

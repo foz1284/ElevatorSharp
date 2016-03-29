@@ -10,9 +10,12 @@ namespace ElevatorSharp.Web.ViewModels
     {
         public ElevatorCommands()
         {
-            GoToFloor = new Queue<GoToFloorCommand>();
+            GoToFloors = new Queue<GoToFloorCommand>();
         }
 
-        public Queue<GoToFloorCommand> GoToFloor { get; set; }
+        public Queue<GoToFloorCommand> GoToFloors { get; set; }
+        public Queue<SetElevatorUpIndicator> SetElevatorUpIndicators { get; set; }
+        public Queue<SetElevatorDownIndicator> SetElevatorDownIndicators { get; set; }
+        public StopElevator[] StopElevators { get; set; }
     }
 }
