@@ -43,7 +43,7 @@
         <button type="submit" name="submit" style="float: left">Compile</button>
     </form>
     <div style="clear: both;"></div>
-    <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data">
+    <form action="@Url.Action("UploadPlayer")" method="post" enctype="multipart/form-data"  style="display: none;">
         <button type="submit" name="submit" style="float: left">Upload iPlayer DLL</button>
         <input type="file" name="dll" id="fileToUpload" style="float: left" />
         @ViewBag.Message
