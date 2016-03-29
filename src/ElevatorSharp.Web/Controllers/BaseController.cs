@@ -70,6 +70,7 @@ namespace ElevatorSharp.Web.Controllers
             {
                 AddGoToFloorCommands(skyscraperDto, newDestinations, elevatorCommands);
             }
+
             return elevatorCommands;
         }
 
