@@ -1,4 +1,6 @@
-﻿namespace ElevatorSharp.Domain.DataTransferObjects
+﻿using ElevatorSharp.Game;
+
+namespace ElevatorSharp.Domain.DataTransferObjects
 {
     public class ElevatorDto
     {
