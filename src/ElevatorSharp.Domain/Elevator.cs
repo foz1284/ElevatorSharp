@@ -125,7 +125,6 @@ namespace ElevatorSharp.Domain
         }
         #endregion
 
-
         #region Client-side tracking
         public Queue<int> NewDestinations { get; set; }
         public Queue<int> JumpQueueDestinations { get; set; }
