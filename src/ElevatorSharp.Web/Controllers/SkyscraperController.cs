@@ -94,6 +94,7 @@ namespace ElevatorSharp.Default
             return RedirectToAction("Index", new {message= "No player implementing IPlayer found." });
         }
 
+        [ValidateInput(false)]
         public ActionResult UploadPlayerAsCode(string source)
         {
             var syntaxTree = CSharpSyntaxTree.ParseText(source);
