@@ -43,34 +43,26 @@
         var hookUpAllEvents = function () {
 
             var executeElevatorCommands = function (elevatorCommands) {
-                var goToFloors = elevatorCommands.GoToFloors;
-                if (typeof goToFloors !== "undefined" && goToFloors != null) {
-                    for (var i = 0; i < goToFloors.length; i++) {
-                        var goToFloor = goToFloors[i];
-                        var jumpQueueDebugMessage = "";
-                        if (goToFloor.JumpQueue) {
-                            jumpQueueDebugMessage = " and jump the queue.";
-                        }
-                        //console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
-                        elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
-                    }
-                }
 
-                var setUpIndicators = elevatorCommands.SetUpIndicators;
-                if (typeof setUpIndicators !== "undefined" && setUpIndicators != null) {
-                    for (var j = 0; j < setUpIndicators.length; j++) {
-                        //console.debug("Setting UpIndicator on elevator " + setUpIndicators[j].ElevatorIndex + " to " + setUpIndicators[j].IsOn);
-                        elevators[setUpIndicators[j].ElevatorIndex].goingUpIndicator(setUpIndicators[j].IsOn);
-                    }
-                }
+                // stop()
+                elevatorCommands.StopElevators.forEach(function (stopElevator) {
+                    elevators[stopElevator.ElevatorIndex].stop();
+                });
 
-                var setDownIndicators = elevatorCommands.SetDownIndicators;
-                if (typeof setDownIndicators !== "undefined" && setDownIndicators != null) {
-                    for (var k = 0; k < setDownIndicators.length; k++) {
-                        //console.debug("Setting DownIndicator on elevator " + setDownIndicators[k].ElevatorIndex + " to " + setDownIndicators[k].IsOn);
-                        elevators[setDownIndicators[k].ElevatorIndex].goingDownIndicator(setDownIndicators[k].IsOn);
-                    }
-                }
+                // goToFloor()
+                elevatorCommands.GoToFloors.forEach(function(goToFloor) {
+                    elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
+                });
+
+                // goingUpIndicator()
+                elevatorCommands.SetUpIndicators.forEach(function (setUpIndicator) {
+                    elevators[setUpIndicator.ElevatorIndex].goingUpIndicator(setUpIndicator.IsOn);
+                });
+
+                // goingDownIndicator()
+                elevatorCommands.SetDownIndicators.forEach(function (setDownIndicator) {
+                    elevators[setDownIndicator.ElevatorIndex].goingUpIndicator(setDownIndicator.IsOn);
+                });
             };
             
             elevators.forEach(function (elevator) {
