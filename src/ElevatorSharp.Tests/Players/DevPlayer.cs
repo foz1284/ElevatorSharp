@@ -12,16 +12,16 @@ namespace ElevatorSharp.Tests.Players
         {
             foreach (var elevator in elevators)
             {
-                elevator.Idle += Elevator_Idle; ;
-                //elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
+                //elevator.Idle += Elevator_Idle; ;
+                elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
                 //elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
                 elevator.PassingFloor += Elevator_PassingFloor;
             }
 
             foreach (var floor in floors)
             {
-                //floor.UpButtonPressed += Floor_UpButtonPressed;
-                //floor.DownButtonPressed += Floor_DownButtonPressed;
+                floor.UpButtonPressed += Floor_UpButtonPressed;
+                floor.DownButtonPressed += Floor_DownButtonPressed;
             }
         }
 
@@ -37,7 +37,7 @@ namespace ElevatorSharp.Tests.Players
             var elevator = (IElevator)sender;
 
             var pressedFloors = elevator.PressedFloors;
-            if (pressedFloors.Contains(e.PassingFloorNumber))
+            if (pressedFloors != null && pressedFloors.Contains(e.PassingFloorNumber))
             {
                 // Stop at this floor next
                 elevator.GoToFloor(e.PassingFloorNumber, true);
@@ -58,31 +58,15 @@ namespace ElevatorSharp.Tests.Players
         private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (IFloor)sender;
-
-            // Just pick first elevator to start with and go to the floor the button was pressed.
-            // Could check which floor each elevator is currently on and which direction they are travelling?
-
-            // grab the first elevator that is going up
-            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
-            if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
-            {
-                elevator.GoToFloor(floor.FloorNum);
-            }
+            
+            GoToFloorWithRandomElevator(elevators, floor);
         }
 
         private void Floor_UpButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (IFloor)sender;
 
-            // Just pick first elevator to start with and go to the floor the button was pressed.
-            // Could check which floor each elevator is currently on and which direction they are travelling?
-
-            // grab the first elevator that is going up
-            var elevator = elevators.FirstOrDefault(e => e.DestinationDirection == ElevatorDirection.Stopped);
-            if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
-            {
-                elevator.GoToFloor(floor.FloorNum);
-            }
+            GoToFloorWithRandomElevator(elevators, floor);
         }
 
         private void Elevator_Idle(object sender, EventArgs e)
@@ -127,5 +111,16 @@ namespace ElevatorSharp.Tests.Players
             // they want to travel.
         }
         #endregion
+
+        private static void GoToFloorWithRandomElevator(IList<IElevator> elevators, IFloor floor)
+        {
+            var random = new Random();
+            var randomElevatorIndex = random.Next(elevators.Count);
+            var elevator = elevators[randomElevatorIndex];
+            if (elevator != null && !elevator.DestinationQueue.Contains(floor.FloorNum))
+            {
+                elevator.GoToFloor(floor.FloorNum);
+            }
+        }
     }
 }
