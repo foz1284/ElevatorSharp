@@ -46,6 +46,7 @@
 
                 // stop()
                 elevatorCommands.StopElevators.forEach(function (stopElevator) {
+                    console.debug("Stopping elevator " + stopElevator.ElevatorIndex);
                     elevators[stopElevator.ElevatorIndex].stop();
                 });
 

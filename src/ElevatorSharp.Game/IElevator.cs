@@ -77,7 +77,9 @@ namespace ElevatorSharp.Game
         ElevatorDirection DestinationDirection { get; }
 
         /// <summary>
-        /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.
+        /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. 
+        /// Can be modified and emptied if desired. 
+        /// Note that you need to call checkDestinationQueue() for the change to take effect immediately.
         /// </summary>
         Queue<int> DestinationQueue { get; set; }
     }

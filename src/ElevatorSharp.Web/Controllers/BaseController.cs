@@ -61,6 +61,8 @@ namespace ElevatorSharp.Web.Controllers
             var jumpQueueDestinations = skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].JumpQueueDestinations;
             var newDestinations = skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].NewDestinations;
 
+
+
             while (jumpQueueDestinations.Count > 0)
             {
                 AddGoToFloorCommands(skyscraperDto, jumpQueueDestinations, elevatorCommands, true);
@@ -73,6 +75,10 @@ namespace ElevatorSharp.Web.Controllers
 
             foreach (var elevator in skyscraper.Elevators)
             {
+                if (elevator.StopElevator)
+                {
+                    elevatorCommands.StopElevators.Add(new StopElevator(elevator.Index)); 
+                }
                 elevatorCommands.SetUpIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingUpIndicator));
                 elevatorCommands.SetDownIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingDownIndicator));
             }
