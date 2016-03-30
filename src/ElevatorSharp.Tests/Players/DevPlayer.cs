@@ -12,7 +12,7 @@ namespace ElevatorSharp.Tests.Players
         {
             foreach (var elevator in elevators)
             {
-                //elevator.Idle += Elevator_Idle; ;
+                elevator.Idle += Elevator_Idle; ;
                 //elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
                 //elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
                 elevator.PassingFloor += Elevator_PassingFloor;
@@ -36,7 +36,23 @@ namespace ElevatorSharp.Tests.Players
         {
             var elevator = (IElevator)sender;
 
-            // TODO: do something here. Maybe check current floor and set indicators?
+            var pressedFloors = elevator.PressedFloors;
+            if (pressedFloors.Contains(e.PassingFloorNumber))
+            {
+                // Stop at this floor next
+                elevator.GoToFloor(e.PassingFloorNumber, true);
+            }
+
+            //if (e.Direction == ElevatorDirection.Up)
+            //{
+            //    elevator.GoingUpIndicator = true;
+            //    elevator.GoingDownIndicator = false;
+            //}
+            //else
+            //{
+            //    elevator.GoingUpIndicator = false;
+            //    elevator.GoingDownIndicator = true;
+            //}
         }
 
         private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
@@ -81,10 +97,6 @@ namespace ElevatorSharp.Tests.Players
             elevator.GoToFloor(5);
             elevator.GoToFloor(6);
             elevator.GoToFloor(7);
-
-
-            elevator.GoingUpIndicator = true;
-            elevator.GoingDownIndicator = false;
         }
 
         private void Elevator_FloorButtonPressed(object sender, int e)
