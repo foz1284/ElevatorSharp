@@ -36,12 +36,17 @@ namespace ElevatorSharp.Tests.Players
         {
             var elevator = (IElevator)sender;
 
-            var pressedFloors = elevator.PressedFloors;
-            if (pressedFloors != null && pressedFloors.Contains(e.PassingFloorNumber))
+            if (e.PassingFloorNumber == 1 && e.Direction == ElevatorDirection.Down && elevator.DestinationDirection != ElevatorDirection.Stopped)
             {
-                // Stop at this floor next
-                elevator.GoToFloor(e.PassingFloorNumber, true);
+                elevator.Stop(); 
             }
+
+            //var pressedFloors = elevator.PressedFloors;
+            //if (pressedFloors != null && pressedFloors.Contains(e.PassingFloorNumber))
+            //{
+            //    // Stop at this floor next
+            //    elevator.GoToFloor(e.PassingFloorNumber, true);
+            //}
 
             //if (e.Direction == ElevatorDirection.Up)
             //{

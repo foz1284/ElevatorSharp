@@ -73,7 +73,8 @@ namespace ElevatorSharp.Domain
         }
 
         /// <summary>
-        /// Queue the elevator to go to specified floor number. If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
+        /// Queue the elevator to go to specified floor number. 
+        /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
         /// </summary>
         /// <param name="floor"></param>
         /// <param name="jumpQueue"></param>
@@ -121,12 +122,16 @@ namespace ElevatorSharp.Domain
         public void Stop()
         {
             DestinationQueue.Clear();
+            StopElevator = true;
+            IsDestinationQueueModified = true;
         }
         #endregion
 
         #region Client-side tracking
         public Queue<int> NewDestinations { get; set; }
         public Queue<int> JumpQueueDestinations { get; set; }
+        public bool StopElevator { get; set; }
+        public bool IsDestinationQueueModified { get; set; }
         #endregion
     }
 }
