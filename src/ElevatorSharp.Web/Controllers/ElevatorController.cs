@@ -55,7 +55,15 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult PassingFloor(SkyscraperDto skyscraperDto)
         {
-            var json = JsonConvert.SerializeObject(skyscraperDto);
+            var skyscraper = SyncSkyscraper(skyscraperDto);
+
+            // This invokes the delegate from IPlayer
+            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+            var passingFloorNumber = skyscraperDto.Elevators[eventRaisedElevatorIndex].PassingFloorNumber;
+            skyscraper.Elevators[eventRaisedElevatorIndex].OnPassingFloor(passingFloorNumber);
+
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
 

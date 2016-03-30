@@ -9,7 +9,7 @@ namespace ElevatorSharp.Domain
         #region Events
         public event EventHandler Idle;
         public event EventHandler<int> FloorButtonPressed;
-        public event EventHandler PassingFloor;
+        public event EventHandler<int> PassingFloor;
         public event EventHandler<int> StoppedAtFloor; 
         #endregion
 
@@ -51,9 +51,9 @@ namespace ElevatorSharp.Domain
             FloorButtonPressed?.Invoke(this, floorNumber);
         }
 
-        public void OnPassingFloor()
+        public void OnPassingFloor(int passingFloorNumber)
         {
-            PassingFloor?.Invoke(this, EventArgs.Empty);
+            PassingFloor?.Invoke(this, passingFloorNumber);
         }
 
         public void OnStoppedAtFloor(int e)

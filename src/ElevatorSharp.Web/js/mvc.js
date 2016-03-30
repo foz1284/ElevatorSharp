@@ -111,7 +111,7 @@
                     //console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
-                    dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
+                    dto.Elevators[elevatorIndex].PassingFloorNumber = floorNum;
                     dto.Elevators[elevatorIndex].Direction = direction;
                     $.ajax({
                         type: "POST",
