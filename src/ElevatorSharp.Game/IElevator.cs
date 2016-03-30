@@ -12,7 +12,6 @@ namespace ElevatorSharp.Game
 
         /// <summary>
         /// Queue the elevator to go to specified floor number. 
-        /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
         /// </summary>
         /// <param name="floor">Floor level.</param>
         void GoToFloor(int floor);
@@ -21,12 +20,14 @@ namespace ElevatorSharp.Game
         /// Queue the elevator to go to specified floor number. 
         /// If you specify true as second argument, the elevator will go to that floor directly, and then go to any other queued floors.
         /// </summary>
-        /// <param name="floor"></param>
-        /// <param name="jumpQueue"></param>
+        /// <param name="floor">Floor level.</param>
+        /// <param name="jumpQueue">Go there next.</param>
         void GoToFloor(int floor, bool jumpQueue);
 
         /// <summary>
-        /// Clear the destination queue and stop the elevator if it is moving. Note that you normally don't need to stop elevators - it is intended for advanced solutions with in-transit rescheduling logic. Also, note that the elevator will probably not stop at a floor, so passengers will not get out.
+        /// Clear the destination queue and stop the elevator if it is moving. 
+        /// Note that you normally don't need to stop elevators - it is intended for advanced solutions with in-transit rescheduling logic. 
+        /// Also, note that the elevator will probably not stop at a floor, so passengers will not get out.
         /// </summary>
         void Stop();
 
@@ -38,7 +39,8 @@ namespace ElevatorSharp.Game
         int[] PressedFloors { get; }
 
         /// <summary>
-        /// Checks the destination queue for any new destinations to go to. Note that you only need to call this if you modify the destination queue explicitly.
+        /// Checks the destination queue for any new destinations to go to. 
+        /// Note that you only need to call this if you modify the destination queue explicitly.
         /// This method dequeues floor levels and goes to next floor in queue.
         /// </summary>
         void CheckDestinationQueue();
@@ -77,6 +79,6 @@ namespace ElevatorSharp.Game
         /// <summary>
         /// The current destination queue, meaning the floor numbers the elevator is scheduled to go to. Can be modified and emptied if desired. Note that you need to call checkDestinationQueue() for the change to take effect immediately.
         /// </summary>
-        Queue<int> DestinationQueue { get; }
+        Queue<int> DestinationQueue { get; set; }
     }
 }

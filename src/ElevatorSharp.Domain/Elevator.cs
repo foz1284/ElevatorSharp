@@ -120,8 +120,7 @@ namespace ElevatorSharp.Domain
         /// </summary>
         public void Stop()
         {
-            // TODO: We need a StopCommand on the controller and we need to communicate this back from here
-            throw new NotImplementedException();
+            DestinationQueue.Clear();
         }
         #endregion
 
