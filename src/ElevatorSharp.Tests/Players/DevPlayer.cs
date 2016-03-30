@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ElevatorSharp.Domain;
 using ElevatorSharp.Game;
 
 namespace ElevatorSharp.Tests.Players
@@ -13,9 +12,10 @@ namespace ElevatorSharp.Tests.Players
         {
             foreach (var elevator in elevators)
             {
-                elevator.Idle += Elevator_Idle; ;
+                //elevator.Idle += Elevator_Idle; ;
                 //elevator.FloorButtonPressed += Elevator_FloorButtonPressed;
                 //elevator.StoppedAtFloor += Elevator_StoppedAtFloor;
+                elevator.PassingFloor += Elevator_PassingFloor;
             }
 
             foreach (var floor in floors)
@@ -32,6 +32,13 @@ namespace ElevatorSharp.Tests.Players
         #endregion
 
         #region Event Handlers
+        private void Elevator_PassingFloor(object sender, PassingFloorEventArgs e)
+        {
+            var elevator = (IElevator)sender;
+
+            // TODO: do something here. Maybe check current floor and set indicators?
+        }
+
         private void Floor_DownButtonPressed(object sender, IList<IElevator> elevators)
         {
             var floor = (IFloor)sender;

@@ -45,6 +45,7 @@
     <Compile Include="IElevator.cs" />
     <Compile Include="IFloor.cs" />
     <Compile Include="IPlayer.cs" />
+    <Compile Include="PassingFloorEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -16,5 +16,6 @@ namespace ElevatorSharp.Domain.DataTransferObjects
         public int FloorNumberPressed { get; set; }
         public ElevatorDirection Direction { get; set; }
         public int StoppedAtFloorNumber { get; set; }
+        public int PassingFloorNumber { get; set; }
     }
 }

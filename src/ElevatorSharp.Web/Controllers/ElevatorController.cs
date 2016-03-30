@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using ElevatorSharp.Domain.DataTransferObjects;
+using ElevatorSharp.Game;
 using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
@@ -55,7 +56,21 @@ namespace ElevatorSharp.Web.Controllers
         /// <returns></returns>
         public ContentResult PassingFloor(SkyscraperDto skyscraperDto)
         {
-            var json = JsonConvert.SerializeObject(skyscraperDto);
+            var skyscraper = SyncSkyscraper(skyscraperDto);
+
+            // This invokes the delegate from IPlayer
+            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+            var passingFloorNumber = skyscraperDto.Elevators[eventRaisedElevatorIndex].PassingFloorNumber;
+            var direction = skyscraperDto.Elevators[eventRaisedElevatorIndex].Direction;
+            var eventArgs = new PassingFloorEventArgs
+            {
+                PassingFloorNumber = passingFloorNumber,
+                Direction = direction
+            };
+            skyscraper.Elevators[eventRaisedElevatorIndex].OnPassingFloor(eventArgs);
+
+            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
 
