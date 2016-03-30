@@ -142,7 +142,7 @@
     if (goToFloor.JumpQueue) {
     jumpQueueDebugMessage = " and jump the queue.";
     }
-    console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
+    //console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
     elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
     }
     }
@@ -150,7 +150,7 @@
     var setUpIndicators = elevatorCommands.SetUpIndicators;
     if (typeof setUpIndicators !== "undefined" && setUpIndicators != null) {
     for (var j = 0; j < setUpIndicators.length; j++) {
-    console.debug("Setting UpIndicator on elevator " + setUpIndicators[j].ElevatorIndex + " to " + setUpIndicators[j].IsOn);
+    //console.debug("Setting UpIndicator on elevator " + setUpIndicators[j].ElevatorIndex + " to " + setUpIndicators[j].IsOn);
     elevators[setUpIndicators[j].ElevatorIndex].goingUpIndicator(setUpIndicators[j].IsOn);
     }
     }
@@ -158,7 +158,7 @@
     var setDownIndicators = elevatorCommands.SetDownIndicators;
     if (typeof setDownIndicators !== "undefined" && setDownIndicators != null) {
     for (var k = 0; k < setDownIndicators.length; k++) {
-    console.debug("Setting DownIndicator on elevator " + setDownIndicators[k].ElevatorIndex + " to " + setDownIndicators[k].IsOn);
+    //console.debug("Setting DownIndicator on elevator " + setDownIndicators[k].ElevatorIndex + " to " + setDownIndicators[k].IsOn);
     elevators[setDownIndicators[k].ElevatorIndex].goingDownIndicator(setDownIndicators[k].IsOn);
     }
     }
@@ -169,8 +169,8 @@
     // Idle
     elevator.on("idle", function () {
     var elevatorIndex = elevators.indexOf(this);
-    console.debug("Elevator " + elevatorIndex + " is idle.");
-    console.debug("Elevator " + elevatorIndex + " goingUpIndicator is " + this.goingUpIndicator());
+    //console.debug("Elevator " + elevatorIndex + " is idle.");
+    //console.debug("Elevator " + elevatorIndex + " goingUpIndicator is " + this.goingUpIndicator());
     var dto = createSkyscraperDto();
     dto.EventRaisedElevatorIndex = elevatorIndex;
     $.ajax({
@@ -184,7 +184,7 @@
     // Floor Button Pressed
     elevator.on("floor_button_pressed", function (floorNum) {
     var elevatorIndex = elevators.indexOf(this);
-    console.debug("Elevator " + elevatorIndex + " floor button " + floorNum + " pressed.");
+    //console.debug("Elevator " + elevatorIndex + " floor button " + floorNum + " pressed.");
     var dto = createSkyscraperDto();
     dto.EventRaisedElevatorIndex = elevatorIndex;
     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
@@ -199,7 +199,7 @@
     // Passing Floor
     elevator.on("passing_floor", function (floorNum, direction) {
     var elevatorIndex = elevators.indexOf(this);
-    console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
+    //console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
     var dto = createSkyscraperDto();
     dto.EventRaisedElevatorIndex = elevatorIndex;
     dto.Elevators[elevatorIndex].FloorNumberPressed = floorNum;
@@ -215,7 +215,7 @@
     // Stopped At Floor
     elevator.on("stopped_at_floor", function (floorNum) {
     var elevatorIndex = elevators.indexOf(this);
-    console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
+    //console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
     var dto = createSkyscraperDto();
     dto.EventRaisedElevatorIndex = elevatorIndex;
     dto.Elevators[elevatorIndex].StoppedAtFloorNumber = floorNum;
@@ -231,7 +231,7 @@
     floors.forEach(function (floor) {
 
     floor.on("up_button_pressed", function () {
-    console.debug("Up button pressed on floor " + floor.floorNum());
+    //console.debug("Up button pressed on floor " + floor.floorNum());
     var dto = createSkyscraperDto();
     dto.EventRaisedFloorNumber = floor.floorNum;
     $.ajax({
@@ -243,7 +243,7 @@
     });
 
     floor.on("down_button_pressed", function () {
-    console.debug("Down button pressed on floor " + floor.floorNum());
+    //console.debug("Down button pressed on floor " + floor.floorNum());
     var dto = createSkyscraperDto();
     dto.EventRaisedFloorNumber = floor.floorNum;
     $.ajax({
