@@ -7,7 +7,7 @@ namespace ElevatorSharp.Game
     {
         event EventHandler Idle;
         event EventHandler<int> FloorButtonPressed;
-        event EventHandler<int> PassingFloor;
+        event EventHandler<PassingFloorEventArgs> PassingFloor;
         event EventHandler<int> StoppedAtFloor;
 
         /// <summary>

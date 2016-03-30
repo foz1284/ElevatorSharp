@@ -32,7 +32,7 @@ namespace ElevatorSharp.Tests.Players
         #endregion
 
         #region Event Handlers
-        private void Elevator_PassingFloor(object sender, int e)
+        private void Elevator_PassingFloor(object sender, PassingFloorEventArgs e)
         {
             var elevator = (IElevator)sender;
 
