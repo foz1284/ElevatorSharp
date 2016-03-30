@@ -45,7 +45,7 @@
             var executeElevatorCommands = function (elevatorCommands) {
                 var goToFloors = elevatorCommands.GoToFloors;
                 if (typeof goToFloors !== "undefined" && goToFloors != null) {
-                    for (var i = goToFloors.length-1; i >= 0; i--) {
+                    for (var i = 0; i < goToFloors.length; i++) {
                         var goToFloor = goToFloors[i];
                         var jumpQueueDebugMessage = "";
                         if (goToFloor.JumpQueue) {
@@ -72,16 +72,14 @@
                     }
                 }
             };
-
-            var elevatorIndex = -1;
+            
             elevators.forEach(function (elevator) {
-                
-                elevatorIndex++;
 
                 // Idle
                 elevator.on("idle", function () {
+                    var elevatorIndex = elevators.indexOf(this);
                     console.debug("Elevator " + elevatorIndex + " is idle.");
-                    console.debug("Elevator " + elevatorIndex + " goingUpIndicator is " + elevator.goingUpIndicator());
+                    console.debug("Elevator " + elevatorIndex + " goingUpIndicator is " + this.goingUpIndicator());
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     $.ajax({
@@ -94,6 +92,7 @@
 
                 // Floor Button Pressed
                 elevator.on("floor_button_pressed", function (floorNum) {
+                    var elevatorIndex = elevators.indexOf(this);
                     console.debug("Elevator " + elevatorIndex + " floor button " + floorNum + " pressed.");
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
@@ -108,6 +107,7 @@
 
                 // Passing Floor
                 elevator.on("passing_floor", function (floorNum, direction) {
+                    var elevatorIndex = elevators.indexOf(this);
                     console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
@@ -123,6 +123,7 @@
 
                 // Stopped At Floor
                 elevator.on("stopped_at_floor", function (floorNum) {
+                    var elevatorIndex = elevators.indexOf(this);
                     console.debug("Elevator " + elevatorIndex + " stopped at floor " + floorNum);
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
