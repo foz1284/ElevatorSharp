@@ -51,7 +51,7 @@
                         if (goToFloor.JumpQueue) {
                             jumpQueueDebugMessage = " and jump the queue.";
                         }
-                        console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
+                        //console.debug("Elevator " + goToFloor.ElevatorIndex + " go to floor " + goToFloor.FloorNumber + jumpQueueDebugMessage);
                         elevators[goToFloor.ElevatorIndex].goToFloor(goToFloor.FloorNumber, goToFloor.JumpQueue);
                     }
                 }
@@ -108,7 +108,7 @@
                 // Passing Floor
                 elevator.on("passing_floor", function (floorNum, direction) {
                     var elevatorIndex = elevators.indexOf(this);
-                    console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
+                    //console.debug("Elevator " + elevatorIndex + " passing floor " + floorNum + " going " + direction + ".");
                     var dto = createSkyscraperDto();
                     dto.EventRaisedElevatorIndex = elevatorIndex;
                     dto.Elevators[elevatorIndex].PassingFloorNumber = floorNum;
