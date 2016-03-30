@@ -77,7 +77,8 @@ namespace ElevatorSharp.Web.Controllers
             {
                 if (elevator.StopElevator)
                 {
-                    elevatorCommands.StopElevators.Add(new StopElevator(elevator.Index)); 
+                    elevatorCommands.StopElevators.Add(new StopElevator(elevator.Index));
+                    elevator.StopElevator = false; // This is not synced so must be reset here
                 }
                 elevatorCommands.SetUpIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingUpIndicator));
                 elevatorCommands.SetDownIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingDownIndicator));

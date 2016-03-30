@@ -36,7 +36,10 @@ namespace ElevatorSharp.Tests.Players
         {
             var elevator = (IElevator)sender;
 
-            elevator.Stop();
+            if (e.PassingFloorNumber == 1 && e.Direction == ElevatorDirection.Down && elevator.DestinationDirection != ElevatorDirection.Stopped)
+            {
+                elevator.Stop(); 
+            }
 
             //var pressedFloors = elevator.PressedFloors;
             //if (pressedFloors != null && pressedFloors.Contains(e.PassingFloorNumber))
