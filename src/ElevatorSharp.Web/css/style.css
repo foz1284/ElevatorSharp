@@ -182,7 +182,7 @@ button.right {
 }
 
 .statscontainer {
-    font: 12px Consolas, Monaco, monospace;
+    font: 16px Consolas, Monaco, monospace;
     line-height: 10px;
     color: #999;
     position: absolute;
