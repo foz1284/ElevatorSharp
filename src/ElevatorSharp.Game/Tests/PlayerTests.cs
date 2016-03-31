@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace ElevatorSharp.Game.Tests
 {
     [TestFixture]
-    public class ElevatorPlayerTests
+    public class PlayerTests
     {
         private IPlayer yourPlayer;
 

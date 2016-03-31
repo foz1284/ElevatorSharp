@@ -23,10 +23,5 @@ namespace ElevatorSharp.Tests.Players
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
         }
-
-        public void Update(IElevator[] elevators, IFloor[] floors)
-        {
-            // We normally don't need to do anything here
-        }
     }
 }

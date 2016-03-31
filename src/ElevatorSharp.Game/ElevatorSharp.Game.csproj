@@ -52,7 +52,7 @@
     <Compile Include="Players\IPlayer.cs" />
     <Compile Include="PassingFloorEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\ElevatorPlayerTests.cs" />
+    <Compile Include="Tests\PlayerTests.cs" />
     <Compile Include="Tests\Mocks\MockElevator.cs" />
     <Compile Include="Tests\Mocks\MockFloor.cs" />
   </ItemGroup>

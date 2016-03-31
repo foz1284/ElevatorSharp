@@ -25,11 +25,6 @@ namespace ElevatorSharp.Tests.Players
                 floor.DownButtonPressed += Floor_DownButtonPressed;
             }
         }
-
-        public void Update(IElevator[] elevators, IFloor[] floors)
-        {
-            // We normally don't need to do anything here
-        }
         #endregion
 
         #region Event Handlers
