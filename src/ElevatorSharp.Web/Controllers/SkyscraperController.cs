@@ -43,6 +43,7 @@ namespace ElevatorSharp.Web.Controllers
 
         private string _defaultCode = @"using System;
 using ElevatorSharp.Game;
+using ElevatorSharp.Game.Players;
 
 namespace ElevatorSharp.Default
 {

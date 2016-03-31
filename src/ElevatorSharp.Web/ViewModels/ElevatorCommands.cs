@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace ElevatorSharp.Web.ViewModels
 {
@@ -20,5 +16,7 @@ namespace ElevatorSharp.Web.ViewModels
         public List<SetIndicatorCommand> SetUpIndicators { get; set; }
         public List<SetIndicatorCommand> SetDownIndicators { get; set; }
         public List<StopElevator> StopElevators { get; set; }
+
+        public string Message { get; set; }
     }
 }

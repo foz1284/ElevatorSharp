@@ -44,6 +44,10 @@
 
             var executeElevatorCommands = function (elevatorCommands) {
 
+                if (elevatorCommands.Message) {
+                    $("#player-errors").append("<li>" + elevatorCommands.Message + "</li>");
+                }
+                
                 // stop()
                 elevatorCommands.StopElevators.forEach(function (stopElevator) {
                     console.debug("Stopping elevator " + stopElevator.ElevatorIndex);
