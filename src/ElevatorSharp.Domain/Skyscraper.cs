@@ -2,6 +2,7 @@
 using System.Linq;
 using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Game;
+using ElevatorSharp.Game.Players;
 
 namespace ElevatorSharp.Domain
 {

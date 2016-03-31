@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ElevatorSharp.Game
+﻿namespace ElevatorSharp.Game.Players
 {
     public interface IPlayer
     {

@@ -48,7 +48,8 @@
     <Compile Include="ElevatorDirection.cs" />
     <Compile Include="IElevator.cs" />
     <Compile Include="IFloor.cs" />
-    <Compile Include="IPlayer.cs" />
+    <Compile Include="Players\BootstrapPlayer.cs" />
+    <Compile Include="Players\IPlayer.cs" />
     <Compile Include="PassingFloorEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ElevatorPlayerTests.cs" />

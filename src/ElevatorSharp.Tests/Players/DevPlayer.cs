@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElevatorSharp.Game;
+using ElevatorSharp.Game.Players;
 
 namespace ElevatorSharp.Tests.Players
 {

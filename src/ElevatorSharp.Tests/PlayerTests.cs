@@ -2,6 +2,7 @@
 using System.Linq;
 using ElevatorSharp.Domain;
 using ElevatorSharp.Game;
+using ElevatorSharp.Game.Players;
 using ElevatorSharp.Tests.Players;
 using NUnit.Framework;
 

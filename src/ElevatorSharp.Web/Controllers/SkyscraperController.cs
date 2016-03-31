@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using ElevatorSharp.Domain;
 using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Game;
+using ElevatorSharp.Game.Players;
 using ElevatorSharp.Tests.Players;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -63,11 +64,6 @@ namespace ElevatorSharp.Default
             // let's go to all the floors (or did we forget one?)
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
-        }
-
-        public void Update(IElevator[] elevators, IFloor[] floors)
-        {
-            // We normally don't need to do anything here
         }
     }
 }";
