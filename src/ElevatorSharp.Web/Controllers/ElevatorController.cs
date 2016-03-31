@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Game;
+using ElevatorSharp.Web.ViewModels;
 using Newtonsoft.Json;
 
 namespace ElevatorSharp.Web.Controllers
@@ -18,9 +19,18 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].OnIdle(); 
+            ElevatorCommands elevatorCommands;
+            try
+            {
+                skyscraper.Elevators[skyscraperDto.EventRaisedElevatorIndex].OnIdle();
+                elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            }
+            catch (System.Exception e)
+            {
+                elevatorCommands = new ElevatorCommands {Message = e.Message};
+            }
 
-            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -37,11 +47,18 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
-            var floorNumberPressed = skyscraperDto.Elevators[eventRaisedElevatorIndex].FloorNumberPressed;
-            skyscraper.Elevators[eventRaisedElevatorIndex].OnFloorButtonPressed(floorNumberPressed);
-
-            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            ElevatorCommands elevatorCommands;
+            try
+            {
+                var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+                var floorNumberPressed = skyscraperDto.Elevators[eventRaisedElevatorIndex].FloorNumberPressed;
+                skyscraper.Elevators[eventRaisedElevatorIndex].OnFloorButtonPressed(floorNumberPressed);
+                elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            }
+            catch (System.Exception e)
+            {
+                elevatorCommands = new ElevatorCommands { Message = e.Message };
+            }
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -59,17 +76,25 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
-            var passingFloorNumber = skyscraperDto.Elevators[eventRaisedElevatorIndex].PassingFloorNumber;
-            var direction = skyscraperDto.Elevators[eventRaisedElevatorIndex].Direction;
-            var eventArgs = new PassingFloorEventArgs
+            ElevatorCommands elevatorCommands;
+            try
             {
-                PassingFloorNumber = passingFloorNumber,
-                Direction = direction
-            };
-            skyscraper.Elevators[eventRaisedElevatorIndex].OnPassingFloor(eventArgs);
+                var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+                var passingFloorNumber = skyscraperDto.Elevators[eventRaisedElevatorIndex].PassingFloorNumber;
+                var direction = skyscraperDto.Elevators[eventRaisedElevatorIndex].Direction;
+                var eventArgs = new PassingFloorEventArgs
+                {
+                    PassingFloorNumber = passingFloorNumber,
+                    Direction = direction
+                };
+                skyscraper.Elevators[eventRaisedElevatorIndex].OnPassingFloor(eventArgs);
+                elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            }
+            catch (System.Exception e)
+            {
+                elevatorCommands = new ElevatorCommands { Message = e.Message };
+            }
 
-            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
@@ -85,10 +110,18 @@ namespace ElevatorSharp.Web.Controllers
             var skyscraper = SyncSkyscraper(skyscraperDto);
 
             // This invokes the delegate from IPlayer
-            var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
-            skyscraper.Elevators[eventRaisedElevatorIndex].OnStoppedAtFloor(skyscraperDto.Elevators[eventRaisedElevatorIndex].StoppedAtFloorNumber);
+            ElevatorCommands elevatorCommands;
+            try
+            {
+                var eventRaisedElevatorIndex = skyscraperDto.EventRaisedElevatorIndex;
+                skyscraper.Elevators[eventRaisedElevatorIndex].OnStoppedAtFloor(skyscraperDto.Elevators[eventRaisedElevatorIndex].StoppedAtFloorNumber);
+                elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
+            }
+            catch (System.Exception e)
+            {
+                elevatorCommands = new ElevatorCommands { Message = e.Message };
+            }
 
-            var elevatorCommands = CreateElevatorCommands(skyscraperDto, skyscraper);
             var json = JsonConvert.SerializeObject(elevatorCommands);
             return Content(json, "application/json");
         }
