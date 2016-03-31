@@ -82,6 +82,15 @@ namespace ElevatorSharp.Web.Controllers
                 }
                 elevatorCommands.SetUpIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingUpIndicator));
                 elevatorCommands.SetDownIndicators.Add(new SetIndicatorCommand(elevator.Index, elevator.GoingDownIndicator));
+
+                if (elevator.IsDestinationQueueModified)
+                {
+                    elevatorCommands.DestinationQueueCommands.Add(new DestinationQueueCommand
+                    {
+                        ElevatorIndex = elevator.Index,
+                        DestinationQueue = elevator.DestinationQueue
+                    });
+                }
             }
 
             return elevatorCommands;

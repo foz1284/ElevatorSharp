@@ -47,6 +47,11 @@
                 if (elevatorCommands.Message) {
                     $("#player-errors").append("<li>" + elevatorCommands.Message + "</li>");
                 }
+
+                // set new destinationQueue
+                elevatorCommands.DestinationQueueCommands.forEach(function(destinationQueueCommand) {
+                    elevators[destinationQueueCommand.ElevatorIndex].destinationQueue = destinationQueueCommand.DestinationQueue;
+                });
                 
                 // stop()
                 elevatorCommands.StopElevators.forEach(function (stopElevator) {

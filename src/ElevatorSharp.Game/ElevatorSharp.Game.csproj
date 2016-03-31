@@ -48,6 +48,7 @@
     <Compile Include="ElevatorDirection.cs" />
     <Compile Include="IElevator.cs" />
     <Compile Include="IFloor.cs" />
+    <Compile Include="Players\IWantBeer.cs" />
     <Compile Include="Players\BootstrapPlayer.cs" />
     <Compile Include="Players\IPlayer.cs" />
     <Compile Include="PassingFloorEventArgs.cs" />

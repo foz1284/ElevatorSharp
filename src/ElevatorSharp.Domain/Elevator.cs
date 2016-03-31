@@ -6,6 +6,8 @@ namespace ElevatorSharp.Domain
 {
     internal sealed class Elevator : IElevator
     {
+        private Queue<int> destinationQueue;
+
         #region Events
         public event EventHandler Idle;
         public event EventHandler<int> FloorButtonPressed;
@@ -15,7 +17,17 @@ namespace ElevatorSharp.Domain
 
         #region Properties
         public ElevatorDirection DestinationDirection { get; set; }
-        public Queue<int> DestinationQueue { get; set; }
+
+        public Queue<int> DestinationQueue
+        {
+            get { return destinationQueue; }
+            set
+            {
+                IsDestinationQueueModified = true;
+                destinationQueue = value;
+            }
+        }
+
         public int Index { get; }
         public int CurrentFloor { get; set; }
         public bool GoingUpIndicator { get; set; }
