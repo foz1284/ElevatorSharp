@@ -105,6 +105,7 @@ namespace ElevatorSharp.Default
             var references = new List<MetadataReference>
             {
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                MetadataReference.CreateFromFile(Assembly.LoadWithPartialName("System").Location),
                 MetadataReference.CreateFromFile(Assembly.LoadWithPartialName("System.Core").Location)
             };
             foreach (var reference in referenceNames)
