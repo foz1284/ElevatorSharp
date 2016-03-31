@@ -10,12 +10,5 @@ namespace ElevatorSharp.Game
         /// <param name="elevators"></param>
         /// <param name="floors"></param>
         void Init(IElevator[] elevators, IFloor[] floors);
-
-        /// <summary>
-        /// We normally don't need to do anything here
-        /// </summary>
-        /// <param name="elevators"></param>
-        /// <param name="floors"></param>
-        void Update(IElevator[] elevators, IFloor[] floors);
     }
 }
