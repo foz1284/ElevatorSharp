@@ -37,7 +37,7 @@ namespace ElevatorSharp.Domain
         public decimal LoadFactor { get; set; }
         public int[] PressedFloors { get; set; }
 
-        public List<Passenger> Riders = new List<Passenger>();
+        public List<Passenger> Passengers = new List<Passenger>();
         public decimal MaxSpeed = 20;
         public decimal Velocity = 0;
         public decimal Accelaration = (decimal)1.2192;
@@ -99,51 +99,51 @@ namespace ElevatorSharp.Domain
                     //Arrived at destination
                     Velocity = 0;
                     destinationQueue.Dequeue();
-                    UnloadRiders();//TODO: Need to stop elevator for an amount of time whilst people exit
-                    LoadRiders(skyscraper);//TODO: Need to stop elevator for an amount of time whilst people Enter
+                    UnloadPassengers();//TODO: Need to stop elevator for an amount of time whilst people exit
+                    LoadPassengers(skyscraper);//TODO: Need to stop elevator for an amount of time whilst people Enter
                 }
             }
             else
             {
-                LoadRiders(skyscraper);
+                LoadPassengers(skyscraper);
             }
         }
 
 
-        private void LoadRiders(Skyscraper skyscraper)
+        private void LoadPassengers(Skyscraper skyscraper)
         {
             Floor currentFloor = skyscraper.Floors.Single(f => f.FloorNum == CurrentFloor);
-            foreach (Passenger rider in currentFloor.RidersWaiting)
+            foreach (Passenger passenger in currentFloor.PassengersWaiting)
             {
-                if (Riders.Count == MaxPassengerCount)
+                if (Passengers.Count == MaxPassengerCount)
                 { 
                     break;
                 }
-                Riders.Add(rider);
-                rider.InElevator = true;
+                Passengers.Add(passenger);
+                passenger.InElevator = true;
                 
-                OnFloorButtonPressed(rider.DestinationFloor);
+                OnFloorButtonPressed(passenger.DestinationFloor);
             }
             currentFloor.DownButtonActive = false;
             currentFloor.UpButtonActive = false;
-            currentFloor.RidersWaiting.RemoveAll(r => r.InElevator);
+            currentFloor.PassengersWaiting.RemoveAll(r => r.InElevator);
 
-            foreach (Passenger rider in currentFloor.RidersWaiting)
+            foreach (Passenger passenger in currentFloor.PassengersWaiting)
             {
-                currentFloor.RiderPressesButton(skyscraper, rider);
+                currentFloor.PassengerPressesButton(skyscraper, passenger);
             }
         }
 
         public int UnloadedCount = 0;
-        private void UnloadRiders()
+        private void UnloadPassengers()
         {
-            foreach (Passenger r in Riders.Where(r=> r.DestinationFloor == CurrentFloor))
+            foreach (Passenger r in Passengers.Where(r=> r.DestinationFloor == CurrentFloor))
             {
                 UnloadedCount++;
             }
 
-            Riders.RemoveAll(r => r.DestinationFloor == CurrentFloor);
-            //TODO: record that a rider has reached their destination - probably an event that a game monitor will be watching or could unload to the floor and let that deal with it.
+            Passengers.RemoveAll(r => r.DestinationFloor == CurrentFloor);
+            //TODO: record that a passenger has reached their destination - probably an event that a game monitor will be watching or could unload to the floor and let that deal with it.
         }
         #endregion
 

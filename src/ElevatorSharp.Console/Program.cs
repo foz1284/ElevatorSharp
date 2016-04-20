@@ -11,7 +11,6 @@ namespace ElevatorSharp.Console
     {
         static void Main(string[] args)
         {
-
             foreach (Level level in GetLevels())
             {
                 SkyscraperDto skyscraperDto = new SkyscraperDto
@@ -41,20 +40,20 @@ namespace ElevatorSharp.Console
         private static IEnumerable<Level> GetLevels()
         {
             return new List<Level> {
-                //new Level { Name = "Level 0", MaxPassengerCount = 1, ElevatorCount = 1, FloorCount = 2, NumberOfRiders = 5, TimeLimit = 2},
-                new Level { Name = "Level 0", MaxPassengerCount = 1, ElevatorCount = 1, FloorCount = 10, NumberOfRiders = 20, TimeLimit = 60},
-                //new Level { Name = "Level 1", MaxPassengerCount = 8, ElevatorCount = 1, FloorCount = 3, NumberOfRiders = 1000, TimeLimit = 100},
-                //new Level { Name = "Level 2", MaxPassengerCount =30, ElevatorCount = 2, FloorCount = 3, NumberOfRiders = 10000, TimeLimit = 1000}
+                //new Level { Name = "Level 0", MaxPassengerCount = 1, ElevatorCount = 1, FloorCount = 2, NumberOfPassengers = 5, TimeLimit = 2},
+                new Level { Name = "Level 0", MaxPassengerCount = 1, ElevatorCount = 1, FloorCount = 2, NumberOfPassengers = 10, TimeLimit = 60},
+                //new Level { Name = "Level 1", MaxPassengerCount = 8, ElevatorCount = 1, FloorCount = 3, NumberOfPassengers = 1000, TimeLimit = 100},
+                //new Level { Name = "Level 2", MaxPassengerCount =30, ElevatorCount = 2, FloorCount = 3, NumberOfPassengers = 10000, TimeLimit = 1000}
             };
         }
 
         private static void InitialiseGame(Skyscraper skyscraper, Level level)
         {
             var gametime = new TimeSpan();
-            for (int i = 0; i < level.NumberOfRiders; i++)
+            for (int i = 0; i < level.NumberOfPassengers; i++)
             {
-                //AddRiders(gametime, skyscraper,0,1);
-                AddRiders(gametime, skyscraper,0,9);
+                skyscraper.Floors[0].PassengerArrives(skyscraper, new Passenger(1));
+                //TODO: Generate Passengers in more realistic way
             }
 
             while (gametime.Seconds < level.TimeLimit)
@@ -98,19 +97,9 @@ namespace ElevatorSharp.Console
             skyscraper.Update(gameTime);
         }
 
-
-
-        private static void AddRiders(TimeSpan gameTime, Skyscraper skyscraper,int start, int destination)
-        {
-            if (gameTime.Milliseconds == 0)
-            {
-                skyscraper.Floors[start].RiderArrives(skyscraper, new Passenger(destination));
-            }
-        }
-
         private static void Render(TimeSpan gametime, Skyscraper skyscraper)
         {
-            // System.Console.WriteLine(skyscraper.Floors[0].RidersWaiting.Count);
+            //System.Console.WriteLine(skyscraper.Floors[0].PassengersWaiting.Count);
             System.Console.WriteLine(skyscraper.Elevators[0].CurrentFloor  + " - "+ skyscraper.Elevators[0].HeightAboveCurrentFloor);
         }
     }

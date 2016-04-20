@@ -14,12 +14,12 @@ namespace ElevatorSharp.Console
         public int FloorCount { get; internal set; }
         public int MaxPassengerCount { get; internal set; }
         public string Name { get; internal set; }
-        public int NumberOfRiders { get; internal set; }
+        public int NumberOfPassengers { get; internal set; }
         public int TimeLimit { get; internal set; }
 
         internal bool WinCriteriaMet(Skyscraper skyscraper)
         {
-            return skyscraper.Elevators.Sum(e => e.UnloadedCount) >= NumberOfRiders;
+            return skyscraper.Elevators.Sum(e => e.UnloadedCount) >= NumberOfPassengers;
         }
     }
 }

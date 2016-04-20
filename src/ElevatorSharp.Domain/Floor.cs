@@ -29,21 +29,21 @@ namespace ElevatorSharp.Domain
         /// </summary>
         public int FloorNum { get; }
 
-        public List<Passenger> RidersWaiting { get; }
-        internal void RiderArrives(Skyscraper skyScraper, Passenger rider)
+        public List<Passenger> PassengersWaiting { get; }
+        internal void PassengerArrives(Skyscraper skyScraper, Passenger passenger)
         {
-            RidersWaiting.Add(rider);
+            PassengersWaiting.Add(passenger);
 
-            RiderPressesButton(skyScraper, rider);
+            PassengerPressesButton(skyScraper, passenger);
         }
 
-        public void RiderPressesButton(Skyscraper skyScraper, Passenger rider)
+        public void PassengerPressesButton(Skyscraper skyScraper, Passenger passenger)
         {
-            if (rider.DestinationFloor > FloorNum)
+            if (passenger.DestinationFloor > FloorNum)
             {
                 OnUpButtonPressed(skyScraper.Elevators);
             }
-            else if (rider.DestinationFloor < FloorNum)
+            else if (passenger.DestinationFloor < FloorNum)
             {
                 OnDownButtonPressed(skyScraper.Elevators);
             }
@@ -56,7 +56,7 @@ namespace ElevatorSharp.Domain
         internal Floor(int floorNum)
         {
             FloorNum = floorNum;
-            RidersWaiting = new List<Passenger>();
+            PassengersWaiting = new List<Passenger>();
         }
         #endregion
         public bool UpButtonActive = false;
