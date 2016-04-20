@@ -37,3 +37,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("ElevatorSharp.Domain")]
 [assembly: InternalsVisibleTo("ElevatorSharp.Tests")]
 [assembly: InternalsVisibleTo("ElevatorSharp.Web")]
+[assembly: InternalsVisibleTo("ElevatorSharp.Console")]

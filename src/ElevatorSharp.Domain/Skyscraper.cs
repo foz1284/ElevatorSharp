@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ElevatorSharp.Domain.DataTransferObjects;
 using ElevatorSharp.Game;
@@ -34,6 +35,10 @@ namespace ElevatorSharp.Domain
                 Floors.Add(new Floor(i));
             }
         }
+
+        public Skyscraper()
+        {
+        }
         #endregion
 
         #region Methods
@@ -41,6 +46,14 @@ namespace ElevatorSharp.Domain
         internal void LoadPlayer(IPlayer player)
         {
             player.Init(Elevators.ToArray(), Floors.ToArray());
+        }
+
+        internal void Update(TimeSpan gameTime)
+        {
+            foreach (Elevator elevator in Elevators)
+            {
+                elevator.Update(this);
+            }
         }
         #endregion
     }

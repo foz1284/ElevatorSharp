@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ElevatorSharp.Game;
+using System.Linq;
 
 namespace ElevatorSharp.Domain
 {
@@ -35,6 +36,15 @@ namespace ElevatorSharp.Domain
         public int MaxPassengerCount { get; }
         public decimal LoadFactor { get; set; }
         public int[] PressedFloors { get; set; }
+
+        public List<Passenger> Riders = new List<Passenger>();
+        public decimal MaxSpeed = 20;
+        public decimal Velocity = 0;
+        public decimal Accelaration = (decimal)1.2192;
+        public decimal Decelaration { get; set; }
+        public int CurrentDestination { get; set; }
+        public decimal FloorHeight = 3;
+        public decimal HeightAboveCurrentFloor { get; set; }
         #endregion
 
         #region Constructors
@@ -49,6 +59,91 @@ namespace ElevatorSharp.Domain
         internal Elevator(int index, int maxPassengerCount) : this(index)
         {
             MaxPassengerCount = maxPassengerCount;
+        }
+        #endregion
+
+        #region Updating
+        public void Update(Skyscraper skyscraper)
+        {
+            if (destinationQueue.Count > 0)
+            {
+                if (destinationQueue.Peek() > CurrentFloor)
+                {
+                    if (Velocity < 20)
+                    {
+                        Velocity = Velocity + (Accelaration / 1000);
+                    }
+                    HeightAboveCurrentFloor = HeightAboveCurrentFloor + (decimal)Velocity / 1000;
+                    if (HeightAboveCurrentFloor > 3)
+                    {
+                        HeightAboveCurrentFloor = 0;
+                        CurrentFloor++;
+                    }
+                    //TODO: add accelaration/Deceleration
+                }
+                else if (destinationQueue.Peek() < CurrentFloor || HeightAboveCurrentFloor > 0)
+                {
+                    if (Velocity < 20)
+                    {
+                        Velocity = Velocity + (Accelaration / 1000);
+                    }
+                    HeightAboveCurrentFloor = HeightAboveCurrentFloor - (decimal)Velocity/1000;
+                    if (HeightAboveCurrentFloor < 0)
+                    {
+                        HeightAboveCurrentFloor = (decimal)2.9999999;
+                        CurrentFloor--;
+                    }
+                }
+                else if(HeightAboveCurrentFloor == 0)
+                {
+                    //Arrived at destination
+                    Velocity = 0;
+                    destinationQueue.Dequeue();
+                    UnloadRiders();//TODO: Need to stop elevator for an amount of time whilst people exit
+                    LoadRiders(skyscraper);//TODO: Need to stop elevator for an amount of time whilst people Enter
+                }
+            }
+            else
+            {
+                LoadRiders(skyscraper);
+            }
+        }
+
+
+        private void LoadRiders(Skyscraper skyscraper)
+        {
+            Floor currentFloor = skyscraper.Floors.Single(f => f.FloorNum == CurrentFloor);
+            foreach (Passenger rider in currentFloor.RidersWaiting)
+            {
+                if (Riders.Count == MaxPassengerCount)
+                { 
+                    break;
+                }
+                Riders.Add(rider);
+                rider.InElevator = true;
+                
+                OnFloorButtonPressed(rider.DestinationFloor);
+            }
+            currentFloor.DownButtonActive = false;
+            currentFloor.UpButtonActive = false;
+            currentFloor.RidersWaiting.RemoveAll(r => r.InElevator);
+
+            foreach (Passenger rider in currentFloor.RidersWaiting)
+            {
+                currentFloor.RiderPressesButton(skyscraper, rider);
+            }
+        }
+
+        public int UnloadedCount = 0;
+        private void UnloadRiders()
+        {
+            foreach (Passenger r in Riders.Where(r=> r.DestinationFloor == CurrentFloor))
+            {
+                UnloadedCount++;
+            }
+
+            Riders.RemoveAll(r => r.DestinationFloor == CurrentFloor);
+            //TODO: record that a rider has reached their destination - probably an event that a game monitor will be watching or could unload to the floor and let that deal with it.
         }
         #endregion
 

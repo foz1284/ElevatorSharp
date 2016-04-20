@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Web", "Elevat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Game", "ElevatorSharp.Game\ElevatorSharp.Game.csproj", "{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSharp.Console", "ElevatorSharp.Console\ElevatorSharp.Console.csproj", "{89C392B2-026D-454B-BE28-B7BCCBE2F34A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C75963-C7ED-4D6E-BBBC-0E8F75B51364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C392B2-026D-454B-BE28-B7BCCBE2F34A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C392B2-026D-454B-BE28-B7BCCBE2F34A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C392B2-026D-454B-BE28-B7BCCBE2F34A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C392B2-026D-454B-BE28-B7BCCBE2F34A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

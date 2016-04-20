@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ElevatorSharp.Game;
+using System.Linq;
 
 namespace ElevatorSharp.Domain
 {
@@ -27,24 +28,56 @@ namespace ElevatorSharp.Domain
         /// Gets the floor number of the floor object.
         /// </summary>
         public int FloorNum { get; }
+
+        public List<Passenger> RidersWaiting { get; }
+        internal void RiderArrives(Skyscraper skyScraper, Passenger rider)
+        {
+            RidersWaiting.Add(rider);
+
+            RiderPressesButton(skyScraper, rider);
+        }
+
+        public void RiderPressesButton(Skyscraper skyScraper, Passenger rider)
+        {
+            if (rider.DestinationFloor > FloorNum)
+            {
+                OnUpButtonPressed(skyScraper.Elevators);
+            }
+            else if (rider.DestinationFloor < FloorNum)
+            {
+                OnDownButtonPressed(skyScraper.Elevators);
+            }
+            else
+            { }
+        }
         #endregion
 
         #region Constructors
         internal Floor(int floorNum)
         {
             FloorNum = floorNum;
+            RidersWaiting = new List<Passenger>();
         }
         #endregion
-
+        public bool UpButtonActive = false;
+        public bool DownButtonActive = false;
         #region Event Invocators
-        public void OnUpButtonPressed(IElevator[] e)
+        public void OnUpButtonPressed(IList<Elevator> e)
         {
-            UpButtonPressed?.Invoke(this, e);
+            if (!UpButtonActive)
+            {
+                UpButtonPressed?.Invoke(this, e.ToArray());
+                UpButtonActive = true;
+            }            
         }
 
-        public void OnDownButtonPressed(IElevator[] e)
+        public void OnDownButtonPressed(IList<Elevator> e)
         {
-            DownButtonPressed?.Invoke(this, e);
+            if (!DownButtonActive)
+            {
+                DownButtonPressed?.Invoke(this, e.ToArray());
+                DownButtonActive = true;
+            }
         } 
         #endregion
     }

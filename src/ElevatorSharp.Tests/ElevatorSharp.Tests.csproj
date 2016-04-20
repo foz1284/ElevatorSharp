@@ -89,6 +89,7 @@
     <Compile Include="ElevatorTests.cs" />
     <Compile Include="FloorTests.cs" />
     <Compile Include="Players\DevPlayer.cs" />
+    <Compile Include="Players\Dev2Player.cs" />
     <Compile Include="Players\TestPlayer.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

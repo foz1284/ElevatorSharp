@@ -20,6 +20,7 @@ namespace ElevatorSharp.Game.Players
             // let's go to all the floors (or did we forget one?)
             elevator.GoToFloor(0);
             elevator.GoToFloor(1);
+            elevator.GoToFloor(2);
         }
     }
 }
