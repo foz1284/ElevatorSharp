@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="FloorArrivalRate.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="Levels.cs" />
     <Compile Include="PassengerArrivalProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
