@@ -16,6 +16,9 @@ namespace ElevatorSharp.Console
         public string Name { get; internal set; }
         public int NumberOfPassengers { get; internal set; }
         public int TimeLimit { get; internal set; }
+        public PassengerArrivalProfile PassengerArrivalProfile { get; internal set; }
+
+        public bool Active = true;
 
         internal bool WinCriteriaMet(Skyscraper skyscraper)
         {
