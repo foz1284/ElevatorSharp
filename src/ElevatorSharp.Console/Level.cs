@@ -20,6 +20,8 @@ namespace ElevatorSharp.Console
 
         public bool Active = true;
 
+        public LevelState state { get; set; }
+
         internal bool WinCriteriaMet(Skyscraper skyscraper)
         {
             return skyscraper.Elevators.Sum(e => e.UnloadedCount) >= NumberOfPassengers;

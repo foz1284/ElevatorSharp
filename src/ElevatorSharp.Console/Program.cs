@@ -39,35 +39,38 @@ namespace ElevatorSharp.Console
 
         private static void InitialiseGame(Skyscraper skyscraper, Level level)
         {
+            level.state = LevelState.Active;
+
             var gameTime = new TimeSpan();
 
-            while (gameTime.TotalSeconds < level.TimeLimit)
+            while (level.state == LevelState.Active)
             {
-                gameTime = gameTime.Add(new TimeSpan(0, 0, 0, 0, 1));
-
                 Update(gameTime, skyscraper, level);
 
-                Render(gameTime, skyscraper);
-
-                if (level.WinCriteriaMet(skyscraper))
-                {
-                    Win(skyscraper, level, gameTime);
-                    break;
-                }
-            }
-
-            if (!level.WinCriteriaMet(skyscraper))
-            {
-                Lose(skyscraper, level, gameTime);
+                Render(gameTime, skyscraper, level);
             }
         }
 
         private static void Update(TimeSpan gameTime, Skyscraper skyscraper, Level level)
         {
+            gameTime = gameTime.Add(new TimeSpan(0, 0, 0, 0, 1));
+
             GeneratePassengers(gameTime, skyscraper, level);
 
             skyscraper.Update(gameTime);
-        }
+
+            if (level.WinCriteriaMet(skyscraper))
+            {
+                level.state = LevelState.Success;
+            }
+            else
+            {
+                if (gameTime.TotalSeconds > level.TimeLimit)
+                {
+                    level.state = LevelState.Failure;
+                }
+            }
+            }
 
         private static void GeneratePassengers(TimeSpan gameTime, Skyscraper skyscraper, Level level)
         {
@@ -81,13 +84,27 @@ namespace ElevatorSharp.Console
             }
         }
 
-        private static void Render(TimeSpan gametime, Skyscraper skyscraper)
+        private static void Render(TimeSpan gameTime, Skyscraper skyscraper, Level level)
         {
             //System.Console.WriteLine(skyscraper.Floors[0].PassengersWaiting.Count);
-            if (gametime.Milliseconds == 0 && gametime.Seconds == 0 && gametime.Minutes == 0)
+            if (gameTime.Milliseconds == 0 && gameTime.Seconds == 0 && gameTime.Minutes == 0)
             {
-                System.Console.WriteLine(gametime);
+                System.Console.WriteLine(gameTime);
                 System.Console.WriteLine(skyscraper.Elevators[0].CurrentFloor + " - " + skyscraper.Elevators[0].HeightAboveCurrentFloor);
+            }
+
+            switch (level.state)
+            {
+                case LevelState.Active:
+                    break;
+                case LevelState.Success:
+                    Win(skyscraper, level, gameTime);
+                    break;
+                case LevelState.Failure:
+                    Lose(skyscraper, level, gameTime);
+                    break;
+                default:
+                    break;
             }
         }
 
